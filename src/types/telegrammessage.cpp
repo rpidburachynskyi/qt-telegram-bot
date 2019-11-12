@@ -18,7 +18,7 @@ TelegramMessage::TelegramMessage(const QJsonObject &json)
 	m_id = json["message_id"].toVariant().toString();
 	m_date = json["date"].toInt();
 	if(json.contains("from")) m_from = new TelegramUser(json["from"].toObject());
-	if(json.contains("chat")) m_chat = new TelegramChat(json["chat"].toObject());
+	m_chat = json.contains("chat") ? new TelegramChat(json["chat"].toObject()) : nullptr;
 	if(json.contains("text")) m_text = json["text"].toString();
 
 	if(json.contains("audio")) m_audio = new TelegramAudio(json["audio"].toObject());

@@ -12,6 +12,7 @@ public:
 	enum RequestType
 	{
 		Unknown,
+		SendMessages,
 		GetUpdates,
 		GetChat,
 		GetChatAdministators,

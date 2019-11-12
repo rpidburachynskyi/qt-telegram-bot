@@ -2,6 +2,7 @@
 #include "types/telegramreplykeyboardmarkup.h"
 #include "types/telegramchatpermissions.h"
 #include "types/telegraminlinekeyboardmarkup.h"
+#include "types/telegraminputmedia.h"
 
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -95,17 +96,12 @@ void TelegramBot::sendVideo(const QString &chatId, const QString &urlFile)
 
 void TelegramBot::sendAudio(const QString &chatId, const QString &urlFile)
 {
-	QUrl url("https://api.telegram.org/bot" + m_token + "/sendAudio");
-	QNetworkRequest request(url);
-	request.setHeader(QNetworkRequest::ContentTypeHeader,
-		"application/json");
 
 	QJsonObject object;
 	object["chat_id"] = chatId;
 	object["audio"] = urlFile;
 
-	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	jsonSend("sendAudio", object, TelegramRequest::SendMessages);
 }
 
 void TelegramBot::sendVideoNote(const QString &chatId, const QString &urlFile)
@@ -563,6 +559,19 @@ void TelegramBot::editMessageCaption(const QString &chatId,
 	jsonSend("editMessageCaption", json, TelegramRequest::GetChat);
 }
 
+void TelegramBot::editMessageMedia(const QString &chatId,
+								   const QString &messageId,
+								   const TelegramInputMedia &inputMedia)
+{
+	QJsonObject json;
+
+	json["chat_id"] = chatId;
+	json["message_id"] = messageId;
+	json["media"] = inputMedia.toJson();
+
+	jsonSend("editMessageMedia", json);
+}
+
 void TelegramBot::onGetUpdates(TelegramRequest *telegramRequest)
 {
 	auto data = telegramRequest->reply()->readAll();
@@ -659,6 +668,27 @@ void TelegramBot::onGetChatMemberCount(TelegramRequest *telegramRequest)
 void TelegramBot::onGetChatMember(TelegramRequest *telegramRequest)
 {
 
+}
+
+void TelegramBot::onTelegramRequestReply(TelegramRequest *telegramRequest)
+{
+	TelegramRequest::RequestType rtype = telegramRequest->requestType();
+
+	QJsonDocument doc = QJsonDocument::fromJson(telegramRequest->reply()->readAll());
+	QJsonObject json = doc.object();
+
+	switch (rtype)
+	{
+		case TelegramRequest::SendMessages:
+		{
+			TelegramMessage message(json["result"].toObject());
+			onBotMessage(&message);
+			break;
+		}
+
+		default:
+			break;
+	}
 }
 
 void TelegramBot::jsonSend(const QString &title,

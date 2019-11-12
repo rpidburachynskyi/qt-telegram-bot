@@ -13,6 +13,7 @@ TelegramRequest::TelegramRequest(QNetworkReply *reply, RequestType requestType, 
 			case GetChatAdministators: m_bot->onGetChatAdministators(this); break;
 			case GetChatMemberCount: m_bot->onGetChatMemberCount(this); break;
 			case GetChatMember: m_bot->onGetChatMember(this); break;
+			default: m_bot->onTelegramRequestReply(this); break;
 		}
 		deleteLater();
 	});

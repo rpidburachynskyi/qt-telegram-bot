@@ -11,6 +11,7 @@
 class TelegramReplyKeyboardMarkup;
 class TelegramInlineKeyboardMarkup;
 class TelegramChatPermissions;
+class TelegramInputMedia;
 
 class TelegramBot : public QObject
 {
@@ -150,9 +151,15 @@ public:
 						 const QString &parseMode = "",
 						 const bool &disableWebPagePreview = false);
 
+	void editMessageMedia(const QString &chatId,
+						  const QString &messageId,
+						  const TelegramInputMedia &inputMedia);
+
 signals:
 	void onMessage(const TelegramMessage *message);
 	void onExportChatInviteLink(const QString &joinLink);
+
+	void onBotMessage(const TelegramMessage *message);
 
 private slots:
 	void onGetUpdates(TelegramRequest *telegramRequest);
@@ -160,6 +167,8 @@ private slots:
 	void onGetChatAdministators(TelegramRequest *telegramRequest);
 	void onGetChatMemberCount(TelegramRequest *telegramRequest);
 	void onGetChatMember(TelegramRequest *telegramRequest);
+
+	void onTelegramRequestReply(TelegramRequest *telegramRequest);
 
 private:
 	QString m_token;
