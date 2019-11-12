@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 
-	TelegramBot bot("1066331366:AAHGiv80O-QJwo4f8ZI2Ma5j03GjbZUX7H4");
+	TelegramBot bot("TOKEN");
 
 	QObject::connect(&bot, &TelegramBot::onMessage, [&bot](const TelegramMessage *message)
 	{
