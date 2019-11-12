@@ -12,6 +12,17 @@ TelegramBot::TelegramBot(const QString &token) : m_token(token), m_mayUpdates(tr
 	m_updateOffset = 0;
 }
 
+void TelegramBot::startPolling()
+{
+	m_isPolled = true;
+	getUpdates();
+}
+
+void TelegramBot::stopPolling()
+{
+	m_isPolled = false;
+}
+
 void TelegramBot::sendMessage(const QString &id,
 							  const QString &text,
 							  const iTelegramMessageKeyboard *replyMarkup)
@@ -599,54 +610,9 @@ void TelegramBot::onGetUpdates(TelegramRequest *telegramRequest)
 
 	}
 
-//	if(root["result"].isArray())
-//	{
-//		QJsonArray resultsArray = root["result"].toArray();
-//		for(int i = 0; i < resultsArray.size(); i++)
-//		{
-//			QJsonObject result = resultsArray[i].toObject();
-//			if(TelegramMessage::isMessage(result))
-//			{
-//				QJsonObject messageObject = result["message"].toObject();
-//				if(TelegramTextMessage::isTextMessage(messageObject))
-//				{
-//					TelegramTextMessage text(messageObject);
-//					emit onMessage(&text);
-//				}else if(TelegramPhotoMessage::isPhotoMessage(messageObject))
-//				{
-//					TelegramPhotoMessage photo(messageObject);
-//					emit onMessage(&photo);
-//				}else if(TelegramVideoMessage::isVideoMessage(messageObject))
-//				{
-//					TelegramVideoMessage video(messageObject);
-//					emit onMessage(&video);
-//				}else if(TelegramAudioMessage::isAudioMesasge(messageObject))
-//				{
-//					TelegramAudioMessage audio(messageObject);
-//					emit onMessage(&audio);
-//				}else if(TelegramDocumentMessage::isDocumentMessage(messageObject))
-//				{
-//					TelegramDocumentMessage document(messageObject);
-//					emit onMessage(&document);
-//				}else if(TelegramNewChatParticipants::isNewChatParticipants(messageObject))
-//				{
-//					TelegramNewChatParticipants participants (messageObject);
-//					emit onChatAction(&participants);
-//				}else if(TelegramLeftChatParticipant::isLeftChatParticipant(messageObject))
-//				{
-//					TelegramLeftChatParticipant participant (messageObject);
-//					emit onChatAction(&participant);
-//				}else if(TelegramChatPoll::isChatPoll(messageObject))
-//				{
-//					TelegramChatPoll poll (messageObject);
-//					emit onChatAction(&poll);
-//				}
-//			}
-//			m_updateOffset = result["update_id"].toInt() + 1;
-//		}
-//	}
-
 	m_mayUpdates = true;
+	if(m_isPolled)
+		getUpdates();
 }
 
 void TelegramBot::onGetChat(TelegramRequest *telegramRequest)

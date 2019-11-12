@@ -34,6 +34,9 @@ public:
 
 	TelegramBot(const QString &token);
 
+	void startPolling();
+	void stopPolling();
+
 	void sendMessage(const QString &id,
 					 const QString &text,
 					 const iTelegramMessageKeyboard *replyMarkup = nullptr);
@@ -171,6 +174,7 @@ private slots:
 	void onTelegramRequestReply(TelegramRequest *telegramRequest);
 
 private:
+	bool m_isPolled;
 	QString m_token;
 	int m_updateOffset;
 	QNetworkAccessManager m_manager;

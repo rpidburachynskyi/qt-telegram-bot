@@ -14,12 +14,13 @@
 #include "types/telegramreplykeyboardmarkup.h"
 #include "types/telegraminputmediaaudio.h"
 #include "types/telegraminputmediavideo.h"
+#include "types/telegraminputmediaanimation.h"
 
 int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 
-	TelegramBot bot("TOKEN");
+	TelegramBot bot("1066331366:AAHGiv80O-QJwo4f8ZI2Ma5j03GjbZUX7H4");
 
 	QObject::connect(&bot, &TelegramBot::onMessage, [&bot](const TelegramMessage *message)
 	{
@@ -37,17 +38,16 @@ int main(int argc, char *argv[])
 				media = new TelegramInputMediaAudio("http://testingrostik.000webhostapp.com/sss.mp3", "EDITED");
 			else if(m->video())
 				media = new TelegramInputMediaVideo("http://testingrostik.000webhostapp.com/videoplay1back.mp4", "EDITED");
+
+			if(!media)
+				return;
 			bot.editMessageMedia(m->chat()->id(), m->id(), *media);
 
 			delete media;
 		});
 	});
 
-
-	QTimer timer;
-	timer.setInterval(1000);
-	timer.start(100);
-	QObject::connect(&timer, &QTimer::timeout, [&bot](){bot.getUpdates();});
+	bot.startPolling();
 
 	return a.exec();
 }
