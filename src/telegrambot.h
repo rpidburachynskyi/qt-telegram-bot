@@ -37,13 +37,19 @@ public:
 	void startPolling();
 	void stopPolling();
 
+	void setWebhook(const QString &url,
+					const int &maxConnection = 40,
+					const QStringList &allowedUpdates = {});
+	void deleteWebhook();
+	void getWebhookInfo();
+
 	void sendMessage(const QString &id,
 					 const QString &text,
 					 const iTelegramMessageKeyboard *replyMarkup = nullptr);
 
 	void sendMessage(const QString &id,
 					 const QString &text,
-					 const QString &m_parseMode = "",
+					 const QString &m_parseMode,
 					 const bool &disableWebPagePreview = false,
 					 const bool &disableNofitication = false,
 					 const int &replyToMessageId = -1,
@@ -165,6 +171,8 @@ signals:
 	void onBotMessage(const TelegramMessage *message);
 
 private slots:
+	void onGetUpdates(const QJsonObject &resultObject);
+	void onGetUpdates(const QJsonValueRef &resultObject);
 	void onGetUpdates(TelegramRequest *telegramRequest);
 	void onGetChat(TelegramRequest *telegramRequest);
 	void onGetChatAdministators(TelegramRequest *telegramRequest);
@@ -182,7 +190,7 @@ private:
 	bool m_mayUpdates;
 
 	void jsonSend(const QString &title,
-				  QJsonObject &json,
+				  const QJsonObject &json = QJsonObject(),
 				  TelegramRequest::RequestType requestType = TelegramRequest::Unknown);
 
 	void multipartSend(const QString &title,

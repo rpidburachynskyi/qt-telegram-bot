@@ -20,34 +20,46 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 
-	TelegramBot bot("1066331366:AAHGiv80O-QJwo4f8ZI2Ma5j03GjbZUX7H4");
+	TelegramBot bot("1066331366:AAHGiv80O-QJwo4f8ZI2Ma5j03GjbZUX7H4"); // my token
 
-	QObject::connect(&bot, &TelegramBot::onMessage, [&bot](const TelegramMessage *message)
+	QStringList matList = {"Suka", "Blyat"};
+
+	QObject::connect(&bot, &TelegramBot::onMessage, [&matList, &bot](const TelegramMessage *message)
 	{
-		bot.sendAudio(message->chat()->id(), "http://testingrostik.000webhostapp.com/SMS2.mp3");
-		bot.sendVideo(message->chat()->id(), "http://testingrostik.000webhostapp.com/videoplay1back.mp4");
+		QString chatId = message->chat()->id();
+
+		if(matList.contains(message->text()))
+		{
+			TelegramKeyboardButton b1("Ya bolche ne bydy"),
+					b2("Idi nah");
+			TelegramReplyKeyboardMarkup keyboard({b1, b2});
+			bot.sendMessage(message->chat()->id(), "Aga", &keyboard);
+		}else if(message->text() == "Idi nah")
+		{
+			QString messageText = "Ban: " + message->from()->username();
+			bot.sendMessage(chatId, messageText);
+		}
 	});
 
 	QObject::connect(&bot, &TelegramBot::onBotMessage, [&bot](const TelegramMessage *message)
 	{
-		TelegramMessage *m = new TelegramMessage(*message);
+		TelegramMessage m = *message;
 		QTimer::singleShot(1000, [&bot, m]()
 		{
-			TelegramInputMedia *media;
-			if(m->audio())
+			TelegramInputMedia *media = nullptr;
+			if(m.audio())
 				media = new TelegramInputMediaAudio("http://testingrostik.000webhostapp.com/sss.mp3", "EDITED");
-			else if(m->video())
+			else if(m.video())
 				media = new TelegramInputMediaVideo("http://testingrostik.000webhostapp.com/videoplay1back.mp4", "EDITED");
 
 			if(!media)
 				return;
-			bot.editMessageMedia(m->chat()->id(), m->id(), *media);
+			bot.editMessageMedia(m.chat()->id(), m.id(), *media);
 
 			delete media;
 		});
 	});
 
-	bot.startPolling();
-
+	bot.setWebhook("https://cf22735c.ngrok.io");
 	return a.exec();
 }

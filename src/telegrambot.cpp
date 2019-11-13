@@ -5,9 +5,13 @@
 #include "types/telegraminputmedia.h"
 
 #include <QJsonObject>
+#include <QtNetwork>
 #include <QJsonDocument>
 
-TelegramBot::TelegramBot(const QString &token) : m_token(token), m_mayUpdates(true)
+TelegramBot::TelegramBot(const QString &token) :
+	m_token(token),
+	m_mayUpdates(true),
+	m_isPolled(false)
 {
 	m_updateOffset = 0;
 }
@@ -21,6 +25,53 @@ void TelegramBot::startPolling()
 void TelegramBot::stopPolling()
 {
 	m_isPolled = false;
+}
+
+void TelegramBot::setWebhook(const QString &url,
+							 const int &maxConnection,
+							 const QStringList &allowedUpdates)
+{
+	QTcpServer *server = new QTcpServer(this);
+
+	server->listen(QHostAddress::Any, 3000);
+
+	QJsonObject json;
+	QJsonArray allowedUpds = QJsonArray::fromStringList(allowedUpdates);
+
+	json["url"] = url;
+	json["max_connections"] = maxConnection;
+	if(allowedUpds.size() != 0)
+		json["allowed_updates"] = allowedUpds;
+
+	jsonSend("setWebhook", json);
+
+	connect(server, &QTcpServer::newConnection, [this, server]()
+	{
+		QTcpSocket *socket = server->nextPendingConnection();
+
+		connect(socket, &QTcpSocket::readyRead, [this, socket]()
+		{
+			auto data = socket->readAll();
+
+			auto cleardata = data.right(data.size() - (data.indexOf("\r\n\r\n") + QString("\r\n\r\n").size()));
+			QJsonDocument doc = QJsonDocument::fromJson(cleardata);
+			socket->write("HTTP/1.0 200 OK\r\n\r\n");
+
+			QJsonObject root = doc.object();
+
+			emit onGetUpdates(root);
+		});
+	});
+}
+
+void TelegramBot::deleteWebhook()
+{
+	jsonSend("deleteWebhook");
+}
+
+void TelegramBot::getWebhookInfo()
+{
+	jsonSend("getWebhookInfo");
 }
 
 void TelegramBot::sendMessage(const QString &id,
@@ -583,14 +634,24 @@ void TelegramBot::editMessageMedia(const QString &chatId,
 	jsonSend("editMessageMedia", json);
 }
 
-void TelegramBot::onGetUpdates(TelegramRequest *telegramRequest)
+void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 {
-	auto data = telegramRequest->reply()->readAll();
-	QJsonDocument doc = QJsonDocument::fromJson(data);
-	QJsonObject root = doc.object();
-	qDebug() << doc;
+	qDebug() << resultObject;
+	TelegramResult *result = TelegramResults::resultFromJSOM(resultObject);
+	TelegramUpdate *update = static_cast<TelegramUpdate *>(result);
+	if(update)
+	{
+		if(update->message())
+		{
+			emit onMessage(update->message());
+		}
+	}
 
-	auto resultObject = root["result"];
+	delete result;
+}
+
+void TelegramBot::onGetUpdates(const QJsonValueRef &resultObject)
+{
 	if(resultObject.isArray())
 	{
 		TelegramResults results(resultObject.toArray());
@@ -607,10 +668,25 @@ void TelegramBot::onGetUpdates(TelegramRequest *telegramRequest)
 			}
 			m_updateOffset = update->updateId().toInt() + 1;
 		}
-
+	}else
+	{
+		onGetUpdates(resultObject.toObject());
 	}
+}
+
+void TelegramBot::onGetUpdates(TelegramRequest *telegramRequest)
+{
+	auto data = telegramRequest->reply()->readAll();
+	QJsonDocument doc = QJsonDocument::fromJson(data);
+	QJsonObject root = doc.object();
+	qDebug() << doc;
+
+	auto resultObject = root["result"];
+
+	onGetUpdates(resultObject);
 
 	m_mayUpdates = true;
+	telegramRequest->reply()->deleteLater();
 	if(m_isPolled)
 		getUpdates();
 }
@@ -658,7 +734,7 @@ void TelegramBot::onTelegramRequestReply(TelegramRequest *telegramRequest)
 }
 
 void TelegramBot::jsonSend(const QString &title,
-						   QJsonObject &json,
+						   const QJsonObject &json,
 						   TelegramRequest::RequestType requestType)
 {
 	QUrl url("https://api.telegram.org/bot" + m_token + "/" + title);

@@ -12,7 +12,7 @@ public:
 	TelegramReplyKeyboardMarkup(const QJsonObject &json);
 	TelegramReplyKeyboardMarkup(const QList<TelegramKeyboardButton> &keyboard,
 								const bool &resizeKeyboard = false,
-								const bool &oneTimeKeyboard = false,
+								const bool &oneTimeKeyboard = true,
 								const bool &selective = false);
 
 	QList<TelegramKeyboardButton> keyboard() const;

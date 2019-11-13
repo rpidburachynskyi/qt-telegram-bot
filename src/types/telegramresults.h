@@ -15,6 +15,8 @@ public:
 
 	QList<TelegramResult *> results() const;
 
+	static TelegramResult *resultFromJSOM(const QJsonObject &json);
+
 private:
 	QList<TelegramResult *> m_results;
 };

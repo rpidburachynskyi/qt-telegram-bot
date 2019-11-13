@@ -7,7 +7,7 @@ TelegramUpdate::TelegramUpdate(const QJsonObject &json)
 	: TelegramResult(json)
 {
 	m_updateId = json["update_id"].toVariant().toString();
-	if(json.contains("message")) m_message = new TelegramMessage(json["message"].toObject());
+	m_message = (json.contains("message")) ? new TelegramMessage(json["message"].toObject()) : nullptr;
 }
 
 QString TelegramUpdate::updateId() const
