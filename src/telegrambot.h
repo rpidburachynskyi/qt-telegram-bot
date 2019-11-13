@@ -164,6 +164,9 @@ public:
 						  const QString &messageId,
 						  const TelegramInputMedia &inputMedia);
 
+	void deleteMessage(const QString &chatId,
+					   const QString &messageId);
+
 signals:
 	void onMessage(const TelegramMessage *message);
 	void onExportChatInviteLink(const QString &joinLink);

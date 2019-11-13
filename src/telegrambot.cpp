@@ -84,7 +84,7 @@ void TelegramBot::sendMessage(const QString &id,
 	if(replyMarkup)
 		json["reply_markup"] = replyMarkup->toJson();
 
-	jsonSend("sendMessage", json, TelegramRequest::GetUpdates);
+	jsonSend("sendMessage", json, TelegramRequest::SendMessages);
 }
 
 void TelegramBot::sendMessage(const QString &id,
@@ -105,7 +105,7 @@ void TelegramBot::sendMessage(const QString &id,
 	if(replyMarkup)
 		json["reply_markup"] = replyMarkup->toJson();
 
-	jsonSend("sendMessage", json);
+	jsonSend("sendMessage", json, TelegramRequest::SendMessages);
 }
 
 void TelegramBot::forwardMessage(const QString &chatId, const int &fromChatId, bool disableNotification, const int &messageId)
@@ -632,6 +632,16 @@ void TelegramBot::editMessageMedia(const QString &chatId,
 	json["media"] = inputMedia.toJson();
 
 	jsonSend("editMessageMedia", json);
+}
+
+void TelegramBot::deleteMessage(const QString &chatId, const QString &messageId)
+{
+	QJsonObject json;
+
+	json["chat_id"] = chatId;
+	json["message_id"] = messageId;
+
+	jsonSend("deleteMessage", json);
 }
 
 void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
