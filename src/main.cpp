@@ -24,28 +24,69 @@ int main(int argc, char *argv[])
 
 	QObject::connect(&bot, &TelegramBot::onMessage, [&bot](const TelegramMessage *message)
 	{
-		QString chatId = message->chat()->id();
-
-		bot.sendMessage(chatId, "I am from Ukraine");
+		if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->video())
+		{
+			bot.sendMessage(message->chat()->id(), "Video");
+		}else if(message->document())
+		{
+			bot.sendMessage(message->chat()->id(), "Document");
+		}else if(message->voice())
+		{
+			bot.sendMessage(message->chat()->id(), "Voice");
+		}else if(message->sticker())
+		{
+			bot.sendMessage(message->chat()->id(), "Sticker");
+		}else if(message->newChatMembers().size() > 0)
+		{
+			bot.sendMessage(message->chat()->id(), "New member");
+		}else if(message->leftChatMember())
+		{
+			bot.sendMessage(message->chat()->id(), "Left member");
+		}else if(!message->newChatTitle().isEmpty())
+		{
+			bot.sendMessage(message->chat()->id(), "New chat title");
+		}else if(message->pinnedMessage())
+		{
+			bot.sendMessage(message->chat()->id(), "Pinned message");
+		}else if(!message->text().isEmpty())
+		{
+			bot.sendMessage(message->chat()->id(), "Text message");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}else if(message->audio())
+		{
+			bot.sendMessage(message->chat()->id(), "Audio");
+		}
 	});
 
-	QObject::connect(&bot, &TelegramBot::onBotMessage, [&bot](const TelegramMessage *message)
-	{
-		if(message->text() != "I am from Ukraine")
-			return;
-		std::shared_ptr<char> sp(new char[8]);
-		sp.get()[0] = 0xF0;
-		sp.get()[1] = 0x9F;
-		sp.get()[2] = 0x87;
-		sp.get()[3] = 0xBA;
-		sp.get()[4] = 0xF0;
-		sp.get()[5] = 0x9F;
-		sp.get()[6] = 0x87;
-		sp.get()[7] = 0xA6;
-		for(int i = 0; i < 10; i++)
-		bot.sendMessage(message->chat()->id(), QString::fromUtf8(sp.get(), 8));
-	});
-
-	bot.setWebhook("https://cf22735c.ngrok.io"); // my ngrok url
+	bot.setWebhook("https://171527dc.ngrok.io"); // my ngrok url
 	return a.exec();
 }

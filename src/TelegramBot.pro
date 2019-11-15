@@ -39,6 +39,7 @@ SOURCES += \
     types/telegraminputmediaphoto.cpp \
     types/telegraminputmediavideo.cpp \
     types/telegramkeyboardbutton.cpp \
+    types/telegramleftnewchatmember.cpp \
     types/telegramlocation.cpp \
     types/telegrammessage.cpp \
     types/telegrammessageentity.cpp \
@@ -86,6 +87,7 @@ HEADERS += \
     types/telegraminputmediaphoto.h \
     types/telegraminputmediavideo.h \
     types/telegramkeyboardbutton.h \
+    types/telegramleftnewchatmember.h \
     types/telegramlocation.h \
     types/telegrammessage.h \
     types/telegrammessageentity.h \
