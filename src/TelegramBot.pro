@@ -16,6 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
+    passport/telegramencryptedcredentials.cpp \
+    passport/telegramencryptedpassportelement.cpp \
+    passport/telegrampassportdata.cpp \
+    passport/telegrampassportfile.cpp \
+    payments/telegraminvoice.cpp \
+    payments/telegramorderinfo.cpp \
+    payments/telegramshippingaddress.cpp \
+    payments/telegramsuccessfulpayment.cpp \
     stickers/telegramsticker.cpp \
         telegrambot.cpp \
     telegramrequest.cpp \
@@ -38,7 +46,6 @@ SOURCES += \
     types/telegraminputmediadocument.cpp \
     types/telegraminputmediaphoto.cpp \
     types/telegraminputmediavideo.cpp \
-    types/telegraminvoice.cpp \
     types/telegramkeyboardbutton.cpp \
     types/telegramleftnewchatmember.cpp \
     types/telegramlocation.cpp \
@@ -65,6 +72,14 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    passport/telegramencryptedcredentials.h \
+    passport/telegramencryptedpassportelement.h \
+    passport/telegrampassportdata.h \
+    passport/telegrampassportfile.h \
+    payments/telegraminvoice.h \
+    payments/telegramorderinfo.h \
+    payments/telegramshippingaddress.h \
+    payments/telegramsuccessfulpayment.h \
     stickers/telegramsticker.h \
     telegrambot.h \
     telegramrequest.h \
@@ -87,7 +102,6 @@ HEADERS += \
     types/telegraminputmediadocument.h \
     types/telegraminputmediaphoto.h \
     types/telegraminputmediavideo.h \
-    types/telegraminvoice.h \
     types/telegramkeyboardbutton.h \
     types/telegramleftnewchatmember.h \
     types/telegramlocation.h \
