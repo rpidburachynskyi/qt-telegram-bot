@@ -14,6 +14,7 @@
 #include "telegrampoll.h"
 #include "telegramleftnewchatmember.h"
 #include "stickers/telegramsticker.h"
+#include "telegraminvoice.h"
 
 #include <QVariant>
 #include <QJsonArray>
@@ -69,7 +70,7 @@ TelegramMessage::TelegramMessage(const QJsonObject &json)
 
 	m_pinnedMessage = (json.contains("pinned_message")) ? new TelegramMessage(json["pinned_message"].toObject()) : nullptr;
 
-
+	m_invoice = (json.contains("invoice")) ? new TelegramInvoice(json["invoice"].toObject()) : nullptr;
 
 
 	if(json.contains("entities"))
