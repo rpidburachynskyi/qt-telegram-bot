@@ -12,6 +12,7 @@ class TelegramResults
 {
 public:
 	TelegramResults(const QJsonArray &array);
+	~TelegramResults();
 
 	QList<TelegramResult *> results() const;
 

@@ -22,5 +22,6 @@ QJsonObject TelegramForceReply::toJson() const
 
 TelegramForceReply::~TelegramForceReply()
 {
-
+	if(m_keyboard)
+		delete m_keyboard;
 }

@@ -20,6 +20,17 @@ TelegramPoll::TelegramPoll(const QJsonObject &json)
 
 }
 
+TelegramPoll::~TelegramPoll()
+{
+	if(!m_options.isEmpty())
+	{
+		for(auto option : m_options)
+		{
+			delete option;
+		}
+	}
+}
+
 QString TelegramPoll::id() const
 {
 	return m_id;

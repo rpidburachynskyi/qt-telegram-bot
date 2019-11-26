@@ -12,6 +12,12 @@ TelegramSuccessfulPayment::TelegramSuccessfulPayment(const QJsonObject &json)
 	m_providerPaymentChargeId = json["provider_payment_charge_id"].toString("");
 }
 
+TelegramSuccessfulPayment::~TelegramSuccessfulPayment()
+{
+	if(m_orderInfo)
+		delete m_orderInfo;
+}
+
 QString TelegramSuccessfulPayment::currency() const
 {
     return m_currency;

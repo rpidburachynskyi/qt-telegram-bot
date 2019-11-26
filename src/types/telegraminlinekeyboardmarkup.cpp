@@ -42,5 +42,11 @@ QJsonObject TelegramInlineKeyboardMarkup::toJson() const
 
 TelegramInlineKeyboardMarkup::~TelegramInlineKeyboardMarkup()
 {
-
+	if(!m_inlineKeyboard.isEmpty())
+	{
+		for(auto key : m_inlineKeyboard)
+		{
+			delete key;
+		}
+	}
 }

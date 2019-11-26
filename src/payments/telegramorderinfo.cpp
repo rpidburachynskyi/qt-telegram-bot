@@ -9,6 +9,12 @@ TelegramOrderInfo::TelegramOrderInfo(const QJsonObject &json)
 	m_shippingAddress = (json.contains("shipping_address")) ? new TelegramShippingAddress(json["shipping_address"].toObject()) : nullptr;
 }
 
+TelegramOrderInfo::~TelegramOrderInfo()
+{
+	if(m_shippingAddress)
+		delete m_shippingAddress;
+}
+
 QString TelegramOrderInfo::name() const
 {
 	return m_name;

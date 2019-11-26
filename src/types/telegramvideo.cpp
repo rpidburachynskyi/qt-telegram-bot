@@ -9,7 +9,13 @@ TelegramVideo::TelegramVideo(const QJsonObject &json)
 	m_duration = json["duration"].toInt();
 	if(json.contains("mime_type")) m_mimeType = json["mime_type"].toString();
 	if(json.contains("file_size")) m_fileSize = json["file_size"].toInt();
-	if(json.contains("thumb")) m_thumb = new TelegramPhotoSize(json["thumb"].toObject());
+	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
+}
+
+TelegramVideo::~TelegramVideo()
+{
+	if(m_thumb)
+		delete m_thumb;
 }
 
 int TelegramVideo::width() const

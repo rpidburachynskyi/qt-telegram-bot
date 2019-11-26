@@ -9,6 +9,7 @@ class TelegramAnimation
 {
 public:
 	TelegramAnimation(const QJsonObject &json);
+	~TelegramAnimation();
 
 	int width() const;
 	int height() const;

@@ -28,6 +28,11 @@ TelegramReplyKeyboardMarkup::TelegramReplyKeyboardMarkup(const QList<TelegramKey
 	m_selective = selective;
 }
 
+TelegramReplyKeyboardMarkup::~TelegramReplyKeyboardMarkup()
+{
+
+}
+
 QList<TelegramKeyboardButton> TelegramReplyKeyboardMarkup::keyboard() const
 {
 	return m_keyboard;

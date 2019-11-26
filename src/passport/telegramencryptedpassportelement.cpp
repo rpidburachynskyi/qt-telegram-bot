@@ -33,6 +33,32 @@ TelegramEncryptedPassportElement::TelegramEncryptedPassportElement(const QJsonOb
 	}
 }
 
+TelegramEncryptedPassportElement::~TelegramEncryptedPassportElement()
+{
+	if(m_frontSide)
+		delete m_frontSide;
+	if(m_reverseSide)
+		delete m_reverseSide;
+	if(m_selfie)
+		delete m_selfie;
+
+	if(!m_files.isEmpty())
+	{
+		for(auto file : m_files)
+		{
+			delete file;
+		}
+	}
+
+	if(!m_translation.isEmpty())
+	{
+		for(auto transl : m_translation)
+		{
+			delete transl;
+		}
+	}
+}
+
 QString TelegramEncryptedPassportElement::type() const
 {
 	return m_type;

@@ -9,6 +9,7 @@ class TelegramDocument
 {
 public:
 	TelegramDocument(const QJsonObject &json);
+	~TelegramDocument();
 
 	QString fileId() const;
 

@@ -4,17 +4,31 @@
 #include "types/telegraminlinekeyboardmarkup.h"
 #include "types/telegraminputmedia.h"
 
+#include <exception>
+
 #include <QJsonObject>
 #include <QtNetwork>
 #include <QJsonDocument>
 
-TelegramBot::TelegramBot(const QString &token) :
+TelegramBot::TelegramBot(const QString &token,
+						 QNetworkAccessManager *manager,
+						 QObject *parent) :
+	QObject(parent),
+	m_isPolled(false),
 	m_token(token),
-	m_mayUpdates(true),
-	m_isPolled(false)
+	m_mayUpdates(true)
 {
+	if(!manager)
+		throw std::invalid_argument("Manager cannot be a nullptr");
+
+	m_manager = manager;
 	m_updateOffset = 0;
 }
+
+TelegramBot::TelegramBot(const QString &token,
+						 QObject *parent) :
+	TelegramBot(token, new QNetworkAccessManager)
+{ }
 
 void TelegramBot::startPolling()
 {
@@ -122,7 +136,7 @@ void TelegramBot::forwardMessage(const QString &chatId, const int &fromChatId, b
 	object["message_id"] = messageId;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendPhoto(const QString &chatId, const QString &urlFile)
@@ -153,7 +167,7 @@ void TelegramBot::sendVideo(const QString &chatId, const QString &urlFile)
 	object["video"] = urlFile;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendAudio(const QString &chatId, const QString &urlFile)
@@ -178,7 +192,7 @@ void TelegramBot::sendVideoNote(const QString &chatId, const QString &urlFile)
 	object["video_note"] = urlFile;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendMediaGroup(const QString &chatId, const QStringList &urlFiles)
@@ -202,7 +216,7 @@ void TelegramBot::sendMediaGroup(const QString &chatId, const QStringList &urlFi
 	object["media"] = media;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendDocument(const QString &chatId, const QString &urlFile)
@@ -217,7 +231,7 @@ void TelegramBot::sendDocument(const QString &chatId, const QString &urlFile)
 	object["document"] = urlFile;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendAnimation(const QString &chatId, const QString &urlFile)
@@ -232,7 +246,7 @@ void TelegramBot::sendAnimation(const QString &chatId, const QString &urlFile)
 	object["animation"] = urlFile;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendVoice(const QString &chatId, const QString &urlFile)
@@ -247,7 +261,7 @@ void TelegramBot::sendVoice(const QString &chatId, const QString &urlFile)
 	object["voice"] = urlFile;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendChatAction(const QString &chatId, const TelegramBot::ChatAction &chatAction)
@@ -273,7 +287,7 @@ void TelegramBot::sendChatAction(const QString &chatId, const TelegramBot::ChatA
 	}
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendLocation(const QString &chatId,
@@ -294,7 +308,7 @@ void TelegramBot::sendLocation(const QString &chatId,
 	object["longitude"] = longitude;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendVenue(const QString &chatId,
@@ -318,7 +332,7 @@ void TelegramBot::sendVenue(const QString &chatId,
 	object["disable_notification"] = disableNotification;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendContact(const QString &chatId,
@@ -344,7 +358,7 @@ void TelegramBot::sendContact(const QString &chatId,
 	object["reply_to_message_id"] = replyToMessageId;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::sendPoll(const QString &chatId,
@@ -368,7 +382,7 @@ void TelegramBot::sendPoll(const QString &chatId,
 	object["replyToMessageId"] = replyToMessageId;
 
 	QJsonDocument doc (object);
-	m_manager.post(request, doc.toJson());
+	m_manager->post(request, doc.toJson());
 }
 
 void TelegramBot::getFile(const QString &fileId)
@@ -388,7 +402,7 @@ void TelegramBot::getMe()
 
 	qDebug() << "GMS";
 
-	m_manager.post(request, "");
+	m_manager->post(request, "");
 }
 
 void TelegramBot::getUpdates()
@@ -752,7 +766,7 @@ void TelegramBot::jsonSend(const QString &title,
 	request.setHeader(QNetworkRequest::ContentTypeHeader,
 		"application/json");
 	QJsonDocument doc (json);
-	auto reply = m_manager.post(request, doc.toJson());
+	auto reply = m_manager->post(request, doc.toJson());
 
 	TelegramRequest *telegramRequest = new TelegramRequest(reply, requestType, this);
 }
@@ -791,7 +805,7 @@ void TelegramBot::multipartSend(const QString &title,
 	multi->append(imagePart);
 
 
-	auto reply = m_manager.post(request, multi);
+	auto reply = m_manager->post(request, multi);
 
 	TelegramRequest *trequest = new TelegramRequest(reply, TelegramRequest::GetUpdates, this);
 

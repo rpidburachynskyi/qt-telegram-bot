@@ -32,7 +32,8 @@ public:
 		UploadVideoNote
 	};
 
-	TelegramBot(const QString &token);
+	TelegramBot(const QString &token, QObject *parent = nullptr);
+	TelegramBot(const QString &token, QNetworkAccessManager *manager, QObject *parent = nullptr);
 
 	void startPolling();
 	void stopPolling();
@@ -188,7 +189,7 @@ private:
 	bool m_isPolled;
 	QString m_token;
 	int m_updateOffset;
-	QNetworkAccessManager m_manager;
+	QNetworkAccessManager *m_manager;
 
 	bool m_mayUpdates;
 

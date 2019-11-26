@@ -9,6 +9,7 @@ class TelegramMessageEntity
 {
 public:
 	TelegramMessageEntity(const QJsonObject &json);
+	~TelegramMessageEntity();
 
 	QString type() const;
 	int offset() const;

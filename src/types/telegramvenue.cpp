@@ -10,6 +10,12 @@ TelegramVenue::TelegramVenue(const QJsonObject &json)
 	if(json.contains("foursquare_type")) m_foursquareType = json["foursquare_type"].toString();
 }
 
+TelegramVenue::~TelegramVenue()
+{
+	if(m_location)
+		delete m_location;
+}
+
 TelegramLocation *TelegramVenue::location() const
 {
 	return m_location;

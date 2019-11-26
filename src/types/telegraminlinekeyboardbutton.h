@@ -10,6 +10,7 @@ class TelegramInlineKeyboardButton
 {
 public:
 	TelegramInlineKeyboardButton(const QString &text);
+	~TelegramInlineKeyboardButton();
 
 	QString text() const;
 	void setText(const QString &text);

@@ -9,6 +9,7 @@ class TelegramVoice
 {
 public:
 	TelegramVoice(const QJsonObject &json);
+	~TelegramVoice();
 
 	int duration() const;
 	QString mimeType() const;

@@ -11,6 +11,11 @@ TelegramMessageEntity::TelegramMessageEntity(const QJsonObject &json)
 	m_user = new TelegramUser(json["user"].toObject());
 }
 
+TelegramMessageEntity::~TelegramMessageEntity()
+{
+	delete m_user;
+}
+
 QString TelegramMessageEntity::type() const
 {
 	return m_type;

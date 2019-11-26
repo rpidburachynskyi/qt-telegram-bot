@@ -7,11 +7,17 @@ TelegramSticker::TelegramSticker(const QJsonObject &json)
 	m_width = json["width"].toInt();
 	m_height = json["height"].toInt();
 	m_isAnimated = json["is_animated"].toBool();
-	if(json.contains("thumb")) m_thumb = new TelegramPhotoSize(json["thumb"].toObject());
+	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
 	m_emoji = json["emoji"].toString();
 	m_setName = json["set_name"].toString();
 
 	m_fileSize = json["file_size"].toInt(-1);
+}
+
+TelegramSticker::~TelegramSticker()
+{
+	if(m_thumb)
+		delete m_thumb;
 }
 
 QString TelegramSticker::fileId() const

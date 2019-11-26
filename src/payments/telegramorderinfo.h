@@ -9,6 +9,7 @@ class TelegramOrderInfo
 {
 public:
 	TelegramOrderInfo(const QJsonObject &json);
+	~TelegramOrderInfo();
 
 	/// Optional
 	QString name() const;

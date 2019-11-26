@@ -11,6 +11,7 @@ class TelegramUpdate : public TelegramResult
 {
 public:
 	TelegramUpdate(const QJsonObject &json);
+	~TelegramUpdate();
 
 	QString updateId() const;
 	TelegramMessage *message() const;

@@ -9,6 +9,7 @@ class TelegramVideo
 {
 public:
 	TelegramVideo(const QJsonObject &json);
+	~TelegramVideo();
 
 	int width() const;
 	int height() const;

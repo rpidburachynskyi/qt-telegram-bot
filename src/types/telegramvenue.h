@@ -9,6 +9,7 @@ class TelegramVenue
 {
 public:
 	TelegramVenue(const QJsonObject &json);
+	~TelegramVenue();
 
 	TelegramLocation *location() const;
 	QString title() const;

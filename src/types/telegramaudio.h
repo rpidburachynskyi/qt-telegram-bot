@@ -9,6 +9,7 @@ class TelegramAudio
 {
 public:
 	TelegramAudio(const QJsonObject &json);
+	~TelegramAudio();
 
 	int duration() const;
 	QString performer() const;

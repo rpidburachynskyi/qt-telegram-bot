@@ -54,39 +54,9 @@ int main(int argc, char *argv[])
 		}else if(!message->text().isEmpty())
 		{
 			bot.sendMessage(message->chat()->id(), "Text message");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
 		}
 	});
 
-	bot.setWebhook("https://171527dc.ngrok.io"); // my ngrok url
+	bot.setWebhook("https://85005063.ngrok.io"); // my ngrok url
 	return a.exec();
 }

@@ -9,6 +9,7 @@ class TelegramSuccessfulPayment
 {
 public:
 	TelegramSuccessfulPayment(const QJsonObject &json);
+	~TelegramSuccessfulPayment();
 
 	/// Necessarily
 	QString currency() const;

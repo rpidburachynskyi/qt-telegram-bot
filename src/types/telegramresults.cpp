@@ -14,6 +14,17 @@ TelegramResults::TelegramResults(const QJsonArray &array)
 	}
 }
 
+TelegramResults::~TelegramResults()
+{
+	if(!m_results.isEmpty())
+	{
+		for(auto result : m_results)
+		{
+			delete result;
+		}
+	}
+}
+
 QList<TelegramResult *> TelegramResults::results() const
 {
 	return m_results;

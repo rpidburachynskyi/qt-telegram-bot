@@ -10,6 +10,12 @@ TelegramUpdate::TelegramUpdate(const QJsonObject &json)
 	m_message = (json.contains("message")) ? new TelegramMessage(json["message"].toObject()) : nullptr;
 }
 
+TelegramUpdate::~TelegramUpdate()
+{
+	if(m_message)
+		delete m_message;
+}
+
 QString TelegramUpdate::updateId() const
 {
 	return m_updateId;

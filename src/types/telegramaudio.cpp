@@ -9,7 +9,13 @@ TelegramAudio::TelegramAudio(const QJsonObject &json)
 	if(json.contains("mime_type")) m_mimeType = json["mime_type"].toString();
 	if(json.contains("file_size")) m_fileSize = json["file_size"].toInt();
 	m_fileId = json["file_id"].toString();
-	if(json.contains("thumb")) m_thumb = new TelegramPhotoSize(json["thumb"].toObject());
+	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
+}
+
+TelegramAudio::~TelegramAudio()
+{
+	if(m_thumb)
+		delete m_thumb;
 }
 
 int TelegramAudio::duration() const

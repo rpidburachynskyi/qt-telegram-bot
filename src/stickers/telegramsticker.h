@@ -10,6 +10,7 @@ class TelegramSticker
 {
 public:
 	TelegramSticker(const QJsonObject &json);
+	~TelegramSticker();
 
 	QString fileId() const;
 	int width() const;

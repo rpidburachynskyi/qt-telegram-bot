@@ -5,6 +5,12 @@ TelegramInlineKeyboardButton::TelegramInlineKeyboardButton(const QString &text)
 	m_text = text;
 }
 
+TelegramInlineKeyboardButton::~TelegramInlineKeyboardButton()
+{
+	if(m_loginUrl)
+		delete m_loginUrl;
+}
+
 QString TelegramInlineKeyboardButton::text() const
 {
 	return m_text;

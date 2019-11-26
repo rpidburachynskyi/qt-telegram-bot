@@ -15,6 +15,8 @@ public:
 								const bool &oneTimeKeyboard = true,
 								const bool &selective = false);
 
+	~TelegramReplyKeyboardMarkup() override;
+
 	QList<TelegramKeyboardButton> keyboard() const;
 
 	bool resizeKeyboard() const;

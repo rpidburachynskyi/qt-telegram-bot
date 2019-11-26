@@ -8,6 +8,7 @@ class TelegramPassportData
 {
 public:
 	TelegramPassportData(const QJsonObject &json);
+	~TelegramPassportData();
 
 	/// Necessarily
 	QList<TelegramEncryptedPassportElement *> data() const;

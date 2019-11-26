@@ -7,7 +7,13 @@ TelegramVideoNote::TelegramVideoNote(const QJsonObject &json)
 	m_length = json["length"].toInt();
 	m_duration = json["duration"].toInt();
 	if(json.contains("file_size")) m_fileSize = json["file_size"].toInt();
-	if(json.contains("thumb")) m_thumb = new TelegramPhotoSize(json["thumb"].toObject());
+	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
+}
+
+TelegramVideoNote::~TelegramVideoNote()
+{
+	if(m_thumb)
+		delete m_thumb;
 }
 
 int TelegramVideoNote::length() const

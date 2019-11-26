@@ -10,6 +10,7 @@ class TelegramPoll
 {
 public:
 	TelegramPoll(const QJsonObject &json);
+	~TelegramPoll();
 
 	QString id() const;
 	QString question() const;
