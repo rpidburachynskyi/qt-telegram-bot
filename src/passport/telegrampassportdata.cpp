@@ -17,14 +17,10 @@ TelegramPassportData::TelegramPassportData(const QJsonObject &json)
 
 TelegramPassportData::~TelegramPassportData()
 {
-	if(m_credentials)
-		delete m_credentials;
-	if(!m_data.isEmpty())
+	delete m_credentials;
+	for(auto dat : m_data)
 	{
-		for(auto dat : m_data)
-		{
-			delete dat;
-		}
+		delete dat;
 	}
 }
 

@@ -10,6 +10,7 @@ class TelegramSticker
 {
 public:
 	TelegramSticker(const QJsonObject &json);
+	TelegramSticker(const TelegramSticker &sticker);
 	~TelegramSticker();
 
 	QString fileId() const;
@@ -21,6 +22,8 @@ public:
 	QString setName() const;
 	TelegramMaskPosition *maskPosition() const;
 	int fileSize() const;
+
+	TelegramSticker &operator=(const TelegramSticker &sticker);
 
 private:
 	QString m_fileId;

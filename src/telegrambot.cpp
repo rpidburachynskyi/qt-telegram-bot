@@ -170,7 +170,6 @@ void TelegramBot::sendVideo(const QString &chatId, const QString &urlFile)
 
 void TelegramBot::sendAudio(const QString &chatId, const QString &urlFile)
 {
-
 	QJsonObject object;
 	object["chat_id"] = chatId;
 	object["audio"] = urlFile;
@@ -383,12 +382,33 @@ void TelegramBot::sendPoll(const QString &chatId,
 	m_manager->post(request, doc.toJson());
 }
 
+void TelegramBot::sendSticker(const QString &chatId,
+							  const QString &url,
+							  const bool &disableNotification,
+							  const int &replyToMessageId)
+{
+	QJsonObject object;
+	object["chat_id"] = chatId;
+	object["sticker"] = url;
+
+	jsonSend("sendSticker", object, TelegramRequest::SendMessages);
+}
+
 void TelegramBot::getFile(const QString &fileId)
 {
 	QJsonObject object;
 	object["file_id"] = fileId;
 
 	jsonSend("getFile", object);
+}
+
+void TelegramBot::getStickerSet(const QString &name)
+{
+	QJsonObject json;
+
+	json["name"] = name;
+
+	jsonSend("getStickerSet", json, TelegramRequest::GetStickerSet);
 }
 
 void TelegramBot::getMe()
@@ -665,7 +685,7 @@ void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 	{
 		if(update->message())
 		{
-			emit onMessage(update->message());
+			emit messaged(update->message());
 		}
 	}
 
@@ -685,7 +705,7 @@ void TelegramBot::onGetUpdates(const QJsonValueRef &resultObject)
 			{
 				if(update->message())
 				{
-					emit onMessage(update->message());
+					emit messaged(update->message());
 				}
 			}
 			m_updateOffset = update->updateId().toInt() + 1;
@@ -701,7 +721,9 @@ void TelegramBot::onGetUpdates(TelegramRequest *telegramRequest)
 	auto data = telegramRequest->reply()->readAll();
 	QJsonDocument doc = QJsonDocument::fromJson(data);
 	QJsonObject root = doc.object();
-	qDebug() << doc;
+
+	if(!root["ok"].toBool())
+		return emit errored();
 
 	auto resultObject = root["result"];
 
@@ -734,6 +756,16 @@ void TelegramBot::onGetChatMember(TelegramRequest *telegramRequest)
 
 }
 
+void TelegramBot::onGetStickerSet(TelegramRequest *telegramRequest)
+{
+	QJsonDocument doc = QJsonDocument::fromJson(telegramRequest->reply()->readAll());
+	QJsonObject json = doc.object()["result"].toObject();
+
+	TelegramStickerSet stickerSet(json);
+
+	emit getStickerSetEmitted(stickerSet);
+}
+
 void TelegramBot::onTelegramRequestReply(TelegramRequest *telegramRequest)
 {
 	TelegramRequest::RequestType rtype = telegramRequest->requestType();
@@ -746,7 +778,7 @@ void TelegramBot::onTelegramRequestReply(TelegramRequest *telegramRequest)
 		case TelegramRequest::SendMessages:
 		{
 			TelegramMessage message(json["result"].toObject());
-			onBotMessage(&message);
+			botMessaged(&message);
 			break;
 		}
 

@@ -8,6 +8,11 @@ TelegramPhotoSize::TelegramPhotoSize(const QJsonObject &json)
 	m_fileSize = json["file_size"].toInt();
 }
 
+TelegramPhotoSize::~TelegramPhotoSize()
+{
+
+}
+
 QString TelegramPhotoSize::fileId() const
 {
 	return m_fileId;

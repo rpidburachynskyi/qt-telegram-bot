@@ -7,6 +7,7 @@
 #include "types/telegramresult.h"
 #include "types/telegramupdate.h"
 #include "types/itelegrammessagekeyboard.h"
+#include "stickers/telegramstickerset.h"
 
 class TelegramReplyKeyboardMarkup;
 class TelegramInlineKeyboardMarkup;
@@ -98,8 +99,13 @@ public:
 				  const QStringList &optionsList,
 				  const bool disableNotification = false,
 				  const int &replyToMessageId = -1);
+	void sendSticker(const QString &chatId,
+					 const QString &url,
+					 const bool &disableNotification = false,
+					 const int &replyToMessageId = -1);
 
 	void getFile(const QString &fileId);
+	void getStickerSet(const QString &name);
 
 	void getMe();
 	void getUpdates();
@@ -169,10 +175,14 @@ public:
 					   const QString &messageId);
 
 signals:
-	void onMessage(const TelegramMessage *message);
-	void onExportChatInviteLink(const QString &joinLink);
+	void errored();
 
-	void onBotMessage(const TelegramMessage *message);
+	void messaged(const TelegramMessage *message);
+	void exportChatInviteLinked(const QString &joinLink);
+
+	void botMessaged(const TelegramMessage *message);
+
+	void getStickerSetEmitted(const TelegramStickerSet &stickerSet);
 
 private slots:
 	void onGetUpdates(const QJsonObject &resultObject);
@@ -183,14 +193,18 @@ private slots:
 	void onGetChatMemberCount(TelegramRequest *telegramRequest);
 	void onGetChatMember(TelegramRequest *telegramRequest);
 
+	void onGetStickerSet(TelegramRequest *telegramRequest);
+
 	void onTelegramRequestReply(TelegramRequest *telegramRequest);
+
+
 
 private:
 	bool m_isPolled;
 	QString m_token;
-	int m_updateOffset;
 	QNetworkAccessManager *m_manager;
 
+	int m_updateOffset;
 	bool m_mayUpdates;
 
 	void jsonSend(const QString &title,

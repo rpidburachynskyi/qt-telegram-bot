@@ -16,47 +16,36 @@
 #include "types/telegraminputmediavideo.h"
 #include "types/telegraminputmediaanimation.h"
 
+#include <unistd.h>
+
 int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 
+	QList<TelegramStickerSet> sets;
+
 	TelegramBot bot("1066331366:AAHGiv80O-QJwo4f8ZI2Ma5j03GjbZUX7H4"); // my token
 
-	QObject::connect(&bot, &TelegramBot::onMessage, [&bot](const TelegramMessage *message)
+	QObject::connect(&bot, &TelegramBot::messaged, [&sets, &bot](const TelegramMessage *message)
 	{
-		if(message->audio())
-		{
-			bot.sendMessage(message->chat()->id(), "Audio");
-		}else if(message->video())
-		{
-			bot.sendMessage(message->chat()->id(), "Video");
-		}else if(message->document())
-		{
-			bot.sendMessage(message->chat()->id(), "Document");
-		}else if(message->voice())
-		{
-			bot.sendMessage(message->chat()->id(), "Voice");
-		}else if(message->sticker())
-		{
-			bot.sendMessage(message->chat()->id(), "Sticker");
-		}else if(message->newChatMembers().size() > 0)
-		{
-			bot.sendMessage(message->chat()->id(), "New member");
-		}else if(message->leftChatMember())
-		{
-			bot.sendMessage(message->chat()->id(), "Left member");
-		}else if(!message->newChatTitle().isEmpty())
-		{
-			bot.sendMessage(message->chat()->id(), "New chat title");
-		}else if(message->pinnedMessage())
-		{
-			bot.sendMessage(message->chat()->id(), "Pinned message");
-		}else if(!message->text().isEmpty())
-		{
-			bot.sendMessage(message->chat()->id(), "Text message");
-		}
+
 	});
 
-	bot.setWebhook("https://f3f00b12.ngrok.io"); // my ngrok url
+	QObject::connect(&bot, &TelegramBot::getStickerSetEmitted, [&sets, &bot](const TelegramStickerSet &set)
+	{
+		qDebug() << "SE" << set.stickers().size();
+
+		sets.append(set);
+	});
+
+	QObject::connect(&bot, &TelegramBot::errored, [&sets, &bot]()
+	{
+		qDebug() << "ERROR";
+	});
+
+	bot.setWebhook("https://3e636d09.ngrok.io"); // my ngrok url
+
+	bot.getStickerSet("Apollo");
+	bot.getStickerSet("Girl_in_Love");
 	return a.exec();
 }

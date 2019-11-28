@@ -17,7 +17,8 @@ public:
 		GetChat,
 		GetChatAdministators,
 		GetChatMemberCount,
-		GetChatMember
+		GetChatMember,
+		GetStickerSet
 	};
 
 	TelegramRequest(QNetworkReply* reply, RequestType requestType, TelegramBot *bot);

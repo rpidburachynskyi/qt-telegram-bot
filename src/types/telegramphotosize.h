@@ -7,6 +7,7 @@ class TelegramPhotoSize
 {
 public:
 	TelegramPhotoSize(const QJsonObject &json);
+	~TelegramPhotoSize();
 
 	QString fileId() const;
 	int width() const;
