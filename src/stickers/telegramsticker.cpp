@@ -1,5 +1,6 @@
 #include "telegramsticker.h"
 #include "types/telegramphotosize.h"
+#include "telegrammaskposition.h"
 
 TelegramSticker::TelegramSticker(const QJsonObject &json)
 {
@@ -10,7 +11,7 @@ TelegramSticker::TelegramSticker(const QJsonObject &json)
 	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
 	m_emoji = json["emoji"].toString();
 	m_setName = json["set_name"].toString();
-
+	m_maskPosition = (json.contains("mask_position")) ? new TelegramMaskPosition(json["mask_position"].toObject()) : nullptr;
 	m_fileSize = json["file_size"].toInt(-1);
 }
 

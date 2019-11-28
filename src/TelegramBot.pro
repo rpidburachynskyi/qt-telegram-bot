@@ -30,7 +30,9 @@ SOURCES += \
     payments/telegramshippingaddress.cpp \
     payments/telegramshippingquery.cpp \
     payments/telegramsuccessfulpayment.cpp \
+    stickers/telegrammaskposition.cpp \
     stickers/telegramsticker.cpp \
+    stickers/telegramstickerset.cpp \
         telegrambot.cpp \
     telegramrequest.cpp \
     types/itelegrammessagekeyboard.cpp \
@@ -92,7 +94,9 @@ HEADERS += \
     payments/telegramshippingaddress.h \
     payments/telegramshippingquery.h \
     payments/telegramsuccessfulpayment.h \
+    stickers/telegrammaskposition.h \
     stickers/telegramsticker.h \
+    stickers/telegramstickerset.h \
     telegrambot.h \
     telegramrequest.h \
     types/itelegrammessagekeyboard.h \
