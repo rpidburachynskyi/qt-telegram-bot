@@ -57,6 +57,6 @@ int main(int argc, char *argv[])
 		}
 	});
 
-	bot.setWebhook("https://85005063.ngrok.io"); // my ngrok url
+	bot.setWebhook("https://f3f00b12.ngrok.io"); // my ngrok url
 	return a.exec();
 }

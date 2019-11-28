@@ -4,8 +4,6 @@
 #include "types/telegraminlinekeyboardmarkup.h"
 #include "types/telegraminputmedia.h"
 
-#include <exception>
-
 #include <QJsonObject>
 #include <QtNetwork>
 #include <QJsonDocument>
@@ -27,7 +25,7 @@ TelegramBot::TelegramBot(const QString &token,
 
 TelegramBot::TelegramBot(const QString &token,
 						 QObject *parent) :
-	TelegramBot(token, new QNetworkAccessManager)
+	TelegramBot(token, new QNetworkAccessManager, parent)
 { }
 
 void TelegramBot::startPolling()

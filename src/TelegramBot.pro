@@ -20,9 +20,15 @@ SOURCES += \
     passport/telegramencryptedpassportelement.cpp \
     passport/telegrampassportdata.cpp \
     passport/telegrampassportfile.cpp \
+    payments/telegramanswerprecheckoutquery.cpp \
+    payments/telegramanswershippingquery.cpp \
     payments/telegraminvoice.cpp \
+    payments/telegramlabeledprice.cpp \
     payments/telegramorderinfo.cpp \
+    payments/telegramprecheckoutquery.cpp \
+    payments/telegramshipingoption.cpp \
     payments/telegramshippingaddress.cpp \
+    payments/telegramshippingquery.cpp \
     payments/telegramsuccessfulpayment.cpp \
     stickers/telegramsticker.cpp \
         telegrambot.cpp \
@@ -76,9 +82,15 @@ HEADERS += \
     passport/telegramencryptedpassportelement.h \
     passport/telegrampassportdata.h \
     passport/telegrampassportfile.h \
+    payments/telegramanswerprecheckoutquery.h \
+    payments/telegramanswershippingquery.h \
     payments/telegraminvoice.h \
+    payments/telegramlabeledprice.h \
     payments/telegramorderinfo.h \
+    payments/telegramprecheckoutquery.h \
+    payments/telegramshipingoption.h \
     payments/telegramshippingaddress.h \
+    payments/telegramshippingquery.h \
     payments/telegramsuccessfulpayment.h \
     stickers/telegramsticker.h \
     telegrambot.h \
