@@ -11,7 +11,7 @@ class TelegramAudio;
 class TelegramDocument;
 class TelegramAnimation;
 class TelegramGame;
-class TelegramPhoto;
+class TelegramPhotoSize;
 class TelegramSticker;
 class TelegramVideo;
 class TelegramVoice;
@@ -54,6 +54,7 @@ public:
 	TelegramAudio *audio() const;
 	TelegramDocument *document() const;
 	TelegramAnimation *animation() const;
+	QList<TelegramPhotoSize *> photo() const;
 	TelegramGame *game() const;
 	TelegramSticker *sticker() const;
 	TelegramVideo *video() const;
@@ -66,7 +67,7 @@ public:
 	QList<TelegramLeftNewChatMember *> newChatMembers() const;
 	TelegramLeftNewChatMember *leftChatMember() const;
 	QString newChatTitle() const;
-	QList<TelegramPhoto *> newChatPhoto() const;
+//	QList<TelegramPhoto *> newChatPhoto() const;
 	bool deleteChatPhoto() const;
 	bool groupChatCreated() const;
 	bool supergroupChatCreated() const;
@@ -102,6 +103,7 @@ private:
 	TelegramDocument *m_document;
 	TelegramAnimation *m_animation;
 	TelegramGame *m_game;
+	QList<TelegramPhotoSize *> m_photo;
 	TelegramSticker *m_sticker;
 	TelegramVideo *m_video;
 	TelegramVoice *m_voice;
@@ -113,7 +115,7 @@ private:
 	QList<TelegramLeftNewChatMember *> m_newChatMembers;
 	TelegramLeftNewChatMember *m_leftChatMember;
 	QString m_newChatTitle;
-	QList<TelegramPhoto *> m_newChatPhoto;
+	//QList<TelegramPhoto *> m_newChatPhoto;
 	bool m_deleteChatPhoto;
 	bool m_groupChatCreated;
 	bool m_supergroupChatCreated;

@@ -35,6 +35,7 @@ SOURCES += \
     stickers/telegramstickerset.cpp \
         telegrambot.cpp \
     telegramrequest.cpp \
+    telegramrequestdownload.cpp \
     types/itelegrammessagekeyboard.cpp \
     types/telegramanimation.cpp \
     types/telegramaudio.cpp \
@@ -63,6 +64,7 @@ SOURCES += \
     types/telegrampoll.cpp \
     types/telegrampolloption.cpp \
     types/telegramreplykeyboardmarkup.cpp \
+    types/telegramreplykeyboardremove.cpp \
     types/telegramresponseparameters.cpp \
     types/telegramresult.cpp \
     types/telegramresults.cpp \
@@ -99,6 +101,7 @@ HEADERS += \
     stickers/telegramstickerset.h \
     telegrambot.h \
     telegramrequest.h \
+    telegramrequestdownload.h \
     types/itelegrammessagekeyboard.h \
     types/telegramanimation.h \
     types/telegramaudio.h \
@@ -127,6 +130,7 @@ HEADERS += \
     types/telegrampoll.h \
     types/telegrampolloption.h \
     types/telegramreplykeyboardmarkup.h \
+    types/telegramreplykeyboardremove.h \
     types/telegramresponseparameters.h \
     types/telegramresult.h \
     types/telegramresults.h \

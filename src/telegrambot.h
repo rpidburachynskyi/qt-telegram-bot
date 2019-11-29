@@ -7,6 +7,8 @@
 #include "types/telegramresult.h"
 #include "types/telegramupdate.h"
 #include "types/itelegrammessagekeyboard.h"
+#include "types/telegramchat.h"
+#include "types/telegramfile.h"
 #include "stickers/telegramstickerset.h"
 
 class TelegramReplyKeyboardMarkup;
@@ -22,6 +24,7 @@ class TelegramBot : public QObject
 public:
 	enum ChatAction
 	{
+		Unknown,
 		Typing,
 		UploadPhoto,
 		UploadVideo,
@@ -39,7 +42,8 @@ public:
 	void startPolling();
 	void stopPolling();
 
-	void setWebhook(const QString &url,
+	void setWebhook(QTcpServer *server,
+					const QString &url,
 					const int &maxConnection = 40,
 					const QStringList &allowedUpdates = {});
 	void deleteWebhook();
@@ -61,48 +65,111 @@ public:
 						const int &fromChatId,
 						bool disableNotification,
 						const int& messageId);
-	void sendPhoto(const QString &chatId, const QString &urlFile);
+	void sendPhoto(const QString &chatId,
+				   const QString &urlFileOrFileId,
+				   const QString &caption = "",
+				   const QString &parseMode = "",
+				   const bool &disableNotification = false,
+				   const QString &replyToMessageId = "",
+				   const iTelegramMessageKeyboard *replyMarkup = nullptr);
 	void sendPhoto(const QString &chatId); // FIX IT
-	void sendVideo(const QString &chatId, const QString &urlFile);
-	void sendAudio(const QString &chatId, const QString &urlFile);
+	void sendVideo(const QString &chatId,
+				   const QString &urlFileOrFileId,
+				   const int &duration = -1,
+				   const int &width = -1,
+				   const int &height = -1,
+				   const QString &thumb = "",
+				   const QString &caption = "",
+				   const QString &parseMode = "",
+				   const bool &supportsStreaming = false,
+				   const bool &disableNotification = false,
+				   const QString &replyToMessageId = "",
+				   const iTelegramMessageKeyboard *replyMarkup = nullptr);
+	void sendAudio(const QString &chatId,
+				   const QString &urlFileOrFileId,
+				   const QString &caption = "",
+				   const QString &parseMode = "",
+				   const int duration = -1,
+				   const QString &performer = "",
+				   const QString &title = "",
+				   const QString &thumb = "",
+				   const bool &disableNotification = false,
+				   const QString replyToMessageId = "",
+				   const iTelegramMessageKeyboard *replyMarkup = nullptr);
 
-	void sendVideoNote(const QString &chatId, const QString &urlFile);
+	void sendVideoNote(const QString &chatId,
+					   const QString &urlFileOrFileId,
+					   const int &duration = -1,
+					   const int &length = -1,
+					   const QString &thumb = "",
+					   const bool &disableNotification = false,
+					   const QString &replyToMessageId = "",
+					   const iTelegramMessageKeyboard *replyMarkup = nullptr);
+	void sendMediaGroup(const QString &chatId,
+						const QStringList &urlFilesOrFileIds,
+						const bool &disableNotification = false,
+						const QString &replyToMessageId = "");
+	void sendDocument(const QString &chatId,
+					  const QString &urlFileOrFileId,
+					  const QString &thumb = "",
+					  const QString &caption = "",
+					  const QString &parseMode = "",
+					  const bool &disableNotification = false,
+					  const QString &replyToMessageId = "",
+					  const iTelegramMessageKeyboard *replyMarkup = nullptr);
+	void sendAnimation(const QString &chatId,
+					   const QString &urlFileOrFileId,
+					   const QString &thumb = "",
+					   const QString &caption = "",
+					   const QString &parseMode = "",
+					   const bool &disableNotification = false,
+					   const QString &replyToMessageId = "",
+					   const iTelegramMessageKeyboard *replyMarkup = nullptr);
+	void sendVoice(const QString &chatId,
+				   const QString &urlFileOrFileId,
+				   const QString &caption = "",
+				   const QString &parseMode = "",
+				   const int &duration = -1,
+				   const bool &disableNotification = false,
+				   const QString &replyToMessageId = "",
+				   const iTelegramMessageKeyboard *replyMarkup = nullptr);
 
-	void sendMediaGroup(const QString &chatId, const QStringList &urlFiles);
-
-	void sendDocument(const QString &chatId, const QString &urlFile);
-	void sendAnimation(const QString &chatId, const QString &urlFile);
-	void sendVoice(const QString &chatId, const QString &urlFile);
-
+	void sendChatAction(const QString &chatId, const QString &chatAction);
 	void sendChatAction(const QString &chatId, const ChatAction &chatAction);
 	void sendLocation(const QString &chatId,
 					  const double &latitude,
 					  const double &longitude,
 					  const int &livePeriod = -1,
 					  const bool &disableNotification = false,
-					  const int &replyToMessageId = -1);
+					  const QString &replyToMessageId = "",
+					  const iTelegramMessageKeyboard *replyMarkup = nullptr);
 	void sendVenue(const QString& chatId,
 				   const double &latitude,
 				   const double &longitude,
 				   const QString &title,
 				   const QString &address,
-				   const bool &disableNotification = false);
+				   const bool &disableNotification = false,
+				   const QString &replyToMessageId = "",
+				   const iTelegramMessageKeyboard *replyMarkup = nullptr);
 	void sendContact(const QString &chatId,
 					 const QString &phoneNumber,
 					 const QString &firstName,
 					 const QString &lastName,
 					 const QString &about = "",
 					 const bool disableNotification = false,
-					 const int &replyToMessageId = -1);
+					 const QString &replyToMessageId = "",
+					 const iTelegramMessageKeyboard *replyMarkup = nullptr);
 	void sendPoll(const QString& chatId,
 				  const QString &question,
 				  const QStringList &optionsList,
 				  const bool disableNotification = false,
-				  const int &replyToMessageId = -1);
+				  const QString &replyToMessageId = "",
+				  const iTelegramMessageKeyboard *replyMarkup = nullptr);
 	void sendSticker(const QString &chatId,
 					 const QString &url,
 					 const bool &disableNotification = false,
-					 const int &replyToMessageId = -1);
+					 const QString &replyToMessageId = "",
+					 const iTelegramMessageKeyboard *replyMarkup = nullptr);
 
 	void getFile(const QString &fileId);
 	void getStickerSet(const QString &name);
@@ -174,26 +241,29 @@ public:
 	void deleteMessage(const QString &chatId,
 					   const QString &messageId);
 
+	void downloadFile(const QString &fileId);
+
+	static QTcpServer *createListenServer(const quint16 port);
+	void deleteListenServer();
 signals:
-	void errored();
+	void errored(const QString &error);
 
 	void messaged(const TelegramMessage *message);
 	void exportChatInviteLinked(const QString &joinLink);
 
 	void botMessaged(const TelegramMessage *message);
 
-	void getStickerSetEmitted(const TelegramStickerSet &stickerSet);
+	void getStickerSetReady(const TelegramStickerSet &stickerSet);
+	void getChatReady(const TelegramChat &chat);
 
+	void getFileReady(const TelegramFile &file);
+
+	void fileDownloaded(const QString &fileName,
+						const QByteArray &array);
 private slots:
 	void onGetUpdates(const QJsonObject &resultObject);
 	void onGetUpdates(const QJsonValueRef &resultObject);
 	void onGetUpdates(TelegramRequest *telegramRequest);
-	void onGetChat(TelegramRequest *telegramRequest);
-	void onGetChatAdministators(TelegramRequest *telegramRequest);
-	void onGetChatMemberCount(TelegramRequest *telegramRequest);
-	void onGetChatMember(TelegramRequest *telegramRequest);
-
-	void onGetStickerSet(TelegramRequest *telegramRequest);
 
 	void onTelegramRequestReply(TelegramRequest *telegramRequest);
 
@@ -203,6 +273,8 @@ private:
 	bool m_isPolled;
 	QString m_token;
 	QNetworkAccessManager *m_manager;
+
+	QTcpServer* m_listenServer;
 
 	int m_updateOffset;
 	bool m_mayUpdates;

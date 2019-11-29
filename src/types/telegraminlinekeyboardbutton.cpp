@@ -1,14 +1,27 @@
 #include "telegraminlinekeyboardbutton.h"
-
+#include <QtDebug>
 TelegramInlineKeyboardButton::TelegramInlineKeyboardButton(const QString &text)
 {
 	m_text = text;
+	m_url = "123";
+	m_callbackData = "123";
+	m_switchInlineQuery = "123";
+	m_switchInlineQueryCurrentChat = "123";
+}
+
+TelegramInlineKeyboardButton::TelegramInlineKeyboardButton(const TelegramInlineKeyboardButton &button)
+	: TelegramInlineKeyboardButton("A")
+{
+	m_text = button.m_text;
+	m_url = button.m_url;
+	m_callbackData = button.m_callbackData;
+	m_switchInlineQuery = button.m_switchInlineQuery;
+	m_switchInlineQueryCurrentChat = button.m_switchInlineQueryCurrentChat;
 }
 
 TelegramInlineKeyboardButton::~TelegramInlineKeyboardButton()
 {
-	if(m_loginUrl)
-		delete m_loginUrl;
+
 }
 
 QString TelegramInlineKeyboardButton::text() const
@@ -89,4 +102,15 @@ QJsonObject TelegramInlineKeyboardButton::toJson() const
 	json["url"] = "https://google.com.ua";
 
 	return json;
+}
+
+TelegramInlineKeyboardButton &TelegramInlineKeyboardButton::operator=(const TelegramInlineKeyboardButton &button)
+{
+	m_text = button.m_text;
+	m_url = button.m_url;
+	m_callbackData = button.m_callbackData;
+	m_switchInlineQuery = button.m_switchInlineQuery;
+	m_switchInlineQueryCurrentChat = button.m_switchInlineQueryCurrentChat;
+
+	return *this;
 }

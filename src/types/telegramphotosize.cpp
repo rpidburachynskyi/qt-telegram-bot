@@ -1,8 +1,9 @@
 #include "telegramphotosize.h"
+#include <QDebug>
 
 TelegramPhotoSize::TelegramPhotoSize(const QJsonObject &json)
 {
-	m_fileId = json["id"].toString();
+	m_fileId = json["file_id"].toString();
 	m_width = json["width"].toInt();
 	m_height = json["height"].toInt();
 	m_fileSize = json["file_size"].toInt();

@@ -8,6 +8,7 @@
 #include "telegramvoice.h"
 #include "telegramanimation.h"
 #include "telegramcontact.h"
+#include "telegramphotosize.h"
 #include "telegrammessageentity.h"
 #include "telegramlocation.h"
 #include "telegramvenue.h"
@@ -75,6 +76,16 @@ TelegramMessage::TelegramMessage(const QJsonObject &json)
 	m_successfulPayment = (json.contains("successful_payment")) ? new TelegramSuccessfulPayment(json["successful_payment"].toObject()) : nullptr;
 
 	m_connectedWebsite = json["connected_website"].toString("");
+
+	if(json.contains("photo"))
+	{
+		QJsonArray photo = json["photo"].toArray();
+		for(auto part : photo)
+		{
+			TelegramPhotoSize *photoSize = new TelegramPhotoSize(part.toObject());
+			m_photo.append(photoSize);
+		}
+	}
 
 	if(json.contains("entities"))
 	{
@@ -198,6 +209,11 @@ TelegramAnimation *TelegramMessage::animation() const
 	return m_animation;
 }
 
+QList<TelegramPhotoSize *> TelegramMessage::photo() const
+{
+	return m_photo;
+}
+
 TelegramGame *TelegramMessage::game() const
 {
 	return m_game;
@@ -258,10 +274,10 @@ QString TelegramMessage::newChatTitle() const
 	return m_newChatTitle;
 }
 
-QList<TelegramPhoto *> TelegramMessage::newChatPhoto() const
-{
-	return m_newChatPhoto;
-}
+//QList<TelegramPhoto *> TelegramMessage::newChatPhoto() const
+//{
+//	return m_newChatPhoto;
+//}
 
 bool TelegramMessage::deleteChatPhoto() const
 {

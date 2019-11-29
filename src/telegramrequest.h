@@ -18,6 +18,8 @@ public:
 		GetChatAdministators,
 		GetChatMemberCount,
 		GetChatMember,
+		GetFile,
+		GetMe,
 		GetStickerSet
 	};
 
@@ -28,6 +30,9 @@ public:
 	QNetworkReply *reply() const;
 	RequestType requestType() const;
 	bool ok() const;
+
+private slots:
+	void onReplyReadyRead();
 
 private:
 	QNetworkReply *m_reply;

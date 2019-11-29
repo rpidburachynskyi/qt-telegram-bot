@@ -10,6 +10,7 @@ class TelegramInlineKeyboardButton
 {
 public:
 	TelegramInlineKeyboardButton(const QString &text);
+	TelegramInlineKeyboardButton(const TelegramInlineKeyboardButton &button);
 	~TelegramInlineKeyboardButton();
 
 	QString text() const;
@@ -34,6 +35,8 @@ public:
 	void setPay(bool pay);
 
 	QJsonObject toJson() const;
+
+	TelegramInlineKeyboardButton& operator=(const TelegramInlineKeyboardButton &button);
 
 private:
 	QString m_text;

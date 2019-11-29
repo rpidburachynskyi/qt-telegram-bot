@@ -3,7 +3,7 @@
 
 #include <QJsonObject>
 
-class TelegramPhoto;
+class TelegramChatPhoto;
 class TelegramMessage;
 class TelegramChatPermissions;
 
@@ -17,6 +17,12 @@ public:
 	QString title() const;
 	QString username() const;
 
+	QString firstName() const;
+
+	QString lastName() const;
+
+	TelegramChatPhoto *photo() const;
+
 private:
 	QString m_id;
 	QString m_type;
@@ -24,7 +30,7 @@ private:
 	QString m_username;
 	QString m_firstName;
 	QString m_lastName;
-	TelegramPhoto *m_photo;
+	TelegramChatPhoto *m_photo;
 	QString m_description;
 	QString m_inviteLink;
 	TelegramMessage *m_telegramMessage;
