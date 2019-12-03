@@ -148,64 +148,6 @@ void TelegramBot::forwardMessage(const QString &chatId, const int &fromChatId, b
 	jsonSend("forwardMessage", json, TelegramRequest::SendMessages);
 }
 
-void TelegramBot::sendPhoto(const QString &chatId,
-							const QString &urlFileOrFileId,
-							const QString &caption,
-							const QString &parseMode,
-							const bool &disableNotification,
-							const QString &replyToMessageId,
-							const iTelegramMessageKeyboard *replyMarkup)
-{
-	QJsonObject json;
-	json["chat_id"] = chatId;
-	json["photo"] = urlFileOrFileId;
-	json["disable_notification"] = disableNotification;
-
-	if(!caption.isEmpty()) json["caption"] = caption;
-	if(!parseMode.isEmpty()) json["parse_mode"] = parseMode;
-	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
-	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
-
-	jsonSend("sendPhoto", json, TelegramRequest::SendMessages);
-}
-
-void TelegramBot::sendPhoto(const QString &chatId)
-{
-	QJsonObject object;
-	object["chat_id"] = chatId;
-	multipartSend("sendPhoto", object);
-}
-
-void TelegramBot::sendVideo(const QString &chatId,
-							const QString &urlFileOrFileId,
-							const int &duration,
-							const int &width,
-							const int &height,
-							const QString &thumb,
-							const QString &caption,
-							const QString &parseMode,
-							const bool &supportsStreaming,
-							const bool &disableNotification,
-							const QString &replyToMessageId,
-							const iTelegramMessageKeyboard *replyMarkup)
-{
-	QJsonObject json;
-	json["chat_id"] = chatId;
-	json["video"] = urlFileOrFileId;
-	json["supports_streaming"] = supportsStreaming;
-	json["disable_notification"] = disableNotification;
-
-	if(duration > -1) json["duration"] = duration;
-	if(width > -1) json["width"] = width;
-	if(height > -1) json["height"] = height;
-	if(!thumb.isEmpty()) json["thumb"] = thumb;
-	if(!caption.isEmpty()) json["caption"] = caption;
-	if(!parseMode.isEmpty()) json["parse_mode"] = parseMode;
-	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
-	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
-
-	jsonSend("sendVideo", json, TelegramRequest::SendMessages);
-}
 void TelegramBot::sendAudio(const QString &chatId,
 							const QString &urlFileOrFileId,
 							const QString &caption,
@@ -907,55 +849,127 @@ void TelegramBot::onTelegramRequestReply(TelegramRequest *telegramRequest)
 	}
 }
 
+void TelegramBot::sendPhoto(const QString &id,
+								   const QString &f,
+								   const QString &c,
+								   const QString &p,
+								   const bool &d,
+								   const QString &r,
+								   const iTelegramMessageKeyboard *rm,
+								   const bool &j)
+{
+	QJsonObject json;
+	json["chat_id"] = id;
+	if(j)
+		json["photo"] = f;
+	json["disable_notification"] = d;
+
+	if(!c.isEmpty()) json["caption"] = c;
+	if(!p.isEmpty()) json["parse_mode"] = p;
+	if(!r.isEmpty()) json["reply_to_message_id"] = r;
+	if(rm) json["reply_markup"] = rm->toJson();
+
+	if(j) jsonSend("sendPhoto", json, TelegramRequest::SendMessages);
+	else multipartSend("sendPhoto", json, packPhoto(f));
+}
+
+void TelegramBot::sendVideo(const QString &chatId,
+							const QString &f,
+							const int &duration,
+							const int &width,
+							const int &height,
+							const QString &thumb,
+							const QString &caption,
+							const QString &parseMode,
+							const bool &supportsStreaming,
+							const bool &disableNotification,
+							const QString &replyToMessageId,
+							const iTelegramMessageKeyboard *replyMarkup,
+							const bool &j)
+{
+	QJsonObject json;
+	json["chat_id"] = chatId;
+	if(j)
+		json["video"] = f;
+	json["supports_streaming"] = supportsStreaming;
+	json["disable_notification"] = disableNotification;
+
+	if(duration > -1) json["duration"] = duration;
+	if(width > -1) json["width"] = width;
+	if(height > -1) json["height"] = height;
+	if(!thumb.isEmpty()) json["thumb"] = thumb;
+	if(!caption.isEmpty()) json["caption"] = caption;
+	if(!parseMode.isEmpty()) json["parse_mode"] = parseMode;
+	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
+	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
+
+	if(j) jsonSend("sendVideo", json, TelegramRequest::SendMessages);
+	else multipartSend("sendVideo", json, packVideo(f));
+}
+
 void TelegramBot::jsonSend(const QString &title,
 						   const QJsonObject &json,
-						   TelegramRequest::RequestType requestType)
+						   const TelegramRequest::RequestType &requestType)
 {
 	QUrl url("https://api.telegram.org/bot" + m_token + "/" + title);
 	QNetworkRequest request(url);
 	request.setHeader(QNetworkRequest::ContentTypeHeader,
 		"application/json");
 	QJsonDocument doc (json);
-	auto reply = m_manager->post(request, doc.toJson());
+	QNetworkReply *reply = m_manager->post(request, doc.toJson());
 
 	TelegramRequest *telegramRequest = new TelegramRequest(reply, requestType, this);
 }
 
 void TelegramBot::multipartSend(const QString &title,
-								QJsonObject &json)
+								const QJsonObject &json,
+								const QHttpPart &part)
 {
-
-	QHttpMultiPart* multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
-
-	QHttpPart part;
-	QFile* file = new QFile("C:\\Users\\Rostik\\Desktop\\123.png", multiPart);
-	QString dispositionHeader = "form-data; name=\"123.png\"; filename=\"C:\\Users\\Rostik\\Desktop\\123.png\"";
-	if (file->open(QIODevice::ReadOnly))
-	{
-		part.setHeader(QNetworkRequest::ContentDispositionHeader, dispositionHeader);
-		part.setBodyDevice(file);
-		multiPart->append(part);
-	}
-
 	QUrlQuery query;
 	QUrl url("https://api.telegram.org/bot" + m_token + "/" + title);
-	query.addQueryItem("chat_id", json["chat_id"].toString());
+
+	QHttpMultiPart* multiPart = new QHttpMultiPart(QHttpMultiPart::ContentType::FormDataType);
+	multiPart->append(part);
+
+	for(auto key : json.keys())
+		query.addQueryItem(key, json[key].toString());
+
 	url.setQuery(query);
 
 	QNetworkRequest request(url);
-	request.setHeader(QNetworkRequest::ContentTypeHeader,
-		"multipart/form-data");
-
-
 	QNetworkReply *reply = m_manager->post(request, multiPart);
 
-	TelegramRequest *trequest = new TelegramRequest(reply, TelegramRequest::Unknown, this);
+	TelegramRequest *trequest = new TelegramRequest(reply, TelegramRequest::SendMessages, this);
 
 	multiPart->setParent(reply);
 
 	connect(reply, static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error), [](QNetworkReply::NetworkError er){
 		qDebug() << "ERROR:" << er;
 	});
-
 }
 
+QHttpPart TelegramBot::packFile(const QString &path,
+								const QString &fieldname)
+{
+	QFile file(path);
+	file.open(QIODevice::ReadOnly);
+	QByteArray data = file.readAll();
+	QFileInfo info(file);
+
+	QString dispositionHeader = QString("form-data; name=\"%1\"; filename=\"%2\"")
+			.arg(fieldname)
+			.arg(info.fileName());
+	QHttpPart part;
+
+	QString typeHeader = "video/mp4";
+
+	if(info.completeSuffix() == "png") typeHeader = "image/png";
+	else if(info.completeSuffix() == "jpg" || info.completeSuffix() == "jpeg") typeHeader = "image/jpg";
+	// FIXIT
+
+	part.setHeader(QNetworkRequest::ContentDispositionHeader, dispositionHeader);
+	part.setHeader(QNetworkRequest::ContentTypeHeader, typeHeader);
+	part.setBody(data);
+
+	return part;
+}

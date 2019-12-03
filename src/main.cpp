@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 	QObject::connect(&bot, &TelegramBot::messaged, [&bot](const TelegramMessage *message)
 	{
-		bot.sendPhoto(message->chat()->id());
+		bot.sendVideoByPath(message->chat()->id(), "D:\\Downloads\\SampleVideo_1280x720_1mb.mp4");
 	});
 
 	bot.setWebhook(TelegramBot::createListenServer(3000), NGROK_URL);

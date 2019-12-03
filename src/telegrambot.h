@@ -82,26 +82,79 @@ public:
 						const int &fromChatId,
 						bool disableNotification,
 						const int& messageId);
-	void sendPhoto(const QString &chatId,
-				   const QString &urlFileOrFileId,
-				   const QString &caption = "",
-				   const QString &parseMode = "",
-				   const bool &disableNotification = false,
-				   const QString &replyToMessageId = "",
-				   const iTelegramMessageKeyboard *replyMarkup = nullptr);
-	void sendPhoto(const QString &chatId); // FIX IT
-	void sendVideo(const QString &chatId,
-				   const QString &urlFileOrFileId,
-				   const int &duration = -1,
-				   const int &width = -1,
-				   const int &height = -1,
-				   const QString &thumb = "",
-				   const QString &caption = "",
-				   const QString &parseMode = "",
-				   const bool &supportsStreaming = false,
-				   const bool &disableNotification = false,
-				   const QString &replyToMessageId = "",
-				   const iTelegramMessageKeyboard *replyMarkup = nullptr);
+	inline void sendPhotoById(const QString &chatId,
+							  const QString &fileId,
+							  const QString &caption = "",
+							  const QString &parseMode = "",
+							  const bool &disableNotification = false,
+							  const QString &replyToMessageId = "",
+							  const iTelegramMessageKeyboard *replyMarkup = nullptr) {
+		sendPhoto(chatId, fileId, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, true);
+	}
+	inline void sendPhotoByUrl(const QString &chatId,
+							   const QString &url,
+							   const QString &caption = "",
+							   const QString &parseMode = "",
+							   const bool &disableNotification = false,
+							   const QString &replyToMessageId = "",
+							   const iTelegramMessageKeyboard *replyMarkup = nullptr) {
+		sendPhoto(chatId, url, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, true);
+	}
+	inline void sendPhotoByPath(const QString &chatId,
+								const QString &filePath,
+								const QString &caption = "",
+								const QString &parseMode = "",
+								const bool &disableNotification = false,
+								const QString &replyToMessageId = "",
+								const iTelegramMessageKeyboard *replyMarkup = nullptr) {
+		sendPhoto(chatId, filePath, caption, parseMode, disableNotification, replyToMessageId, replyMarkup, false);
+	}
+
+	inline void sendVideoById(const QString &chatId,
+					   const QString &fileId,
+					   const int &duration = -1,
+					   const int &width = -1,
+					   const int &height = -1,
+					   const QString &thumb = "",
+					   const QString &caption = "",
+					   const QString &parseMode = "",
+					   const bool &supportsStreaming = false,
+					   const bool &disableNotification = false,
+					   const QString &replyToMessageId = "",
+					   const iTelegramMessageKeyboard *replyMarkup = nullptr) {
+		sendVideo(chatId, fileId, duration, width, height, thumb, caption, parseMode, supportsStreaming, disableNotification, replyToMessageId, replyMarkup, true);
+	}
+
+	inline void sendVideoByUrl(const QString &chatId,
+						const QString &url,
+						const int &duration = -1,
+						const int &width = -1,
+						const int &height = -1,
+						const QString &thumb = "",
+						const QString &caption = "",
+						const QString &parseMode = "",
+						const bool &supportsStreaming = false,
+						const bool &disableNotification = false,
+						const QString &replyToMessageId = "",
+						const iTelegramMessageKeyboard *replyMarkup = nullptr) {
+		sendVideo(chatId, url, duration, width, height, thumb, caption, parseMode, supportsStreaming, disableNotification, replyToMessageId, replyMarkup, true);
+	}
+
+	inline void sendVideoByPath(const QString &chatId,
+						 const QString &filePath,
+						 const int &duration = -1,
+						 const int &width = -1,
+						 const int &height = -1,
+						 const QString &thumb = "",
+						 const QString &caption = "",
+						 const QString &parseMode = "",
+						 const bool &supportsStreaming = false,
+						 const bool &disableNotification = false,
+						 const QString &replyToMessageId = "",
+						 const iTelegramMessageKeyboard *replyMarkup = nullptr){
+		sendVideo(chatId, filePath, duration, width, height, thumb, caption, parseMode, supportsStreaming, disableNotification, replyToMessageId, replyMarkup, false);
+	}
+
 	void sendAudio(const QString &chatId,
 				   const QString &urlFileOrFileId,
 				   const QString &caption = "",
@@ -199,7 +252,7 @@ public:
 						const int &untilDate = 0);
 
 	void unbanChatMember(const QString &chatId,
-						const int &userId);
+						 const int &userId);
 
 	void restrictChatMember(const QString &chatId,
 							const int &userId,
@@ -246,10 +299,10 @@ public:
 						 const bool &disableWebPagePreview = false);
 
 	void editMessageCaption(const QString &chatId,
-						 const int &messageId,
-						 const QString &newCaption,
-						 const QString &parseMode = "",
-						 const bool &disableWebPagePreview = false);
+							const int &messageId,
+							const QString &newCaption,
+							const QString &parseMode = "",
+							const bool &disableWebPagePreview = false);
 
 	void editMessageMedia(const QString &chatId,
 						  const QString &messageId,
@@ -296,12 +349,45 @@ private:
 	int m_updateOffset;
 	bool m_mayUpdates;
 
+	void sendPhoto(const QString &chatId,
+				   const QString &fileId,
+				   const QString &caption,
+				   const QString &parseMode,
+				   const bool &disableNotification,
+				   const QString &replyToMessageId,
+				   const iTelegramMessageKeyboard *replyMarkup,
+				   const bool &json);
+
+	void sendVideo(const QString &chatId,
+				   const QString &urlFileOrFileId,
+				   const int &duration,
+				   const int &width,
+				   const int &height,
+				   const QString &thumb,
+				   const QString &caption,
+				   const QString &parseMode,
+				   const bool &supportsStreaming,
+				   const bool &disableNotification,
+				   const QString &replyToMessageId,
+				   const iTelegramMessageKeyboard *replyMarkup,
+				   const bool &json);
+
 	void jsonSend(const QString &title,
 				  const QJsonObject &json = QJsonObject(),
-				  TelegramRequest::RequestType requestType = TelegramRequest::Unknown);
+				  const TelegramRequest::RequestType &requestType = TelegramRequest::Unknown);
 
 	void multipartSend(const QString &title,
-				  QJsonObject &json); // FIX IT
+					   const QJsonObject &json,
+					   const QHttpPart &part);
+
+	QHttpPart packFile(const QString &path,
+					   const QString &fieldname);
+	inline QHttpPart packPhoto(const QString &path) {
+		return packFile(path, "photo");
+	}
+	inline QHttpPart packVideo(const QString &path) {
+		return packFile(path, "video");
+	}
 };
 
 #endif // TELEGRAMBOT_H
