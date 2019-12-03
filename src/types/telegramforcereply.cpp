@@ -9,6 +9,12 @@ TelegramForceReply::TelegramForceReply(const TelegramInlineKeyboardMarkup *keybo
 	m_selective = selective;
 }
 
+TelegramForceReply::TelegramForceReply(const TelegramForceReply &forceReply)
+{
+	m_keyboard = forceReply.m_keyboard;
+	m_selective = forceReply.m_selective;
+}
+
 QJsonObject TelegramForceReply::toJson() const
 {
 	QJsonObject json;
@@ -20,8 +26,17 @@ QJsonObject TelegramForceReply::toJson() const
 	return json;
 }
 
+TelegramInlineKeyboardMarkup *TelegramForceReply::keyboard() const
+{
+	return m_keyboard;
+}
+
+bool TelegramForceReply::selective() const
+{
+	return m_selective;
+}
+
 TelegramForceReply::~TelegramForceReply()
 {
-	if(m_keyboard)
-		delete m_keyboard;
+	delete m_keyboard;
 }

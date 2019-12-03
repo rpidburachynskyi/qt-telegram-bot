@@ -2,21 +2,15 @@
 #include "telegramlocation.h"
 
 TelegramVenue::TelegramVenue(const QJsonObject &json)
+	: m_location(TelegramLocation(json["location"].toObject()))
 {
-	m_location = new TelegramLocation(json["location"].toObject());
 	m_title = json["title"].toString();
 	m_address = json["title"].toString();
 	if(json.contains("foursquare_id")) m_foursquareId = json["foursquare_id"].toString();
 	if(json.contains("foursquare_type")) m_foursquareType = json["foursquare_type"].toString();
 }
 
-TelegramVenue::~TelegramVenue()
-{
-	if(m_location)
-		delete m_location;
-}
-
-TelegramLocation *TelegramVenue::location() const
+TelegramLocation TelegramVenue::location() const
 {
 	return m_location;
 }

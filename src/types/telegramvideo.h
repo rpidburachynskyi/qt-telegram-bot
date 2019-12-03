@@ -9,15 +9,25 @@ class TelegramVideo
 {
 public:
 	TelegramVideo(const QJsonObject &json);
+	TelegramVideo(const TelegramVideo &video);
 	~TelegramVideo();
 
-	int width() const;
-	int height() const;
-	int duration() const;
-	QString mimeType() const;
-	int fileSize() const;
 	QString fileId() const;
+	/// Necessarily
+	/// Necessarily
+	int width() const;
+	/// Necessarily
+	int height() const;
+	/// Necessarily
+	int duration() const;
+	/// Optional
 	TelegramPhotoSize *thumb() const;
+	/// Optional
+	QString mimeType() const;
+	/// Optional
+	int fileSize() const;
+
+	TelegramVideo& operator=(const TelegramVideo &video) = delete;
 
 private:
 	int m_width;

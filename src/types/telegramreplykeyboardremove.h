@@ -12,6 +12,9 @@ public:
 
 	QJsonObject toJson() const;
 
+	/// Optional
+	bool selective() const;
+
 private:
 	bool m_selective;
 };

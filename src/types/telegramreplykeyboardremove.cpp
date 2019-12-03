@@ -14,3 +14,8 @@ QJsonObject TelegramReplyKeyboardRemove::toJson() const
 
 	return json;
 }
+
+bool TelegramReplyKeyboardRemove::selective() const
+{
+    return m_selective;
+}

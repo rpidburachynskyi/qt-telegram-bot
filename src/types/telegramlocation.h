@@ -8,7 +8,9 @@ class TelegramLocation
 public:
 	TelegramLocation(const QJsonObject &json);
 
+	/// Necessarily
 	double longitute() const;
+	/// Necessarily
 	double latitude() const;
 
 private:

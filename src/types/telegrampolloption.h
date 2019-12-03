@@ -8,7 +8,9 @@ class TelegramPollOption
 public:
 	TelegramPollOption(const QJsonObject &json);
 
+	/// Necessarily
 	QString text() const;
+	/// Necessarily
 	int voterCount() const;
 
 private:

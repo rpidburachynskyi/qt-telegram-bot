@@ -8,10 +8,15 @@ class TelegramContact
 public:
 	TelegramContact(const QJsonObject &json);
 
+	/// Necessarily
 	QString phoneNumber() const;
+	/// Necessarily
 	QString firstName() const;
+	/// Optional
 	QString lastName() const;
+	/// Optional
 	QString userId() const;
+	/// Optional
 	QString vcard() const;
 
 private:

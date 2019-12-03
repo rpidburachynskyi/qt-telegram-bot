@@ -10,23 +10,41 @@ class TelegramChatMember
 public:
 	TelegramChatMember(const QJsonObject &json);
 
+	/// Necessarily
 	TelegramUser user() const;
+	/// Necessarily
 	QString status() const;
+	/// Necessarily
 	int untilDate() const;
+	/// Optional
 	bool canBeEdited() const;
+	/// Optional
 	bool canPostMessages() const;
+	/// Optional
 	bool canEditMessages() const;
+	/// Optional
 	bool canDeleteMessages() const;
+	/// Optional
 	bool canRestrictMembers() const;
+	/// Optional
 	bool canPromoteMembers() const;
+	/// Optional
 	bool canChangeInfo() const;
+	/// Optional
 	bool canInviteUsers() const;
+	/// Optional
 	bool canPinMessages() const;
+	/// Optional
 	bool isMember() const;
+	/// Optional
 	bool canSendMessages() const;
+	/// Optional
 	bool canSendMediaMessages() const;
+	/// Optional
 	bool canSendPolls() const;
+	/// Optional
 	bool canSendOtherMessages() const;
+	/// Optional
 	bool canAddWebPagePreviews() const;
 
 private:

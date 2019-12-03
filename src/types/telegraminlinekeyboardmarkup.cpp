@@ -2,26 +2,35 @@
 
 #include <QJsonArray>
 
-TelegramInlineKeyboardMarkup::TelegramInlineKeyboardMarkup(
-		const QList<TelegramInlineKeyboardButton> &keyboard)
+TelegramInlineKeyboardMarkup::TelegramInlineKeyboardMarkup(const QJsonObject &json)
 {
-	for(auto button : keyboard)
+	QJsonArray arrayButtons = json["inline_keyboard"].toArray();
+
+	for(QJsonValueRef arrayButton : arrayButtons)
 	{
-		TelegramInlineKeyboardButton *newButton = new TelegramInlineKeyboardButton(button);
-		m_inlineKeyboard.append(newButton);
+		TelegramInlineKeyboardButton button(arrayButton.toObject());
+
+		m_inlineKeyboard.append(button);
 	}
 }
 
-QList<TelegramInlineKeyboardButton *> TelegramInlineKeyboardMarkup::inlineKeyboard() const
+TelegramInlineKeyboardMarkup::TelegramInlineKeyboardMarkup(
+		const QList<TelegramInlineKeyboardButton> &keyboard)
+{
+	m_inlineKeyboard = keyboard;
+}
+
+QList<TelegramInlineKeyboardButton> TelegramInlineKeyboardMarkup::inlineKeyboard() const
 {
 	return m_inlineKeyboard;
 }
 
-void TelegramInlineKeyboardMarkup::setInlineKeyboard(const QList<TelegramInlineKeyboardButton *> &inlineKeyboard)
+void TelegramInlineKeyboardMarkup::setInlineKeyboard(const QList<TelegramInlineKeyboardButton> &inlineKeyboard)
 {
 	m_inlineKeyboard = inlineKeyboard;
 }
-
+#include <QtDebug>
+#include <QJsonDocument>
 QJsonObject TelegramInlineKeyboardMarkup::toJson() const
 {
 	QJsonObject json;
@@ -29,24 +38,13 @@ QJsonObject TelegramInlineKeyboardMarkup::toJson() const
 	QJsonArray keyboard;
 	for(auto button : m_inlineKeyboard)
 	{
-		QJsonObject buttonObject = button->toJson();
+		QJsonObject buttonObject = button.toJson();
 		QJsonArray array;
 		array.append(buttonObject);
 		keyboard.append(array);
 	}
 
 	json["inline_keyboard"] = keyboard;
-
+	qDebug() << QJsonDocument(json);
 	return json;
-}
-
-TelegramInlineKeyboardMarkup::~TelegramInlineKeyboardMarkup()
-{
-	if(!m_inlineKeyboard.isEmpty())
-	{
-		for(auto key : m_inlineKeyboard)
-		{
-			delete key;
-		}
-	}
 }

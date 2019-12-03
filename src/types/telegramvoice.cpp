@@ -7,13 +7,6 @@ TelegramVoice::TelegramVoice(const QJsonObject &json)
 	if(json.contains("mime_type")) m_mimeType = json["mime_type"].toString();
 	if(json.contains("file_size")) m_fileSize = json["file_size"].toInt();
 	m_fileId = json["file_id"].toString();
-	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
-}
-
-TelegramVoice::~TelegramVoice()
-{
-	if(m_thumb)
-		delete m_thumb;
 }
 
 int TelegramVoice::duration() const
@@ -29,4 +22,9 @@ QString TelegramVoice::mimeType() const
 int TelegramVoice::fileSize() const
 {
 	return m_fileSize;
+}
+
+QString TelegramVoice::fileId() const
+{
+	return m_fileId;
 }

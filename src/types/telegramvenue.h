@@ -1,24 +1,27 @@
 #ifndef TELEGRAMVENUE_H
 #define TELEGRAMVENUE_H
 
+#include "telegramlocation.h"
 #include <QJsonObject>
-
-class TelegramLocation;
 
 class TelegramVenue
 {
 public:
 	TelegramVenue(const QJsonObject &json);
-	~TelegramVenue();
 
-	TelegramLocation *location() const;
+	/// Necessarily
+	TelegramLocation location() const;
+	/// Necessarily
 	QString title() const;
+	/// Necessarily
 	QString address() const;
+	/// Optional
 	QString foursquareId() const;
+	/// Optional
 	QString foursquareType() const;
 
 private:
-	TelegramLocation *m_location;
+	TelegramLocation m_location;
 	QString m_title;
 	QString m_address;
 	QString m_foursquareId;

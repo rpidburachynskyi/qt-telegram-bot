@@ -9,17 +9,21 @@ class TelegramDocument
 {
 public:
 	TelegramDocument(const QJsonObject &json);
+	TelegramDocument(const TelegramDocument &document);
 	~TelegramDocument();
 
+	/// Necessarily
 	QString fileId() const;
-
+	/// Optional
 	TelegramPhotoSize *thumb() const;
-
+	/// Optional
 	QString fileName() const;
-
+	/// Optional
 	QString mimeType() const;
-
+	/// Optional
 	int fileSize() const;
+
+	TelegramDocument &operator=(const TelegramDocument &document) = delete;
 
 private:
 	QString m_fileId;

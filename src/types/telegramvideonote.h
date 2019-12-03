@@ -9,6 +9,7 @@ class TelegramVideoNote
 {
 public:
 	TelegramVideoNote(const QJsonObject &json);
+	TelegramVideoNote(const TelegramVideoNote &videoNote);
 	~TelegramVideoNote();
 
 	int length() const;

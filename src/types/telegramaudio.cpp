@@ -12,6 +12,19 @@ TelegramAudio::TelegramAudio(const QJsonObject &json)
 	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
 }
 
+TelegramAudio::TelegramAudio(const TelegramAudio &audio)
+{
+	if(audio.m_thumb) m_thumb = new TelegramPhotoSize(*audio.m_thumb);
+	else m_thumb = nullptr;
+
+	m_duration = audio.m_duration;
+	m_performer = audio.m_performer;
+	m_title = audio.m_title;
+	m_mimeType = audio.m_mimeType;
+	m_fileSize = audio.m_fileSize;
+	m_fileId = audio.m_fileId;
+}
+
 TelegramAudio::~TelegramAudio()
 {
 	if(m_thumb)
@@ -51,4 +64,21 @@ TelegramPhotoSize *TelegramAudio::thumb() const
 QString TelegramAudio::fileId() const
 {
 	return m_fileId;
+}
+
+TelegramAudio &TelegramAudio::operator=(const TelegramAudio &audio)
+{
+	delete m_thumb;
+
+	if(audio.m_thumb) m_thumb = new TelegramPhotoSize(*audio.m_thumb);
+	else m_thumb = nullptr;
+
+	m_duration = audio.m_duration;
+	m_performer = audio.m_performer;
+	m_title = audio.m_title;
+	m_mimeType = audio.m_mimeType;
+	m_fileSize = audio.m_fileSize;
+	m_fileId = audio.m_fileId;
+
+	return *this;
 }

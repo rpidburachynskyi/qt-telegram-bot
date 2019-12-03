@@ -10,6 +10,7 @@ class TelegramEncryptedPassportElement
 {
 public:
 	TelegramEncryptedPassportElement(const QJsonObject &json);
+	TelegramEncryptedPassportElement(const TelegramEncryptedPassportElement &element);
 	~TelegramEncryptedPassportElement();
 
 	/// Necessarily

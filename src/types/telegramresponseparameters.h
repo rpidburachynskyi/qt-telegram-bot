@@ -8,8 +8,9 @@ class TelegramResponseParameters
 public:
 	TelegramResponseParameters(const QJsonObject &json);
 
+	/// Optional
 	int migrateToChatId() const;
-
+	/// Optional
 	int retryAfter() const;
 
 private:

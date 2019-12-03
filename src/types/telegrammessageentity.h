@@ -9,13 +9,21 @@ class TelegramMessageEntity
 {
 public:
 	TelegramMessageEntity(const QJsonObject &json);
+	TelegramMessageEntity(const TelegramMessageEntity &messageEntity);
 	~TelegramMessageEntity();
 
+	/// Necessarily
 	QString type() const;
+	/// Necessarily
 	int offset() const;
+	/// Necessarily
 	int length() const;
+	/// Optional
 	QString url() const;
+	/// Optional
 	TelegramUser *user() const;
+
+	TelegramMessageEntity& operator=(const TelegramMessageEntity &messageEntity) = delete;
 
 private:
 	QString m_type;

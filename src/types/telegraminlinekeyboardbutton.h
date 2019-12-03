@@ -9,7 +9,15 @@ class TelegramCallbackGame;
 class TelegramInlineKeyboardButton
 {
 public:
-	TelegramInlineKeyboardButton(const QString &text);
+	TelegramInlineKeyboardButton(const QJsonObject &json);
+	TelegramInlineKeyboardButton(const QString &text,
+								 const QString &url = "",
+								 const TelegramLoginUrl *loginUrl = nullptr,
+								 const QString &callbackData = "",
+								 const QString &switchInlineQuery = "",
+								 const QString &switchInlineQueryCurrentChat = "",
+								 const TelegramCallbackGame *callbackGame = nullptr,
+								 const bool &pay = false);
 	TelegramInlineKeyboardButton(const TelegramInlineKeyboardButton &button);
 	~TelegramInlineKeyboardButton();
 
@@ -31,6 +39,9 @@ public:
 	QString switchInlineQueryCurrentChat() const;
 	void setSwitchInlineQueryCurrentChat(const QString &switchInlineQueryCurrentChat);
 
+	TelegramCallbackGame *callbackGame() const;
+	void setCallbackGame(TelegramCallbackGame *callbackGame);
+
 	bool pay() const;
 	void setPay(bool pay);
 
@@ -45,6 +56,7 @@ private:
 	QString m_callbackData;
 	QString m_switchInlineQuery;
 	QString m_switchInlineQueryCurrentChat;
+	TelegramCallbackGame *m_callbackGame;
 	bool m_pay;
 };
 

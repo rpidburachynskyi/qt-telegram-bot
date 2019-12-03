@@ -9,17 +9,16 @@
 class TelegramInlineKeyboardMarkup : public iTelegramMessageKeyboard
 {
 public:
+	TelegramInlineKeyboardMarkup(const QJsonObject &json);
 	TelegramInlineKeyboardMarkup(const QList<TelegramInlineKeyboardButton> &keyboard);
 
-	QList<TelegramInlineKeyboardButton *> inlineKeyboard() const;
-	void setInlineKeyboard(const QList<TelegramInlineKeyboardButton *> &inlineKeyboard);
+	QList<TelegramInlineKeyboardButton> inlineKeyboard() const;
+	void setInlineKeyboard(const QList<TelegramInlineKeyboardButton> &inlineKeyboard);
 
 	QJsonObject toJson() const override;
 
-	~TelegramInlineKeyboardMarkup() override;
-
 private:
-	QList<TelegramInlineKeyboardButton *> m_inlineKeyboard;
+	QList<TelegramInlineKeyboardButton> m_inlineKeyboard;
 };
 
 #endif // TELEGRAMINLINEKEYBOARDMARKUP_H

@@ -12,8 +12,7 @@ TelegramUpdate::TelegramUpdate(const QJsonObject &json)
 
 TelegramUpdate::~TelegramUpdate()
 {
-	if(m_message)
-		delete m_message;
+	delete m_message;
 }
 
 QString TelegramUpdate::updateId() const

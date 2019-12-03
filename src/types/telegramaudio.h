@@ -9,15 +9,25 @@ class TelegramAudio
 {
 public:
 	TelegramAudio(const QJsonObject &json);
+	TelegramAudio(const TelegramAudio &audio);
 	~TelegramAudio();
 
-	int duration() const;
-	QString performer() const;
-	QString title() const;
-	QString mimeType() const;
-	int fileSize() const;
-	TelegramPhotoSize *thumb() const;
+	/// Necessarily
 	QString fileId() const;
+	/// Necessarily
+	int duration() const;
+	/// Optional
+	QString performer() const;
+	/// Optional
+	QString title() const;
+	/// Optional
+	QString mimeType() const;
+	/// Optional
+	int fileSize() const;
+	/// Optional
+	TelegramPhotoSize *thumb() const;
+
+	TelegramAudio& operator=(const TelegramAudio &audio);
 
 private:
 	QString m_fileId;

@@ -11,8 +11,11 @@ public:
 						   const bool &requestContact = false,
 						   const bool &requestLocation = false);
 
+	/// Necessarily
 	QString text() const;
+	/// Optional
 	bool requestContact() const;
+	/// Optional
 	bool requestLocation() const;
 
 	QJsonObject toJson() const;

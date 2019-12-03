@@ -14,6 +14,20 @@ TelegramAnimation::TelegramAnimation(const QJsonObject &json)
 	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
 }
 
+TelegramAnimation::TelegramAnimation(const TelegramAnimation &animation)
+{
+	m_width = animation.m_width;
+	m_height = animation.m_height;
+	m_duration = animation.m_duration;
+	m_fileName = animation.m_fileName;
+	m_mimeType = animation.m_mimeType;
+	m_fileSize = animation.m_fileSize;
+	m_fileId = animation.m_fileId;
+
+	if(animation.m_thumb) m_thumb = new TelegramPhotoSize(*animation.m_thumb);
+	else m_thumb = nullptr;
+}
+
 TelegramAnimation::~TelegramAnimation()
 {
 	if(m_thumb)
@@ -48,4 +62,22 @@ QString TelegramAnimation::mimeType() const
 int TelegramAnimation::fileSize() const
 {
 	return m_fileSize;
+}
+
+TelegramAnimation &TelegramAnimation::operator=(const TelegramAnimation &animation)
+{
+	delete m_thumb;
+
+	m_width = animation.m_width;
+	m_height = animation.m_height;
+	m_duration = animation.m_duration;
+	m_fileName = animation.m_fileName;
+	m_mimeType = animation.m_mimeType;
+	m_fileSize = animation.m_fileSize;
+	m_fileId = animation.m_fileId;
+
+	if(animation.m_thumb) m_thumb = new TelegramPhotoSize(*animation.m_thumb);
+	else m_thumb = nullptr;
+
+	return *this;
 }

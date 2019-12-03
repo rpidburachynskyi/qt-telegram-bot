@@ -13,14 +13,23 @@ public:
 	TelegramSticker(const TelegramSticker &sticker);
 	~TelegramSticker();
 
+	/// Necessarily
 	QString fileId() const;
+	/// Necessarily
 	int width() const;
+	/// Necessarily
 	int height() const;
+	/// Necessarily
 	bool isAnimated() const;
+	/// Optional
 	TelegramPhotoSize *thumb() const;
+	/// Optional
 	QString emoji() const;
+	/// Optional
 	QString setName() const;
+	/// Optional
 	TelegramMaskPosition *maskPosition() const;
+	/// Optional
 	int fileSize() const;
 
 	TelegramSticker &operator=(const TelegramSticker &sticker);

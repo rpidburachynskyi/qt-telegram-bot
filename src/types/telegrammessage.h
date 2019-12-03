@@ -24,17 +24,17 @@ class TelegramLeftNewChatMember;
 class TelegramNewChatPhoto;
 class TelegramInvoice;
 class TelegramSuccessfulPayment;
-class TelegramPasportData;
+class TelegramPassportData;
 class TelegramReplyMarkup;
 class TelegramInlineKeyboardMarkup;
-
 
 class TelegramMessage
 {
 public:
-	TelegramMessage(const QJsonObject &json);
+	explicit TelegramMessage(const QJsonObject &json);
+	explicit TelegramMessage(const TelegramMessage &message);
 
-	QString id() const;
+	QString id() const { return m_id; }
 	TelegramUser *from() const;
 	int date() const;
 	TelegramChat *chat() const;
@@ -64,10 +64,10 @@ public:
 	TelegramLocation *location() const;
 	TelegramVenue *venue() const;
 	TelegramPoll *poll() const;
-	QList<TelegramLeftNewChatMember *> newChatMembers() const;
-	TelegramLeftNewChatMember *leftChatMember() const;
+	QList<TelegramUser *> newChatMembers() const;
+	TelegramUser *leftChatMember() const;
 	QString newChatTitle() const;
-//	QList<TelegramPhoto *> newChatPhoto() const;
+	QList<TelegramPhotoSize *> newChatPhoto() const;
 	bool deleteChatPhoto() const;
 	bool groupChatCreated() const;
 	bool supergroupChatCreated() const;
@@ -78,7 +78,7 @@ public:
 	TelegramInvoice *invoice() const;
 	TelegramSuccessfulPayment *successfulPayment() const;
 	QString connectedWebsite() const;
-	TelegramPasportData *passportData() const;
+	TelegramPassportData *passportData() const;
 	TelegramInlineKeyboardMarkup *replyMarkup() const;
 
 private:
@@ -112,10 +112,10 @@ private:
 	TelegramLocation *m_location;
 	TelegramVenue *m_venue;
 	TelegramPoll *m_poll;
-	QList<TelegramLeftNewChatMember *> m_newChatMembers;
-	TelegramLeftNewChatMember *m_leftChatMember;
+	QList<TelegramUser *> m_newChatMembers;
+	TelegramUser *m_leftChatMember;
 	QString m_newChatTitle;
-	//QList<TelegramPhoto *> m_newChatPhoto;
+	QList<TelegramPhotoSize *> m_newChatPhoto;
 	bool m_deleteChatPhoto;
 	bool m_groupChatCreated;
 	bool m_supergroupChatCreated;
@@ -126,7 +126,7 @@ private:
 	TelegramInvoice *m_invoice;
 	TelegramSuccessfulPayment *m_successfulPayment;
 	QString m_connectedWebsite;
-	TelegramPasportData *m_passportData;
+	TelegramPassportData *m_passportData;
 	TelegramInlineKeyboardMarkup *m_replyMarkup;
 };
 

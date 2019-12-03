@@ -10,6 +10,16 @@ TelegramVideoNote::TelegramVideoNote(const QJsonObject &json)
 	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
 }
 
+TelegramVideoNote::TelegramVideoNote(const TelegramVideoNote &videoNote)
+{
+	m_thumb = videoNote.m_thumb ? new TelegramPhotoSize(*videoNote.m_thumb) : nullptr;
+
+	m_fileId = videoNote.m_fileId;
+	m_length = videoNote.m_length;
+	m_duration = videoNote.m_duration;
+	m_fileSize = videoNote.m_fileSize;
+}
+
 TelegramVideoNote::~TelegramVideoNote()
 {
 	if(m_thumb)

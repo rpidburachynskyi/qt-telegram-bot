@@ -17,10 +17,13 @@ public:
 
 	~TelegramReplyKeyboardMarkup() override;
 
+	/// Necessarily
 	QList<TelegramKeyboardButton> keyboard() const;
-
+	/// Optional
 	bool resizeKeyboard() const;
+	/// Optional
 	bool oneTimeKeyboard() const;
+	/// Optional
 	bool selective() const;
 
 	QJsonObject toJson() const override;

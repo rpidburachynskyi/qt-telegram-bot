@@ -20,6 +20,16 @@ TelegramPoll::TelegramPoll(const QJsonObject &json)
 
 }
 
+TelegramPoll::TelegramPoll(const TelegramPoll &poll)
+{
+	for(TelegramPollOption *option : poll.m_options)
+		m_options.append(new TelegramPollOption(*option));
+
+	m_id = poll.m_id;
+	m_question = poll.m_question;
+	m_isClosed = poll.m_isClosed;
+}
+
 TelegramPoll::~TelegramPoll()
 {
 	if(!m_options.isEmpty())

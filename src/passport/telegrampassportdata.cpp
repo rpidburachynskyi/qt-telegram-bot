@@ -4,14 +4,26 @@
 
 TelegramPassportData::TelegramPassportData(const QJsonObject &json)
 {
-	m_credentials = (json.contains("credentials")) ? new TelegramEncryptedCredentials(json["credentials"].toObject()) : nullptr;
+	m_credentials = new TelegramEncryptedCredentials(json["credentials"].toObject());
 
 	QJsonArray dataArray = json["data"].toArray();
 
-	for(auto dataObject : dataArray)
+	for(QJsonValueRef dataObject : dataArray)
 	{
 		auto data = new TelegramEncryptedPassportElement(dataObject.toObject());
 		m_data.append(data);
+	}
+}
+
+TelegramPassportData::TelegramPassportData(const TelegramPassportData &data)
+{
+	m_credentials = new TelegramEncryptedCredentials(*data.m_credentials);
+
+	for(TelegramEncryptedPassportElement *element : data.m_data)
+	{
+		auto *newElemnt = new TelegramEncryptedPassportElement(*element);
+
+		m_data.append(newElemnt);
 	}
 }
 

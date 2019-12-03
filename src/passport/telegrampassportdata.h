@@ -8,6 +8,7 @@ class TelegramPassportData
 {
 public:
 	TelegramPassportData(const QJsonObject &json);
+	TelegramPassportData(const TelegramPassportData &data);
 	~TelegramPassportData();
 
 	/// Necessarily

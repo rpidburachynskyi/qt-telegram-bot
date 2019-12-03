@@ -8,17 +8,28 @@ class TelegramPhotoSize;
 class TelegramAnimation
 {
 public:
-	TelegramAnimation(const QJsonObject &json);
+	explicit TelegramAnimation(const QJsonObject &json);
+	explicit TelegramAnimation(const TelegramAnimation &animation);
 	~TelegramAnimation();
 
-	int width() const;
-	int height() const;
-	int duration() const;
-	QString fileName() const;
-	QString mimeType() const;
-	int fileSize() const;
-	TelegramPhotoSize *thumb() const;
+	/// Optional
 	QString fileId() const;
+	/// Optional
+	int width() const;
+	/// Optional
+	int height() const;
+	/// Optional
+	int duration() const;
+	/// Optional
+	TelegramPhotoSize *thumb() const;
+	/// Necessarily
+	QString fileName() const;
+	/// Necessarily
+	QString mimeType() const;
+	/// Necessarily
+	int fileSize() const;
+
+	TelegramAnimation& operator=(const TelegramAnimation &animation);
 
 private:
 	QString m_fileId;

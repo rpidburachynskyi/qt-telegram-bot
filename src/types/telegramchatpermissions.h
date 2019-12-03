@@ -16,13 +16,21 @@ public:
 							const bool &canInviteUsers,
 							const bool &canPinMessages);
 
+	/// Optional
 	bool canSendMessages() const;
+	/// Optional
 	bool canSendMediaMessages() const;
+	/// Optional
 	bool canSendPolls() const;
+	/// Optional
 	bool canSendOtherMessages() const;
+	/// Optional
 	bool canAddWebPagePreviews() const;
+	/// Optional
 	bool canChangeInfo() const;
+	/// Optional
 	bool canInviteUsers() const;
+	/// Optional
 	bool canPinMessages() const;
 
 	void setCanSendMessages(bool canSendMessages);

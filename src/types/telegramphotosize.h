@@ -9,9 +9,13 @@ public:
 	TelegramPhotoSize(const QJsonObject &json);
 	~TelegramPhotoSize();
 
+	/// Necessarily
 	QString fileId() const;
+	/// Necessarily
 	int width() const;
+	/// Necessarily
 	int height() const;
+	/// Optional
 	int fileSize() const;
 
 private:

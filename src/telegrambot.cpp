@@ -26,7 +26,7 @@ TelegramBot::TelegramBot(const QString &token,
 
 	connect(manager, &QNetworkAccessManager::sslErrors, [](QNetworkReply *, const QList<QSslError> &errors)
 	{
-		qDebug() << "E" << errors.size();
+		qDebug() << "SSL ERRORS SIZE" << errors.size();
 	});
 }
 
@@ -867,7 +867,6 @@ void TelegramBot::onTelegramRequestReply(TelegramRequest *telegramRequest)
 	TelegramRequest::RequestType rtype = telegramRequest->requestType();
 
 	QJsonDocument doc = QJsonDocument::fromJson(telegramRequest->reply()->readAll());
-	qDebug() << doc;
 	QJsonObject json = doc.object();
 	QJsonObject result = json["result"].toObject();
 	switch (rtype)

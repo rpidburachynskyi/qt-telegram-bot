@@ -11,14 +11,15 @@ class TelegramStickerSet
 public:
 	TelegramStickerSet(const QJsonObject &json);
 
+	/// Necessarily
 	QString name() const;
-
+	/// Necessarily
 	QString title() const;
-
+	/// Necessarily
 	bool isAnimated() const;
-
+	/// Necessarily
 	bool containsMasks() const;
-
+	/// Necessarily
 	QList<TelegramSticker> stickers() const;
 
 private:

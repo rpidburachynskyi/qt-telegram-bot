@@ -9,11 +9,17 @@ class TelegramUser
 public:
 	TelegramUser(const QJsonObject &json);
 
+	/// Necessarily
 	QString id() const;
+	/// Necessarily
 	bool isBot() const;
+	/// Necessarily
 	QString firstName() const;
+	/// Optional
 	QString lastName() const;
+	/// Optional
 	QString username() const;
+	/// Optional
 	QString languageCode() const;
 
 private:

@@ -10,6 +10,16 @@ TelegramDocument::TelegramDocument(const QJsonObject &json)
 	if(json.contains("file_size")) m_fileSize = json["file_size"].toInt();
 }
 
+TelegramDocument::TelegramDocument(const TelegramDocument &document)
+{
+	m_thumb = (document.m_thumb) ? new TelegramPhotoSize(*document.m_thumb) : nullptr;
+
+	m_fileId = document.m_fileId;
+	m_fileName = document.m_fileName;
+	m_mimeType = document.m_mimeType;
+	m_fileSize = document.m_fileSize;
+}
+
 TelegramDocument::~TelegramDocument()
 {
 	if(m_thumb)

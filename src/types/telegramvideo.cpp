@@ -12,10 +12,21 @@ TelegramVideo::TelegramVideo(const QJsonObject &json)
 	m_thumb = (json.contains("thumb")) ? new TelegramPhotoSize(json["thumb"].toObject()) : nullptr;
 }
 
+TelegramVideo::TelegramVideo(const TelegramVideo &video)
+{
+	m_thumb = video.m_thumb ? new TelegramPhotoSize(*video.m_thumb) : nullptr;
+
+	m_fileId = video.m_fileId;
+	m_width = video.m_width;
+	m_height = video.m_height;
+	m_duration = video.m_duration;
+	m_mimeType = video.m_mimeType;
+	m_fileSize = video.m_fileSize;
+}
+
 TelegramVideo::~TelegramVideo()
 {
-	if(m_thumb)
-		delete m_thumb;
+	delete m_thumb;
 }
 
 int TelegramVideo::width() const

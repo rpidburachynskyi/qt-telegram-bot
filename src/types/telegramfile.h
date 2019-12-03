@@ -8,8 +8,11 @@ class TelegramFile
 public:
 	TelegramFile(const QJsonObject &json);
 
+	/// Necessarily
 	QString fileId() const;
+	/// Optional
 	int fileSize() const;
+	/// Optional
 	QString filePath() const;
 
 private:

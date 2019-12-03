@@ -11,10 +11,13 @@ class TelegramUpdate : public TelegramResult
 {
 public:
 	TelegramUpdate(const QJsonObject &json);
+	TelegramUpdate(const TelegramUpdate &update) = delete;
 	~TelegramUpdate();
 
 	QString updateId() const;
 	TelegramMessage *message() const;
+
+	TelegramUpdate& operator=(const TelegramUpdate& update) = delete;
 
 private:
 	QString m_updateId;

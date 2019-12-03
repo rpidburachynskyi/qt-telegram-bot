@@ -13,10 +13,11 @@
 #include "telegramlocation.h"
 #include "telegramvenue.h"
 #include "telegrampoll.h"
-#include "telegramleftnewchatmember.h"
+#include "telegraminlinekeyboardmarkup.h"
 #include "stickers/telegramsticker.h"
 #include "payments/telegraminvoice.h"
 #include "payments/telegramsuccessfulpayment.h"
+#include "passport/telegrampassportdata.h"
 
 #include <QVariant>
 #include <QJsonArray>
@@ -24,13 +25,13 @@
 TelegramMessage::TelegramMessage(const QJsonObject &json)
 {
 	m_id = json["message_id"].toVariant().toString();
-	m_date = json["date"].toInt();
 	m_from = (json.contains("from")) ? new TelegramUser(json["from"].toObject()) : nullptr;
+	m_date = json["date"].toInt();
 	m_chat = json.contains("chat") ? new TelegramChat(json["chat"].toObject()) : nullptr;
-	m_text = json["text"].toString("");
 
 	m_forwardFrom = (json.contains("forward_from")) ? new TelegramUser(json["forward_from"].toObject()) : nullptr;
 	m_forwardFromChat = (json.contains("forward_from_chat")) ? new TelegramChat(json["forward_from_chat"].toObject()) : nullptr;
+
 
 	m_forwardFromMessageId = json["forward_from_message_id"].toString("");
 	m_forwardSignature = json["forward_signature"].toString("");
@@ -43,13 +44,15 @@ TelegramMessage::TelegramMessage(const QJsonObject &json)
 
 	m_mediaGroupId = json["media_group"].toString("");
 	m_autorSignature = json["autor_signature"].toString("");
+	m_text = json["text"].toString("");
 
-	m_animation = (json.contains("animation")) ? new TelegramAnimation(json["animation"].toObject()) : nullptr;
 	m_audio = (json.contains("audio")) ? new TelegramAudio(json["audio"].toObject()) : nullptr;
 	m_document = (json.contains("document")) ? new TelegramDocument(json["document"].toObject()) : nullptr;
+	m_animation = (json.contains("animation")) ? new TelegramAnimation(json["animation"].toObject()) : nullptr;
+	// m_game FIXIT
+	m_sticker = (json.contains("sticker")) ? new TelegramSticker(json["sticker"].toObject()) : nullptr;
 	m_video = (json.contains("video")) ? new TelegramVideo(json["video"].toObject()) : nullptr;
 	m_voice = (json.contains("voice")) ? new TelegramVoice(json["voice"].toObject()) : nullptr;
-	m_sticker = (json.contains("sticker")) ? new TelegramSticker(json["sticker"].toObject()) : nullptr;
 
 	m_caption = json["caption"].toString("");
 
@@ -58,7 +61,7 @@ TelegramMessage::TelegramMessage(const QJsonObject &json)
 	m_venue = (json.contains("venue")) ? new TelegramVenue(json["venue"].toObject()) : nullptr;
 	m_poll = (json.contains("poll")) ? new TelegramPoll(json["poll"].toObject()) : nullptr;
 
-	m_leftChatMember = (json.contains("left_chat_member")) ? new TelegramLeftNewChatMember(json["left_chat_member"].toObject()) : nullptr;
+	m_leftChatMember = (json.contains("left_chat_member")) ? new TelegramUser(json["left_chat_member"].toObject()) : nullptr;
 
 	m_newChatTitle = json["new_chat_title"].toString("");
 
@@ -76,6 +79,10 @@ TelegramMessage::TelegramMessage(const QJsonObject &json)
 	m_successfulPayment = (json.contains("successful_payment")) ? new TelegramSuccessfulPayment(json["successful_payment"].toObject()) : nullptr;
 
 	m_connectedWebsite = json["connected_website"].toString("");
+
+	m_passportData = (json.contains("passport_data")) ? new TelegramPassportData(json["passport_data"].toObject()) : nullptr;
+
+	m_replyMarkup = (json.contains("reply_markup")) ? new TelegramInlineKeyboardMarkup(json["reply_markup"].toObject()) : nullptr;
 
 	if(json.contains("photo"))
 	{
@@ -97,21 +104,41 @@ TelegramMessage::TelegramMessage(const QJsonObject &json)
 		}
 	}
 
+	if(json.contains("caption_entities"))
+	{
+		QJsonArray entities = json["entities"].toArray();
+		for(auto entityObject : entities)
+		{
+			TelegramMessageEntity *entity = new TelegramMessageEntity(entityObject.toObject());
+			m_captionEntities.append(entity);
+		}
+	}
+
+	if(json.contains("new_chat_photo"))
+	{
+		QJsonArray photo = json["new_chat_photo"].toArray();
+		for(auto part : photo)
+		{
+			TelegramPhotoSize *photoSize = new TelegramPhotoSize(part.toObject());
+			m_newChatPhoto.append(photoSize);
+		}
+	}
+
 	if(json.contains("new_chat_members"))
 	{
 		QJsonArray members = json["new_chat_members"].toArray();
 		for(auto member : members)
 		{
-			TelegramLeftNewChatMember *newMember = new TelegramLeftNewChatMember(member.toObject());
+			TelegramUser *newMember = new TelegramUser(member.toObject());
 
 			m_newChatMembers.append(newMember);
 		}
 	}
 }
 
-QString TelegramMessage::id() const
+TelegramMessage::TelegramMessage(const TelegramMessage &message)
 {
-	return m_id;
+
 }
 
 TelegramUser *TelegramMessage::from() const
@@ -259,12 +286,12 @@ TelegramPoll *TelegramMessage::poll() const
 	return m_poll;
 }
 
-QList<TelegramLeftNewChatMember *> TelegramMessage::newChatMembers() const
+QList<TelegramUser *> TelegramMessage::newChatMembers() const
 {
 	return m_newChatMembers;
 }
 
-TelegramLeftNewChatMember *TelegramMessage::leftChatMember() const
+TelegramUser *TelegramMessage::leftChatMember() const
 {
 	return m_leftChatMember;
 }
@@ -274,10 +301,10 @@ QString TelegramMessage::newChatTitle() const
 	return m_newChatTitle;
 }
 
-//QList<TelegramPhoto *> TelegramMessage::newChatPhoto() const
-//{
-//	return m_newChatPhoto;
-//}
+QList<TelegramPhotoSize *> TelegramMessage::newChatPhoto() const
+{
+	return m_newChatPhoto;
+}
 
 bool TelegramMessage::deleteChatPhoto() const
 {
@@ -329,7 +356,7 @@ QString TelegramMessage::connectedWebsite() const
 	return m_connectedWebsite;
 }
 
-TelegramPasportData *TelegramMessage::passportData() const
+TelegramPassportData *TelegramMessage::passportData() const
 {
 	return m_passportData;
 }

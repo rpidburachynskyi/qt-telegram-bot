@@ -33,29 +33,45 @@ TelegramEncryptedPassportElement::TelegramEncryptedPassportElement(const QJsonOb
 	}
 }
 
-TelegramEncryptedPassportElement::~TelegramEncryptedPassportElement()
+TelegramEncryptedPassportElement::TelegramEncryptedPassportElement(const TelegramEncryptedPassportElement &element)
 {
-	if(m_frontSide)
-		delete m_frontSide;
-	if(m_reverseSide)
-		delete m_reverseSide;
-	if(m_selfie)
-		delete m_selfie;
+	m_frontSide = element.m_frontSide ? new TelegramPassportFile(*m_frontSide) : nullptr;
+	m_reverseSide = element.m_reverseSide ? new TelegramPassportFile(*m_reverseSide) : nullptr;
+	m_selfie = element.m_selfie ? new TelegramPassportFile(*m_selfie) : nullptr;
 
-	if(!m_files.isEmpty())
+	for(const TelegramPassportFile *file : element.m_files)
 	{
-		for(auto file : m_files)
-		{
-			delete file;
-		}
+		const TelegramPassportFile *newFile = new const TelegramPassportFile(*file);
+		m_files.append(newFile);
 	}
 
-	if(!m_translation.isEmpty())
+	for(const TelegramPassportFile *transl : element.m_translation)
 	{
-		for(auto transl : m_translation)
-		{
-			delete transl;
-		}
+		const TelegramPassportFile *newTransl = new const TelegramPassportFile(*transl);
+		m_files.append(newTransl);
+	}
+
+	m_type = element.m_type;
+	m_data = element.m_data;
+	m_phoneNumber = element.m_phoneNumber;
+	m_email = element.m_email;
+	m_hash = element.m_hash;
+}
+
+TelegramEncryptedPassportElement::~TelegramEncryptedPassportElement()
+{
+	delete m_frontSide;
+	delete m_reverseSide;
+	delete m_selfie;
+
+	for(auto file : m_files)
+	{
+		delete file;
+	}
+
+	for(auto transl : m_translation)
+	{
+		delete transl;
 	}
 }
 
