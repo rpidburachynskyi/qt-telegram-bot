@@ -7,28 +7,28 @@ Static build of the project is used for inclusion. To do this, simply include ev
 # How to use
 To create a bot, you must include a header file in the project.
 
-```qmake
+```cpp
 #include "src/telegrambot.h"
 ```
 The next step is the initialization, it is done with the token you received from @BotFather
 
-```qmake
+```cpp
 TelegramBot bot(TOKEN);
 ```
 There are two ways to get updates, you can do this.
 
 * Use the queries that will receive updates
-```qmake
+```cpp
 bot.startPolling();
 ```
 
 * With the server and the address to which the updates will come
-```qmake
+```cpp
 bot.setWebhook(TelegramBot::createListenServer(PORT), YOUR_URL);
 ```
 * You can process updates using the "message" signal.
 
-```qmake
+```cpp
 QObject::connect(&bot, &TelegramBot::messaged, [&bot](const TelegramMessage *message)
 {
      qDebug() << "New message";
@@ -36,12 +36,12 @@ QObject::connect(&bot, &TelegramBot::messaged, [&bot](const TelegramMessage *mes
 ```
 
 * You must use the sendMessage method to send messages
-```qmake
+```cpp
 bot.sendMessage(message->chat()->id(), "My first message");
 ```
 # Full code
 
-```qmake
+```cpp
 #include <QCoreApplication>
 
 #include "telegrambot.h"
