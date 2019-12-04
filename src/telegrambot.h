@@ -1,8 +1,8 @@
 #ifndef TELEGRAMBOT_H
 #define TELEGRAMBOT_H
 
-#include "telegramrequest.h"
-#include "telegramrequestdownload.h"
+#include "requests/telegramrequest.h"
+#include "requests/telegramrequestdownload.h"
 #include "types/itelegrammessagekeyboard.h"
 #include "types/telegrammessage.h"
 #include "types/telegramresults.h"
@@ -58,8 +58,8 @@ public:
 	TelegramBot(const QString &token, QObject *parent = nullptr);
 	TelegramBot(const QString &token, QNetworkAccessManager *manager, QObject *parent = nullptr);
 
-	TelegramRequest* startPolling();
-	TelegramRequest* stopPolling();
+	void startPolling();
+	void stopPolling();
 
 	TelegramRequest* setWebhook(QTcpServer *server,
 					const QString &url,
@@ -196,7 +196,6 @@ public:
 	TelegramRequest* getStickerSet(const QString &name);
 
 	TelegramRequest* getMe();
-	TelegramRequest* getUpdates();
 
 	TelegramRequest* kickChatMember(const QString &chatId,
 						const QString &userId,
@@ -273,9 +272,8 @@ signals:
 	void messaged(const TelegramMessage *message);
 
 private slots:
+	void onGetUpdatesFinished(const bool &ok);
 	void onGetUpdates(const QJsonObject &resultObject);
-
-
 
 private:
 	bool m_isPolled;
@@ -287,9 +285,10 @@ private:
 	int m_updateOffset;
 	bool m_mayUpdates;
 
+	void getUpdates();
+
 	TelegramRequest* jsonSend(const QString &title,
-				  const QJsonObject &json = QJsonObject(),
-				  const TelegramRequest::RequestType &requestType = TelegramRequest::Unknown);
+				  const QJsonObject &json = QJsonObject());
 
 	TelegramRequest* multipartSend(const QString &title,
 					   const QJsonObject &json,

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
 	QCoreApplication a(argc, argv);
 
-	QStringList badWords =  {"Hello", "Rostik", "Tawer"};
+	QStringList badWords = {"Hello", "Rostik", "Tawer"};
 
 	TelegramBot bot(TOKEN);
 

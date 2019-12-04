@@ -30,12 +30,13 @@ SOURCES += \
     payments/telegramshippingaddress.cpp \
     payments/telegramshippingquery.cpp \
     payments/telegramsuccessfulpayment.cpp \
+    requests/telegramrequest.cpp \
+    requests/telegramrequestdownload.cpp \
+    requests/telegramrequesterror.cpp \
     stickers/telegrammaskposition.cpp \
     stickers/telegramsticker.cpp \
     stickers/telegramstickerset.cpp \
         telegrambot.cpp \
-    telegramrequest.cpp \
-    telegramrequestdownload.cpp \
     types/itelegrammessagekeyboard.cpp \
     types/telegramanimation.cpp \
     types/telegramaudio.cpp \
@@ -97,12 +98,13 @@ HEADERS += \
     payments/telegramshippingaddress.h \
     payments/telegramshippingquery.h \
     payments/telegramsuccessfulpayment.h \
+    requests/telegramrequest.h \
+    requests/telegramrequestdownload.h \
+    requests/telegramrequesterror.h \
     stickers/telegrammaskposition.h \
     stickers/telegramsticker.h \
     stickers/telegramstickerset.h \
     telegrambot.h \
-    telegramrequest.h \
-    telegramrequestdownload.h \
     types/itelegrammessagekeyboard.h \
     types/telegramanimation.h \
     types/telegramaudio.h \

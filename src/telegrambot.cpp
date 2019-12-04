@@ -34,13 +34,13 @@ TelegramBot::TelegramBot(const QString &token,
 	TelegramBot(token, new QNetworkAccessManager, parent)
 { }
 
-TelegramRequest *TelegramBot::startPolling()
+void TelegramBot::startPolling()
 {
 	m_isPolled = true;
 	getUpdates();
 }
 
-TelegramRequest *TelegramBot::stopPolling()
+void TelegramBot::stopPolling()
 {
 	m_isPolled = false;
 }
@@ -112,7 +112,7 @@ TelegramRequest *TelegramBot::sendMessage(const QString &id,
 	if(replyMarkup)
 		json["reply_markup"] = replyMarkup->toJson();
 
-	return jsonSend("sendMessage", json, TelegramRequest::SendMessages);
+	return jsonSend("sendMessage", json);
 }
 
 TelegramRequest *TelegramBot::sendMessage(const QString &id,
@@ -133,7 +133,7 @@ TelegramRequest *TelegramBot::sendMessage(const QString &id,
 	if(replyMarkup)
 		json["reply_markup"] = replyMarkup->toJson();
 
-	return jsonSend("sendMessage", json, TelegramRequest::SendMessages);
+	return jsonSend("sendMessage", json);
 }
 
 TelegramRequest *TelegramBot::forwardMessage(const QString &chatId, const int &fromChatId, bool disableNotification, const int &messageId)
@@ -144,7 +144,7 @@ TelegramRequest *TelegramBot::forwardMessage(const QString &chatId, const int &f
 	json["disable_notification"] = disableNotification;
 	json["message_id"] = messageId;
 
-	return jsonSend("forwardMessage", json, TelegramRequest::SendMessages);
+	return jsonSend("forwardMessage", json);
 }
 
 TelegramRequest *TelegramBot::sendPhoto(const QString &chatId,
@@ -168,7 +168,7 @@ TelegramRequest *TelegramBot::sendPhoto(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	if(urlOrId) return jsonSend("sendPhoto", json, TelegramRequest::SendMessages);
+	if(urlOrId) return jsonSend("sendPhoto", json);
 	else return multipartSend("sendPhoto", json, packPhoto(inputFile.value()));
 }
 
@@ -203,7 +203,7 @@ TelegramRequest *TelegramBot::sendVideo(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	if(urlOrId) return jsonSend("sendVideo", json, TelegramRequest::SendMessages);
+	if(urlOrId) return jsonSend("sendVideo", json);
 	else return multipartSend("sendVideo", json, packVideo(inputFile.value()));
 }
 
@@ -237,7 +237,7 @@ TelegramRequest *TelegramBot::sendAudio(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	if(urlOrId) return jsonSend("sendAudio", json, TelegramRequest::SendMessages);
+	if(urlOrId) return jsonSend("sendAudio", json);
 	else return multipartSend("sendAudio", json, packAudio(inputFile.value()));
 }
 
@@ -264,7 +264,7 @@ TelegramRequest *TelegramBot::sendVideoNote(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	if(urlOrId) return jsonSend("sendVideoNote", json, TelegramRequest::SendMessages);
+	if(urlOrId) return jsonSend("sendVideoNote", json);
 	else return multipartSend("sendVideoNote", json, packVideoNote(inputFile.value()));
 }
 
@@ -288,7 +288,7 @@ TelegramRequest *TelegramBot::sendMediaGroup(const QString &chatId,
 	json["disable_notification"] = disableNotification;
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 
-	return jsonSend("sendMediaGroup", json, TelegramRequest::SendMessages);
+	return jsonSend("sendMediaGroup", json);
 }
 
 TelegramRequest *TelegramBot::sendDocument(const QString &chatId,
@@ -316,7 +316,7 @@ TelegramRequest *TelegramBot::sendDocument(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	if(urlOrId) return jsonSend("sendDocument", json, TelegramRequest::SendMessages);
+	if(urlOrId) return jsonSend("sendDocument", json);
 	else return multipartSend("sendDocument", json, packDocument(inputFile.value()));
 }
 
@@ -344,7 +344,7 @@ TelegramRequest* TelegramBot::sendAnimation(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	if(urlOrId) return jsonSend("sendAnimation", json, TelegramRequest::SendMessages);
+	if(urlOrId) return jsonSend("sendAnimation", json);
 	else return multipartSend("sendAnimation", json, packAnimation(inputFile.value()));
 }
 
@@ -372,7 +372,7 @@ TelegramRequest *TelegramBot::sendVoice(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	if(urlOrId) return jsonSend("sendVoice", json, TelegramRequest::SendMessages);
+	if(urlOrId) return jsonSend("sendVoice", json);
 	else return multipartSend("sendVoice", json, packVoice(inputFile.value()));
 }
 
@@ -416,7 +416,7 @@ TelegramRequest *TelegramBot::sendChatAction(const QString &chatId,
 		default: throw std::invalid_argument("Unknown chat action");
 	}
 
-	return jsonSend("sendChatAction", json, TelegramRequest::SendMessages);
+	return jsonSend("sendChatAction", json);
 }
 
 TelegramRequest *TelegramBot::sendLocation(const QString &chatId,
@@ -437,7 +437,7 @@ TelegramRequest *TelegramBot::sendLocation(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	return jsonSend("sendLocation", json, TelegramRequest::SendMessages);
+	return jsonSend("sendLocation", json);
 }
 
 TelegramRequest *TelegramBot::sendVenue(const QString &chatId,
@@ -460,7 +460,7 @@ TelegramRequest *TelegramBot::sendVenue(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	return jsonSend("sendVenue", json, TelegramRequest::SendMessages);
+	return jsonSend("sendVenue", json);
 }
 
 TelegramRequest* TelegramBot::sendContact(const QString &chatId,
@@ -485,7 +485,7 @@ TelegramRequest* TelegramBot::sendContact(const QString &chatId,
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
 
-	return jsonSend("sendContact", json, TelegramRequest::SendMessages);
+	return jsonSend("sendContact", json);
 }
 
 TelegramRequest* TelegramBot::sendPoll(const QString &chatId,
@@ -506,7 +506,7 @@ TelegramRequest* TelegramBot::sendPoll(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["replyToMessageId"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	return jsonSend("sendPoll", json, TelegramRequest::SendMessages);
+	return jsonSend("sendPoll", json);
 }
 
 TelegramRequest *TelegramBot::sendSticker(const QString &chatId,
@@ -523,7 +523,7 @@ TelegramRequest *TelegramBot::sendSticker(const QString &chatId,
 	if(!replyToMessageId.isEmpty()) json["replyToMessageId"] = replyToMessageId;
 	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
 
-	return jsonSend("sendSticker", json, TelegramRequest::SendMessages);
+	return jsonSend("sendSticker", json);
 }
 
 TelegramRequest *TelegramBot::getFile(const QString &fileId)
@@ -531,7 +531,7 @@ TelegramRequest *TelegramBot::getFile(const QString &fileId)
 	QJsonObject json;
 	json["file_id"] = fileId;
 
-	return jsonSend("getFile", json, TelegramRequest::GetFile);
+	return jsonSend("getFile", json);
 }
 
 TelegramRequest *TelegramBot::getStickerSet(const QString &name)
@@ -540,23 +540,12 @@ TelegramRequest *TelegramBot::getStickerSet(const QString &name)
 
 	json["name"] = name;
 
-	return jsonSend("getStickerSet", json, TelegramRequest::GetStickerSet);
+	return jsonSend("getStickerSet", json);
 }
 
 TelegramRequest *TelegramBot::getMe()
 {
-	return jsonSend("getMe", QJsonObject(), TelegramRequest::GetMe);
-}
-
-TelegramRequest *TelegramBot::getUpdates()
-{
-	if(!m_mayUpdates)
-		return nullptr;
-	QJsonObject root;
-	root["offset"] = m_updateOffset;
-	m_mayUpdates = false;
-
-	return jsonSend("getUpdates", root, TelegramRequest::GetUpdates);
+	return jsonSend("getMe", QJsonObject());
 }
 
 TelegramRequest *TelegramBot::kickChatMember(const QString &chatId,
@@ -699,7 +688,7 @@ TelegramRequest *TelegramBot::getChat(const QString &chatId)
 	QJsonObject json;
 	json["chat_id"] = chatId;
 
-	return jsonSend("getChat", json, TelegramRequest::GetChat);
+	return jsonSend("getChat", json);
 }
 
 TelegramRequest *TelegramBot::getChatAdministators(const QString &chatId)
@@ -707,7 +696,7 @@ TelegramRequest *TelegramBot::getChatAdministators(const QString &chatId)
 	QJsonObject json;
 	json["chat_id"] = chatId;
 
-	return jsonSend("getChatAdministators", json, TelegramRequest::GetChatAdministators);
+	return jsonSend("getChatAdministators", json);
 }
 
 TelegramRequest *TelegramBot::getChatMemberCount(const QString &chatId)
@@ -715,7 +704,7 @@ TelegramRequest *TelegramBot::getChatMemberCount(const QString &chatId)
 	QJsonObject json;
 	json["chat_id"] = chatId;
 
-	return jsonSend("getChatMemberCount", json, TelegramRequest::GetChatAdministators);
+	return jsonSend("getChatMemberCount", json);
 }
 
 TelegramRequest *TelegramBot::getChatMember(const QString &chatId, const QString &userId)
@@ -724,7 +713,7 @@ TelegramRequest *TelegramBot::getChatMember(const QString &chatId, const QString
 	json["chat_id"] = chatId;
 	json["user_id"] = userId;
 
-	return jsonSend("getChatMember", json, TelegramRequest::GetChatAdministators);
+	return jsonSend("getChatMember", json);
 }
 
 TelegramRequest *TelegramBot::setChatStickerSet(const QString &chatId, const QString &stickerSetName)
@@ -733,7 +722,7 @@ TelegramRequest *TelegramBot::setChatStickerSet(const QString &chatId, const QSt
 	json["chat_id"] = chatId;
 	json["sticker_set_name"] = stickerSetName;
 
-	return jsonSend("setChatStickerSet", json, TelegramRequest::GetChatAdministators);
+	return jsonSend("setChatStickerSet", json);
 }
 
 TelegramRequest *TelegramBot::deleteChatStickerSet(const QString &chatId)
@@ -741,7 +730,7 @@ TelegramRequest *TelegramBot::deleteChatStickerSet(const QString &chatId)
 	QJsonObject json;
 	json["chat_id"] = chatId;
 
-	return jsonSend("deleteChatStickerSet", json, TelegramRequest::GetChatAdministators);
+	return jsonSend("deleteChatStickerSet", json);
 }
 
 TelegramRequest *TelegramBot::editMessageText(const QString &chatId,
@@ -758,7 +747,7 @@ TelegramRequest *TelegramBot::editMessageText(const QString &chatId,
 	json["disable_web_page_preview"] = disableWebPagePreview;
 
 
-	return jsonSend("editMessageText", json, TelegramRequest::GetChat);
+	return jsonSend("editMessageText", json);
 }
 
 TelegramRequest *TelegramBot::editMessageCaption(const QString &chatId,
@@ -775,7 +764,7 @@ TelegramRequest *TelegramBot::editMessageCaption(const QString &chatId,
 	json["disable_web_page_preview"] = disableWebPagePreview;
 
 
-	return jsonSend("editMessageCaption", json, TelegramRequest::GetChat);
+	return jsonSend("editMessageCaption", json);
 }
 
 TelegramRequest *TelegramBot::editMessageMedia(const QString &chatId,
@@ -830,7 +819,14 @@ void TelegramBot::deleteListenServer()
 		m_listenServer = nullptr;
 	}
 }
-
+void TelegramBot::onGetUpdatesFinished(const bool &ok)
+{
+	TelegramRequest *request = static_cast<TelegramRequest *>(sender());
+	if(!ok)
+		qDebug() << "ERROR UPDATES: " <<request->error().description();
+	if(m_isPolled)
+		getUpdates();
+}
 void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 {
 	TelegramResult *result = TelegramResults::resultFromJSOM(resultObject);
@@ -846,9 +842,19 @@ void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 	delete result;
 }
 
+void TelegramBot::getUpdates()
+{
+	QJsonObject root;
+	root["offset"] = m_updateOffset;
+	m_mayUpdates = false;
+
+	TelegramRequest *request = jsonSend("getUpdates", root);
+
+	connect(request, &TelegramRequest::finished, this, &TelegramBot::onGetUpdatesFinished);
+}
+
 TelegramRequest* TelegramBot::jsonSend(const QString &title,
-						   const QJsonObject &json,
-						   const TelegramRequest::RequestType &requestType)
+						   const QJsonObject &json)
 {
 	QUrl url("https://api.telegram.org/bot" + m_token + "/" + title);
 	QNetworkRequest request(url);
@@ -857,7 +863,7 @@ TelegramRequest* TelegramBot::jsonSend(const QString &title,
 	QJsonDocument doc (json);
 	QNetworkReply *reply = m_manager->post(request, doc.toJson());
 
-	TelegramRequest *telegramRequest = new TelegramRequest(reply, requestType);
+	TelegramRequest *telegramRequest = new TelegramRequest(reply);
 
 	return telegramRequest;
 }
@@ -881,7 +887,7 @@ TelegramRequest *TelegramBot::multipartSend(const QString &title,
 	QNetworkReply *reply = m_manager->post(request, multiPart);
 	multiPart->setParent(reply);
 
-	TelegramRequest *trequest = new TelegramRequest(reply, TelegramRequest::SendMessages);
+	TelegramRequest *trequest = new TelegramRequest(reply);
 
 
 	connect(reply, static_cast<void (QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::error), [](QNetworkReply::NetworkError er){
