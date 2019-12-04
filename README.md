@@ -65,6 +65,3 @@ int main(int argc, char *argv[])
 }
 
 ```
-
-	
->>>>>>> Update README
