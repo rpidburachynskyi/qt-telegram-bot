@@ -49,6 +49,7 @@ SOURCES += \
     types/telegramforcereply.cpp \
     types/telegraminlinekeyboardbutton.cpp \
     types/telegraminlinekeyboardmarkup.cpp \
+    types/telegraminputfile.cpp \
     types/telegraminputmedia.cpp \
     types/telegraminputmediaanimation.cpp \
     types/telegraminputmediaaudio.cpp \
@@ -115,6 +116,7 @@ HEADERS += \
     types/telegramforcereply.h \
     types/telegraminlinekeyboardbutton.h \
     types/telegraminlinekeyboardmarkup.h \
+    types/telegraminputfile.h \
     types/telegraminputmedia.h \
     types/telegraminputmediaanimation.h \
     types/telegraminputmediaaudio.h \

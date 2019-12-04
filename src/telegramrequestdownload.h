@@ -11,9 +11,12 @@ public:
 
 	QNetworkReply *reply() const;
 
+	QByteArray data() const {
+		return m_data;
+	}
+
 signals:
-	void downloaded(const QString &fileName,
-					const QByteArray &data);
+	void downloaded();
 
 public slots:
 
@@ -22,6 +25,7 @@ private slots:
 
 private:
 	QNetworkReply *m_reply;
+	QByteArray m_data;
 };
 
 #endif // TELEGRAMREQUESTDOWNLOAD_H

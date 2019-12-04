@@ -8,11 +8,9 @@ TelegramRequestDownload::TelegramRequestDownload(QNetworkReply *reply)
 
 void TelegramRequestDownload::onReplyFinished()
 {
-	QByteArray data = m_reply->readAll();
-
-	emit downloaded(m_reply->url().fileName(), data);
-
-	deleteLater();
+	m_data = m_reply->readAll();
+	qDebug() << m_data.size();
+	emit downloaded();
 }
 
 QNetworkReply *TelegramRequestDownload::reply() const

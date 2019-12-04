@@ -1,35 +1,35 @@
 #include "telegrambot.h"
 
-TelegramRequest::TelegramRequest(QNetworkReply *reply, RequestType requestType, TelegramBot *bot)
-	: QObject(bot), m_reply(reply), m_requestType(requestType), m_bot(bot)
+TelegramRequest::TelegramRequest(QNetworkReply *reply,
+								 RequestType requestType,
+								 QObject *parent)
+	: QObject(nullptr), m_reply(reply), m_requestType(requestType)
 {
 	connect(m_reply, &QNetworkReply::readyRead, this, &TelegramRequest::onReplyReadyRead);
 }
 
-QNetworkReply *TelegramRequest::reply() const
-{
-	return m_reply;
-}
-
-TelegramRequest::RequestType TelegramRequest::requestType() const
-{
-	return m_requestType;
-}
-
-bool TelegramRequest::ok() const
-{
-	return m_ok;
-}
-
 void TelegramRequest::onReplyReadyRead()
 {
-	switch (m_requestType)
+	m_data = m_reply->readAll();
+
+	QJsonDocument doc = QJsonDocument::fromJson(m_data);
+
+	QJsonObject json = doc.object();
+	m_ok = json["ok"].toBool();
+
+	if(json["result"].isObject())
 	{
-		case Unknown:
-			qDebug() << "Unknown request type";
-			qDebug() << m_reply->readAll();
-			break;
-		default: m_bot->onTelegramRequestReply(this); break;
+		m_results = { json["result"].toObject() };
+		qDebug() << "addr" << &(*this);
+	}else
+	{
+		QJsonArray results = json["result"].toArray();
+		for(QJsonValueRef value : results)
+		{
+			QJsonObject result = value.toObject();
+			m_results.append(result);
+		}
 	}
-	deleteLater();
+
+	emit finished(m_ok);
 }
