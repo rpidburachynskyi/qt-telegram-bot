@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-# qt-telegram-bot
-Telegram Bot API for Qt5
+# Telegram Bot API for Qt5
 ---
-=======
-Telegram Bot API for Qt5
----
-#How to include
+# How to include
 
 Static build of the project is used for inclusion. To do this, simply include everything from the "src" folder in your project. 
 
-#How to use
+# How to use
 To create a bot, you must include a header file in the project.
 
 ```qmake
