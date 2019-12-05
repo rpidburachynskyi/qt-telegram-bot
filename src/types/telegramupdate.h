@@ -14,13 +14,13 @@ public:
 	TelegramUpdate(const TelegramUpdate &update) = delete;
 	~TelegramUpdate();
 
-	QString updateId() const;
+	qint64 updateId() const;
 	TelegramMessage *message() const;
 
 	TelegramUpdate& operator=(const TelegramUpdate& update) = delete;
 
 private:
-	QString m_updateId;
+	qint64 m_updateId;
 	TelegramMessage *m_message;
 };
 

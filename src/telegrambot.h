@@ -282,7 +282,7 @@ private:
 
 	QTcpServer* m_listenServer;
 
-	int m_updateOffset;
+	qint64 m_updateOffset;
 	bool m_mayUpdates;
 
 	void getUpdates();

@@ -24,6 +24,9 @@ public:
 
 	inline bool ok() const { return m_ok; }
 	QJsonObject result() const;
+	inline const QList<QJsonObject> results() const {
+		return m_results;
+	}
 	TelegramRequestError error() const;
 	const TelegramMessage* message() {
 		return takeInRubbish(new TelegramMessage(result()));

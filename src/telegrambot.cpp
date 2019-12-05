@@ -18,7 +18,7 @@ TelegramBot::TelegramBot(const QString &token,
 	m_mayUpdates(true)
 {
 	if(!manager)
-		throw std::invalid_argument("Manager cannot be a nullptr");
+		throw std::runtime_error("Manager cannot be a nullptr");
 
 	m_manager = manager;
 	m_updateOffset = 0;
@@ -824,6 +824,12 @@ void TelegramBot::onGetUpdatesFinished(const bool &ok)
 	TelegramRequest *request = static_cast<TelegramRequest *>(sender());
 	if(!ok)
 		qDebug() << "ERROR UPDATES: " <<request->error().description();
+	else
+	{
+		for(QJsonObject result : request->results())
+			onGetUpdates(result);
+	}
+
 	if(m_isPolled)
 		getUpdates();
 }
@@ -836,6 +842,7 @@ void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 		if(update->message())
 		{
 			emit messaged(update->message());
+			m_updateOffset = update->updateId() + 1;
 		}
 	}
 

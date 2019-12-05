@@ -41,6 +41,8 @@ int main(int argc, char *argv[])
 		});
 	});
 
-	bot.setWebhook(TelegramBot::createListenServer(3000), NGROK_URL);
+	//bot.setWebhook(TelegramBot::createListenServer(3000), NGROK_URL);
+	bot.deleteWebhook();
+	bot.startPolling();
 	return a.exec();
 }
