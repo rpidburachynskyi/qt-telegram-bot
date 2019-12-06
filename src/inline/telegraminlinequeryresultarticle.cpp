@@ -12,7 +12,8 @@ TelegramInlineQueryResultArticle(const QString &id,
 								 const int &thumbHeight)
 	: m_id(id),
 	  m_title(title),
-	  m_inputMessageContent(inputMessageContent->clone()),
+	  m_inputMessageContent(inputMessageContent == nullptr ?
+								nullptr : inputMessageContent->clone()),
 	  m_replyMarkup(replyMarkup),
 	  m_url(url),
 	  m_hideUrl(hideUrl),
@@ -21,6 +22,25 @@ TelegramInlineQueryResultArticle(const QString &id,
 	  m_thumbHeight(thumbHeight)
 {
 
+}
+
+TelegramInlineQueryResultArticle::
+TelegramInlineQueryResultArticle(const TelegramInlineQueryResultArticle &result)
+	: m_id(result.m_id),
+	  m_title(result.m_title),
+	  m_inputMessageContent(result.m_inputMessageContent == nullptr ?
+								nullptr : result.m_inputMessageContent->clone()),
+	  m_replyMarkup(result.m_replyMarkup),
+	  m_url(result.m_url),
+	  m_hideUrl(result.m_hideUrl),
+	  m_description(result.m_description),
+	  m_thumbWidth(result.m_thumbWidth),
+	  m_thumbHeight(result.m_thumbHeight)
+{ }
+
+TelegramInlineQueryResultArticle::~TelegramInlineQueryResultArticle()
+{
+	delete m_inputMessageContent;
 }
 
 QJsonObject TelegramInlineQueryResultArticle::toJson() const

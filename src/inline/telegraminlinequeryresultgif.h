@@ -19,6 +19,12 @@ public:
 								 const TelegramInlineKeyboardMarkup replyMarkup =
 		  TelegramInlineKeyboardMarkup(QJsonObject()),
 								 const TelegramInputMessageContent *inputMessageContent = nullptr);
+	TelegramInlineQueryResultGif(const TelegramInlineQueryResultGif &result);
+	TelegramInlineQueryResult *clone() const override {
+		return new TelegramInlineQueryResultGif(*this);
+	}
+
+	~TelegramInlineQueryResultGif() override;
 
 	QString id() const { return m_id; }
 	/// Necessarily
@@ -68,10 +74,6 @@ public:
 	void setInputMessageContent(TelegramInputMessageContent *inputMessageContent) {
 		delete m_inputMessageContent;
 		m_inputMessageContent = inputMessageContent->clone();
-	}
-
-	TelegramInlineQueryResult *clone() const override {
-		return new TelegramInlineQueryResultGif(*this);
 	}
 	QJsonObject toJson() const override;
 

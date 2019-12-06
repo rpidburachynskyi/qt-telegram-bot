@@ -1,54 +1,69 @@
-#ifndef TELEGRAMINLINEQUERYRESULTPHOTO_H
-#define TELEGRAMINLINEQUERYRESULTPHOTO_H
+#ifndef TELEGRAMINLINEQUERYRESULTVIDEO_H
+#define TELEGRAMINLINEQUERYRESULTVIDEO_H
 
 #include "telegraminlinequeryresult.h"
 #include "telegraminputmessagecontent.h"
 
-class TelegramInlineQueryResultPhoto : public TelegramInlineQueryResult
+class TelegramInlineQueryResultVideo : public TelegramInlineQueryResult
 {
 public:
-	TelegramInlineQueryResultPhoto(const QString &id,
-								   const QString &photoUrl,
+	enum MimeType
+	{
+		TextHtml,
+		VideoMp4
+	};
+
+	TelegramInlineQueryResultVideo(const QString &id,
+								   const QString &url,
 								   const QString &thumbUrl,
-								   const int &photoWidth = -1,
-								   const int &photoHeight = -1,
-								   const QString &title = "",
-								   const QString &description = "",
+								   const QString &title,
 								   const QString &caption = "",
 								   const QString &parseMode = "",
-								   const TelegramInlineKeyboardMarkup replyMarkup =
+								   const int &width = -1,
+								   const int &height = -1,
+								   const int &duration = -1,
+								   const QString &description = "",
+								   const TelegramInlineKeyboardMarkup &replyMarkup =
 			TelegramInlineKeyboardMarkup(QJsonObject()),
 								   const TelegramInputMessageContent *inputMessageContent = nullptr);
-	TelegramInlineQueryResultPhoto(const TelegramInlineQueryResultPhoto &result);
-	TelegramInlineQueryResult * clone() const override {
-		return new TelegramInlineQueryResultPhoto(*this);
-	}
 
-	~TelegramInlineQueryResultPhoto() override;
+	TelegramInlineQueryResultVideo(const TelegramInlineQueryResultVideo &result);
+	TelegramInlineQueryResult *clone() const override {
+		return new TelegramInlineQueryResultVideo(*this);
+	}
+	~TelegramInlineQueryResultVideo() override;
 
 	QString id() const { return m_id; }
 	/// Necessarily
 	void setId(const QString &id) { m_id = id; }
 
-	QString photoUrl() const { return m_photoUrl; }
+	QString url() const { return m_url; }
 	/// Necessarily
-	void setPhotoUrl(const QString &photoUrl) { m_photoUrl = photoUrl; }
+	void setUrl(const QString &url) { m_url = url; }
 
 	QString thumbUrl() const { return m_thumbUrl; }
 	/// Necessarily
 	void setThumbUrl(const QString &thumbUrl) { m_thumbUrl = thumbUrl; }
 
-	int photoWidth() const { return m_photoWidth; }
+	int width() const { return m_width; }
 	/// Optional
-	void setPhotoWidth(int photoWidth) { m_photoWidth = photoWidth; }
+	void setWidth(int width) { m_width = width; }
 
-	int photoHeight() const { return m_photoHeight; }
+	int height() const { return m_height; }
 	/// Optional
-	void setPhotoHeight(int photoHeight) { m_photoHeight = photoHeight; }
+	void setHeight(int height) { m_height = height;}
+
+	int duration() const { return m_duration; }
+	/// Optional
+	void setDuration(int duration) { m_duration = duration; }
 
 	QString title() const { return m_title; }
 	/// Optional
 	void setTitle(const QString &title) { m_title = title; }
+
+	QString mimeType() const;
+	/// Optional
+	void setMimeType(const QString &mimeType);
 
 	QString description() const { return m_description; }
 	/// Optional
@@ -67,27 +82,29 @@ public:
 	void setReplyMarkup(const TelegramInlineKeyboardMarkup &replyMarkup) {
 		m_replyMarkup = replyMarkup;
 	}
-
 	const TelegramInputMessageContent *inputMessageContent() const { return m_inputMessageContent; }
 	/// Optional
 	void setInputMessageContent(TelegramInputMessageContent *inputMessageContent) {
 		delete m_inputMessageContent;
 		m_inputMessageContent = inputMessageContent->clone();
 	}
+
 	QJsonObject toJson() const override;
 
 private:
 	QString m_id;
-	QString m_photoUrl;
+	QString m_url;
+	QString m_mimeType;
 	QString m_thumbUrl;
-	int m_photoWidth;
-	int m_photoHeight;
 	QString m_title;
-	QString m_description;
 	QString m_caption;
 	QString m_parseMode;
+	int m_width;
+	int m_height;
+	int m_duration;
+	QString m_description;
 	TelegramInlineKeyboardMarkup m_replyMarkup;
 	TelegramInputMessageContent *m_inputMessageContent;
 };
 
-#endif // TELEGRAMINLINEQUERYRESULTPHOTO_H
+#endif // TELEGRAMINLINEQUERYRESULTVIDEO_H

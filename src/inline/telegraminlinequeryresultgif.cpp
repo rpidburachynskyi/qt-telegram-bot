@@ -29,6 +29,27 @@ TelegramInlineQueryResultGif(const QString &id,
 
 }
 
+TelegramInlineQueryResultGif::
+TelegramInlineQueryResultGif(const TelegramInlineQueryResultGif &result)
+	:  m_id(result.m_id),
+	  m_gifUrl(result.m_gifUrl),
+	  m_thumbUrl(result.m_thumbUrl),
+	  m_gifWidth(result.m_gifWidth),
+	  m_gifHeight(result.m_gifHeight),
+	  m_gifDuration(result.m_gifDuration),
+	  m_title(result.m_title),
+	  m_caption(result.m_caption),
+	  m_parseMode(result.m_parseMode),
+	  m_replyMarkup(result.m_replyMarkup),
+	  m_inputMessageContent(result.m_inputMessageContent == nullptr ?
+								nullptr : result.m_inputMessageContent->clone())
+{ }
+
+TelegramInlineQueryResultGif::~TelegramInlineQueryResultGif()
+{
+	delete m_inputMessageContent;
+}
+
 QJsonObject TelegramInlineQueryResultGif::toJson() const
 {
 	QJsonObject json;

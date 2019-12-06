@@ -7,8 +7,7 @@
 class TelegramInlineQueryResult
 {
 public:
-	TelegramInlineQueryResult();
-	virtual ~TelegramInlineQueryResult();
+	virtual ~TelegramInlineQueryResult() { }
 	virtual TelegramInlineQueryResult *clone() const = 0;
 
 	virtual QJsonObject toJson() const = 0;

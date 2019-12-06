@@ -25,6 +25,27 @@ TelegramInlineQueryResultPhoto(const QString &id,
 	  m_inputMessageContent(inputMessageContent == nullptr ? nullptr : inputMessageContent->clone())
 { }
 
+TelegramInlineQueryResultPhoto::
+TelegramInlineQueryResultPhoto(const TelegramInlineQueryResultPhoto &result)
+	: m_id(result.m_id),
+	  m_photoUrl(result.m_photoUrl),
+	  m_thumbUrl(result.m_thumbUrl),
+	  m_photoWidth(result.m_photoWidth),
+	  m_photoHeight(result.m_photoHeight),
+	  m_title(result.m_title),
+	  m_description(result.m_description),
+	  m_caption(result.m_caption),
+	  m_parseMode(result.m_parseMode),
+	  m_replyMarkup(result.m_replyMarkup),
+	  m_inputMessageContent(result.m_inputMessageContent == nullptr ?
+								nullptr : result.m_inputMessageContent->clone())
+{ }
+
+TelegramInlineQueryResultPhoto::~TelegramInlineQueryResultPhoto()
+{
+	delete m_inputMessageContent;
+}
+
 QJsonObject TelegramInlineQueryResultPhoto::toJson() const
 {
 	QJsonObject json;

@@ -18,8 +18,16 @@ SOURCES += \
     inline/telegraminlinequery.cpp \
     inline/telegraminlinequeryresult.cpp \
     inline/telegraminlinequeryresultarticle.cpp \
+    inline/telegraminlinequeryresultaudio.cpp \
+    inline/telegraminlinequeryresultcontact.cpp \
+    inline/telegraminlinequeryresultdocument.cpp \
     inline/telegraminlinequeryresultgif.cpp \
+    inline/telegraminlinequeryresultlocation.cpp \
+    inline/telegraminlinequeryresultmpeg4gif.cpp \
     inline/telegraminlinequeryresultphoto.cpp \
+    inline/telegraminlinequeryresultvenue.cpp \
+    inline/telegraminlinequeryresultvideo.cpp \
+    inline/telegraminlinequeryresultvoice.cpp \
     inline/telegraminputlocationmessagecontent.cpp \
     inline/telegraminputmessagecontent.cpp \
     inline/telegraminputtextmessagecontent.cpp \
@@ -97,8 +105,16 @@ HEADERS += \
     inline/telegraminlinequery.h \
     inline/telegraminlinequeryresult.h \
     inline/telegraminlinequeryresultarticle.h \
+    inline/telegraminlinequeryresultaudio.h \
+    inline/telegraminlinequeryresultcontact.h \
+    inline/telegraminlinequeryresultdocument.h \
     inline/telegraminlinequeryresultgif.h \
+    inline/telegraminlinequeryresultlocation.h \
+    inline/telegraminlinequeryresultmpeg4gif.h \
     inline/telegraminlinequeryresultphoto.h \
+    inline/telegraminlinequeryresultvenue.h \
+    inline/telegraminlinequeryresultvideo.h \
+    inline/telegraminlinequeryresultvoice.h \
     inline/telegraminputlocationmessagecontent.h \
     inline/telegraminputmessagecontent.h \
     inline/telegraminputtextmessagecontent.h \

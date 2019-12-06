@@ -17,11 +17,13 @@ public:
 									 const QString &description = "",
 									 const int &thumbWidth = -1,
 									 const int &thumbHeight = -1);
+	TelegramInlineQueryResultArticle(const TelegramInlineQueryResultArticle &result);
 
 	TelegramInlineQueryResult * clone() const override {
 		return new TelegramInlineQueryResultArticle(*this);
 	}
-	QJsonObject toJson() const override;
+
+	~TelegramInlineQueryResultArticle() override;
 
 	inline QString id() const { return m_id; }
 	/// Necessarily
@@ -63,6 +65,8 @@ public:
 	inline int thumbHeight() const { return m_thumbHeight; }
 	/// Optional
 	inline void setThumbHeight(int thumbHeight) { m_thumbHeight = thumbHeight; }
+
+	QJsonObject toJson() const override;
 
 private:
 	QString m_id;
