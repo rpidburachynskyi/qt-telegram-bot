@@ -1,7 +1,7 @@
 #ifndef TELEGRAMPHOTOSIZE_H
 #define TELEGRAMPHOTOSIZE_H
 
-#include <QJsonObject>
+#include "scripts/telegrambase.h"
 
 class TelegramPhotoSize
 {

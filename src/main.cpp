@@ -1,8 +1,13 @@
 #include <QCoreApplication>
 
 #include "telegrambot.h"
+#include "inline/telegraminlinequeryresultarticle.h"
+#include "inline/telegraminlinequeryresultphoto.h"
+#include "inline/telegraminputtextmessagecontent.h"
+#include "inline/telegraminlinequeryresultgif.h"
+#include "inline/telegraminputlocationmessagecontent.h"
 
-const QString NGROK_URL = "https://76e10852.ngrok.io";
+const QString NGROK_URL = "https://59524f8c.ngrok.io";
 const QString TOKEN = "1066331366:AAHGiv80O-QJwo4f8ZI2Ma5j03GjbZUX7H4";
 
 int main(int argc, char *argv[])
@@ -13,36 +18,29 @@ int main(int argc, char *argv[])
 
 	TelegramBot bot(TOKEN);
 
-	QObject::connect(&bot, &TelegramBot::messaged, [&bot](const TelegramMessage *message)
+	QObject::connect(&bot, &TelegramBot::inlineQueried, [&bot](const TelegramInlineQuery &inlineQuery)
 	{
-		auto r1 = bot.sendMessage(message->chat()->id(), "1");
-		TelegramInputFile file = TelegramInputFile::fromFilePath("Q:\\1.png");
-		auto r2 = bot.sendPhoto(message->chat()->id(), file);
+		qDebug() << inlineQuery.query();
+		TelegramInputTextMessageContent text("My text23123");
+		TelegramInputTextMessageContent text2("My text2");
+		TelegramInlineQueryResultArticle article("ROSTIK", "My title122222", &text);
+		TelegramInlineQueryResultArticle article2("ROSTIK2", "My title2", &text2);
+		TelegramInlineQueryResultPhoto photo("bid", "https://petapixel.com/assets/uploads/2019/06/manipulatedelephant-800x534.jpg",
+											 "https://petapixel.com/assets/uploads/2019/06/manipulatedelephant-800x534.jpg");
+		photo.setInputMessageContent(&text);
 
-		QObject::connect(r1, &TelegramRequest::finished, []()
-		{
-			qDebug() << "MESSAGE SENDED";
-		});
-		QObject::connect(r2, &TelegramRequest::finished, [&bot, r2]()
-		{
-			auto r22 = bot.getFile(r2->message()->photo().first()->fileId());
-			QObject::connect(r22, &TelegramRequest::finished, [&bot, r22]()
-			{
-				auto r3 = bot.downloadFile(r22->file()->filePath());
-				qDebug() << r22->file()->filePath();
-				QObject::connect(r3, &TelegramRequestDownload::downloaded, [r3]()
-				{
-					qDebug() << "DOWNLOADED";
-					QFile file("Q:\\3.png");
-					file.open(QIODevice::WriteOnly);
-					file.write(r3->data());
-				});
-			});
-		});
+		TelegramInlineQueryResultGif gif("!!", "https://thumbs.gfycat.com/MellowIgnorantDipper-size_restricted.gif",
+										 "https://thumbs.gfycat.com/MellowIgnorantDipper-size_restricted.gif");
+
+		gif.setInputMessageContent(&text);
+
+		TelegramInputLocationMessageContent loc (44.353, 44.343);
+		gif.setInputMessageContent(&loc);
+		bot.answerInlineQuery(inlineQuery.id(), {&article, &article2, &photo, &gif});
 	});
 
-	//bot.setWebhook(TelegramBot::createListenServer(3000), NGROK_URL);
-	bot.deleteWebhook();
-	bot.startPolling();
+	bot.setWebhook(TelegramBot::createListenServer(3000), NGROK_URL);
+	//bot.deleteWebhook();
+	//bot.startPolling();
 	return a.exec();
 }

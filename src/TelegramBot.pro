@@ -15,6 +15,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    inline/telegraminlinequery.cpp \
+    inline/telegraminlinequeryresult.cpp \
+    inline/telegraminlinequeryresultarticle.cpp \
+    inline/telegraminlinequeryresultgif.cpp \
+    inline/telegraminlinequeryresultphoto.cpp \
+    inline/telegraminputlocationmessagecontent.cpp \
+    inline/telegraminputmessagecontent.cpp \
+    inline/telegraminputtextmessagecontent.cpp \
         main.cpp \
     passport/telegramencryptedcredentials.cpp \
     passport/telegramencryptedpassportelement.cpp \
@@ -33,6 +41,7 @@ SOURCES += \
     requests/telegramrequest.cpp \
     requests/telegramrequestdownload.cpp \
     requests/telegramrequesterror.cpp \
+    scripts/telegrambase.cpp \
     stickers/telegrammaskposition.cpp \
     stickers/telegramsticker.cpp \
     stickers/telegramstickerset.cpp \
@@ -40,6 +49,7 @@ SOURCES += \
     types/itelegrammessagekeyboard.cpp \
     types/telegramanimation.cpp \
     types/telegramaudio.cpp \
+    types/telegrambasetypes.cpp \
     types/telegramchat.cpp \
     types/telegramchatmember.cpp \
     types/telegramchatpermissions.cpp \
@@ -84,6 +94,14 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    inline/telegraminlinequery.h \
+    inline/telegraminlinequeryresult.h \
+    inline/telegraminlinequeryresultarticle.h \
+    inline/telegraminlinequeryresultgif.h \
+    inline/telegraminlinequeryresultphoto.h \
+    inline/telegraminputlocationmessagecontent.h \
+    inline/telegraminputmessagecontent.h \
+    inline/telegraminputtextmessagecontent.h \
     passport/telegramencryptedcredentials.h \
     passport/telegramencryptedpassportelement.h \
     passport/telegrampassportdata.h \
@@ -101,6 +119,7 @@ HEADERS += \
     requests/telegramrequest.h \
     requests/telegramrequestdownload.h \
     requests/telegramrequesterror.h \
+    scripts/telegrambase.h \
     stickers/telegrammaskposition.h \
     stickers/telegramsticker.h \
     stickers/telegramstickerset.h \
@@ -108,6 +127,7 @@ HEADERS += \
     types/itelegrammessagekeyboard.h \
     types/telegramanimation.h \
     types/telegramaudio.h \
+    types/telegrambasetypes.h \
     types/telegramchat.h \
     types/telegramchatmember.h \
     types/telegramchatpermissions.h \

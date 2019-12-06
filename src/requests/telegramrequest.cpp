@@ -22,7 +22,7 @@ QJsonObject TelegramRequest::result() const
 
 TelegramRequestError TelegramRequest::error() const
 {
-	if(!m_ok)
+	if(m_ok)
 		throw std::runtime_error("Take error when ok");
 	return m_error;
 }

@@ -1,10 +1,9 @@
 #ifndef TELEGRAMUSER_H
 #define TELEGRAMUSER_H
 
-#include <QString>
-#include <QJsonObject>
+#include "scripts/telegrambase.h"
 
-class TelegramUser
+class TelegramUser : public TelegramBase
 {
 public:
 	TelegramUser(const QJsonObject &json);

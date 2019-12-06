@@ -2,3 +2,4 @@ build-TelegramBot-Desktop_Qt_5_13_1_MinGW_64_bit-Debug
 build-TelegramBot-Desktop_Qt_5_13_1_MinGW_64_bit-Release
 
 src/TelegramBot.pro.user
+src/main.cpp

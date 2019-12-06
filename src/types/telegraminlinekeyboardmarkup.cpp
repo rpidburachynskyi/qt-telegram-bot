@@ -3,6 +3,7 @@
 #include <QJsonArray>
 
 TelegramInlineKeyboardMarkup::TelegramInlineKeyboardMarkup(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	QJsonArray arrayButtons = json["inline_keyboard"].toArray();
 
@@ -16,6 +17,7 @@ TelegramInlineKeyboardMarkup::TelegramInlineKeyboardMarkup(const QJsonObject &js
 
 TelegramInlineKeyboardMarkup::TelegramInlineKeyboardMarkup(
 		const QList<TelegramInlineKeyboardButton> &keyboard)
+	: TelegramBaseTypes(true)
 {
 	m_inlineKeyboard = keyboard;
 }
@@ -29,8 +31,7 @@ void TelegramInlineKeyboardMarkup::setInlineKeyboard(const QList<TelegramInlineK
 {
 	m_inlineKeyboard = inlineKeyboard;
 }
-#include <QtDebug>
-#include <QJsonDocument>
+
 QJsonObject TelegramInlineKeyboardMarkup::toJson() const
 {
 	QJsonObject json;
@@ -45,6 +46,5 @@ QJsonObject TelegramInlineKeyboardMarkup::toJson() const
 	}
 
 	json["inline_keyboard"] = keyboard;
-	qDebug() << QJsonDocument(json);
 	return json;
 }

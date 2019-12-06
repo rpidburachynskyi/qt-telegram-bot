@@ -29,6 +29,8 @@
 #include "types/telegramphotosize.h"
 #include "types/telegraminputfile.h"
 #include "stickers/telegramstickerset.h"
+#include "inline/telegraminlinequery.h"
+#include "inline/telegraminlinequeryresult.h"
 
 class TelegramReplyKeyboardMarkup;
 class TelegramInlineKeyboardMarkup;
@@ -244,6 +246,12 @@ public:
 	TelegramRequest* setChatStickerSet(const QString &chatId, const QString &stickerSetName);
 	TelegramRequest* deleteChatStickerSet(const QString &chatId);
 
+	TelegramRequest* answerCallbackQuery(const QString &callbackQueryId,
+										 const QString &text = "",
+										 const bool &showAlert = false,
+										 const QString &url = "",
+										 const qint64 &cacheTime = 0);
+
 	TelegramRequest* editMessageText(const QString &chatId,
 						 const int &messageId,
 						 const QString &newText,
@@ -265,11 +273,19 @@ public:
 
 	TelegramRequestDownload *downloadFile(const QString &fileId);
 
+	// INLINE MODE - START
+
+	TelegramRequest* answerInlineQuery(const QString &inlineQueryId,
+									   const QList<TelegramInlineQueryResult *> results);
+
+	// INLINE MODE - END
+
 	static QTcpServer *createListenServer(const quint16 port);
 	void deleteListenServer();
 signals:
 	void errored(const QString &error);
 	void messaged(const TelegramMessage *message);
+	void inlineQueried(const TelegramInlineQuery &inlineQuery);
 
 private slots:
 	void onGetUpdatesFinished(const bool &ok);

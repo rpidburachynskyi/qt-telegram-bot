@@ -28,10 +28,10 @@ public:
 		return m_results;
 	}
 	TelegramRequestError error() const;
-	const TelegramMessage* message() {
+	inline const TelegramMessage* message() {
 		return takeInRubbish(new TelegramMessage(result()));
 	}
-	const TelegramFile* file() {
+	inline const TelegramFile* file() {
 		return takeInRubbish(new TelegramFile(result()));
 	}
 

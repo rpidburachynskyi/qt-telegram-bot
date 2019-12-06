@@ -733,6 +733,22 @@ TelegramRequest *TelegramBot::deleteChatStickerSet(const QString &chatId)
 	return jsonSend("deleteChatStickerSet", json);
 }
 
+TelegramRequest *TelegramBot::answerCallbackQuery(const QString &callbackQueryId,
+												  const QString &text,
+												  const bool &showAlert,
+												  const QString &url,
+												  const qint64 &cacheTime)
+{
+	QJsonObject json;
+	json["callback_query_id"] = callbackQueryId;
+	json["show_alert"] = showAlert;
+	json["cache_time"] = cacheTime;
+	if(!text.isEmpty()) json["callback_query_id"] = callbackQueryId;
+	if(!url.isEmpty()) json["url"] = url;
+
+	return jsonSend("answerCallbackQuery", json);
+}
+
 TelegramRequest *TelegramBot::editMessageText(const QString &chatId,
 								  const int &messageId,
 								  const QString &newText,
@@ -794,12 +810,26 @@ TelegramRequestDownload *TelegramBot::downloadFile(const QString &filePath)
 {
 	QUrl url("https://api.telegram.org/file/bot" + m_token + "/" + filePath);
 
-	qDebug() << "START";
 	QNetworkReply* reply = m_manager->get(QNetworkRequest(url));
 
 	TelegramRequestDownload *downloadRequest = new TelegramRequestDownload(reply);
 
 	return downloadRequest;
+}
+
+TelegramRequest *TelegramBot::answerInlineQuery(const QString &inlineQueryId,
+												const QList<TelegramInlineQueryResult *> results)
+{
+	QJsonArray resultsArray;
+	for(int i = 0; i < results.size(); i++)
+		resultsArray.append(results[i]->toJson());
+
+	QJsonObject json;
+
+	json["inline_query_id"] = inlineQueryId;
+	json["results"] = resultsArray;
+
+	return jsonSend("answerInlineQuery", json);
 }
 
 QTcpServer* TelegramBot::createListenServer(const quint16 port)
@@ -829,6 +859,7 @@ void TelegramBot::onGetUpdatesFinished(const bool &ok)
 		for(QJsonObject result : request->results())
 			onGetUpdates(result);
 	}
+	qDebug() << "SIG2";
 
 	if(m_isPolled)
 		getUpdates();
@@ -843,6 +874,9 @@ void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 		{
 			emit messaged(update->message());
 			m_updateOffset = update->updateId() + 1;
+		}else if(update->inlineQuery().isNotNull())
+		{
+			emit inlineQueried(update->inlineQuery());
 		}
 	}
 
@@ -852,11 +886,10 @@ void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 void TelegramBot::getUpdates()
 {
 	QJsonObject root;
-	root["offset"] = m_updateOffset;
-	m_mayUpdates = false;
+	//root["offset"] = m_updateOffset;
+	qDebug() << "SEND" << m_updateOffset;
 
-	TelegramRequest *request = jsonSend("getUpdates", root);
-
+	TelegramRequest *request = jsonSend("getUpdates?offset=" + QString::number(m_updateOffset), root);
 	connect(request, &TelegramRequest::finished, this, &TelegramBot::onGetUpdatesFinished);
 }
 

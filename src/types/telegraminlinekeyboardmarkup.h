@@ -4,9 +4,10 @@
 #include "telegraminlinekeyboardbutton.h"
 #include <QList>
 #include "itelegrammessagekeyboard.h"
+#include "telegrambasetypes.h"
 
 
-class TelegramInlineKeyboardMarkup : public iTelegramMessageKeyboard
+class TelegramInlineKeyboardMarkup : public TelegramBaseTypes, public iTelegramMessageKeyboard
 {
 public:
 	TelegramInlineKeyboardMarkup(const QJsonObject &json);
