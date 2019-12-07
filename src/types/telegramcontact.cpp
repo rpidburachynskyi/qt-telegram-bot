@@ -1,6 +1,7 @@
 #include "telegramcontact.h"
 
 TelegramContact::TelegramContact(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	m_phoneNumber = json["phone_number"].toString();
 	m_firstName = json["first_name"].toString();

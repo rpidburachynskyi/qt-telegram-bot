@@ -4,7 +4,7 @@
 #include "types/telegramuser.h"
 #include "types/telegramlocation.h"
 
-class TelegramInlineQuery : public TelegramBase
+class TelegramInlineQuery : public TelegramBaseTypes
 {
 public:
 	TelegramInlineQuery(const QJsonObject &json);

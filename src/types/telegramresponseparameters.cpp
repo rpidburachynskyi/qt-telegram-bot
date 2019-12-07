@@ -1,6 +1,7 @@
 #include "telegramresponseparameters.h"
 
 TelegramResponseParameters::TelegramResponseParameters(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	m_migrateToChatId = json["migrate_to_chat_id"].toInt();
 	m_retryAfter = json["retry_after"].toInt();

@@ -5,7 +5,7 @@
 TelegramUser::TelegramUser(const QJsonObject &json)
 	: TelegramBaseTypes(json)
 {
-	m_id = json["id"].toVariant().toString();
+	m_id = json["id"].toString();
 	m_isBot = json["is_bot"].toBool();
 	m_firstName = json["first_name"].toString();
 	m_username = json["username"].toString();

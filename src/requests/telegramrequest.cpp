@@ -55,4 +55,6 @@ void TelegramRequest::onReplyReadyRead()
 		m_error = TelegramRequestError(json);
 	}
 	emit finished(m_ok);
+
+	deleteLater();
 }

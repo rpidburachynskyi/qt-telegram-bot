@@ -1,9 +1,9 @@
 #ifndef TELEGRAMRESPONSEPARAMETERS_H
 #define TELEGRAMRESPONSEPARAMETERS_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
 
-class TelegramResponseParameters
+class TelegramResponseParameters  : public TelegramBaseTypes
 {
 public:
 	TelegramResponseParameters(const QJsonObject &json);

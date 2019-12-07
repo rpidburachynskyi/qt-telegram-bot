@@ -1,9 +1,9 @@
 #ifndef TELEGRAMLOGINURL_H
 #define TELEGRAMLOGINURL_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
 
-class TelegramLoginUrl
+class TelegramLoginUrl : public TelegramBaseTypes
 {
 public:
 	TelegramLoginUrl(const QJsonObject &json);

@@ -1,11 +1,9 @@
 #ifndef TELEGRAMVIDEONOTE_H
 #define TELEGRAMVIDEONOTE_H
 
-#include <QJsonObject>
+#include "telegramphotosize.h"
 
-class TelegramPhotoSize;
-
-class TelegramVideoNote
+class TelegramVideoNote : public TelegramBaseTypes
 {
 public:
 	TelegramVideoNote(const QJsonObject &json);
@@ -16,14 +14,14 @@ public:
 	int duration() const;
 	int fileSize() const;
 	QString fileId() const;
-	TelegramPhotoSize *thumb() const;
+	TelegramPhotoSize thumb() const;
 
 private:
 	int m_length;
 	int m_duration;
 	int m_fileSize;
 	QString m_fileId;
-	TelegramPhotoSize *m_thumb;
+	TelegramPhotoSize m_thumb;
 };
 
 #endif // TELEGRAMVIDEONOTE_H

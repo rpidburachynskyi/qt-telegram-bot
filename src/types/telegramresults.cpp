@@ -1,6 +1,7 @@
 #include "telegramresults.h"
 #include "telegramupdate.h"
 
+#include <QJsonArray>
 #include <QJsonObject>
 
 TelegramResults::TelegramResults(const QJsonArray &array)
@@ -8,29 +9,13 @@ TelegramResults::TelegramResults(const QJsonArray &array)
 	for(auto item : array)
 	{
 		QJsonObject json = item.toObject();
-		TelegramResult *result = resultFromJSOM(json);
+		TelegramResult result(json);
 
 		m_results.append(result);
 	}
 }
 
-TelegramResults::~TelegramResults()
-{
-	for(auto result : m_results)
-	{
-		delete result;
-	}
-}
-
-QList<TelegramResult *> TelegramResults::results() const
+QList<TelegramResult> TelegramResults::results() const
 {
 	return m_results;
-}
-
-TelegramResult *TelegramResults::resultFromJSOM(const QJsonObject &json)
-{
-	TelegramResult *result = nullptr;
-	if(json.contains("update_id"))
-		result = new TelegramUpdate(json);
-	return result;
 }

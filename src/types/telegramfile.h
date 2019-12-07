@@ -1,9 +1,9 @@
 #ifndef TELEGRAMFILE_H
 #define TELEGRAMFILE_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
 
-class TelegramFile
+class TelegramFile : public TelegramBaseTypes
 {
 public:
 	TelegramFile(const QJsonObject &json);

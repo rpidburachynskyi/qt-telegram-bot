@@ -1,7 +1,7 @@
 #include "telegraminlinequery.h"
 
 TelegramInlineQuery::TelegramInlineQuery(const QJsonObject &json)
-	: TelegramBase(json),
+	: TelegramBaseTypes(json),
 	  m_id(json["id"].toString()),
 	  m_from(json["from"].toObject()),
 	  m_location(json["location"].toObject()),

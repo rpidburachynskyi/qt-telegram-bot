@@ -1,7 +1,7 @@
 #include "telegramlocation.h"
 
 TelegramLocation::TelegramLocation(const QJsonObject &json)
-	: TelegramBase(json)
+	: TelegramBaseTypes(json)
 {
 	m_longitute = json["longitude"].toDouble();
 	m_latitude = json["latitude"].toDouble();

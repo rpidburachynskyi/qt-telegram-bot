@@ -6,8 +6,15 @@
 class TelegramBaseTypes
 {
 	friend class TelegramInlineKeyboardMarkup;
+	friend class TelegramChat;
+	friend class TelegramAnimation;
+	friend class TelegramAudio;
+	friend class TelegramVideo;
+	friend class TelegramChatPermissions;
+	friend class TelegramReplyKeyboardMarkup;
+	friend class TelegramReplyKeyboardRemove;
 
-	TelegramBaseTypes(const bool &init = false);
+	TelegramBaseTypes(const bool &init);
 public:
 	TelegramBaseTypes(const QJsonObject &json);
 

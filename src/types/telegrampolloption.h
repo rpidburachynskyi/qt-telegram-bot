@@ -1,9 +1,9 @@
 #ifndef TELEGRAMPOLLOPTION_H
 #define TELEGRAMPOLLOPTION_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
 
-class TelegramPollOption
+class TelegramPollOption : public TelegramBaseTypes
 {
 public:
 	TelegramPollOption(const QJsonObject &json);

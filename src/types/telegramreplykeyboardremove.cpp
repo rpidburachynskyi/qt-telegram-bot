@@ -1,6 +1,7 @@
 #include "telegramreplykeyboardremove.h"
 
 TelegramReplyKeyboardRemove::TelegramReplyKeyboardRemove(const bool &selective)
+	: TelegramBaseTypes(false)
 {
 	m_selective = true;
 }

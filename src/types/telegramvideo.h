@@ -1,16 +1,12 @@
 #ifndef TELEGRAMVIDEO_H
 #define TELEGRAMVIDEO_H
 
-#include <QJsonObject>
+#include "telegramphotosize.h"
 
-class TelegramPhotoSize;
-
-class TelegramVideo
+class TelegramVideo : public TelegramBaseTypes
 {
 public:
 	TelegramVideo(const QJsonObject &json);
-	TelegramVideo(const TelegramVideo &video);
-	~TelegramVideo();
 
 	QString fileId() const;
 	/// Necessarily
@@ -21,13 +17,11 @@ public:
 	/// Necessarily
 	int duration() const;
 	/// Optional
-	TelegramPhotoSize *thumb() const;
+	TelegramPhotoSize thumb() const;
 	/// Optional
 	QString mimeType() const;
 	/// Optional
 	int fileSize() const;
-
-	TelegramVideo& operator=(const TelegramVideo &video) = delete;
 
 private:
 	int m_width;
@@ -36,7 +30,7 @@ private:
 	QString m_mimeType;
 	int m_fileSize;
 	QString m_fileId;
-	TelegramPhotoSize *m_thumb;
+	TelegramPhotoSize m_thumb;
 };
 
 #endif // TELEGRAMVIDEO_H

@@ -1,9 +1,9 @@
 #ifndef TELEGRAMLOCATION_H
 #define TELEGRAMLOCATION_H
 
-#include "scripts/telegrambase.h"
+#include "telegrambasetypes.h"
 
-class TelegramLocation : public TelegramBase
+class TelegramLocation : public TelegramBaseTypes
 {
 public:
 	TelegramLocation(const QJsonObject &json);

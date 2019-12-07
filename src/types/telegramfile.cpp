@@ -1,6 +1,7 @@
 #include "telegramfile.h"
 
 TelegramFile::TelegramFile(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	m_fileId = json["file_id"].toString();
 	m_fileSize = json["file_size"].toInt(-1);

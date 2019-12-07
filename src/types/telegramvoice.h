@@ -1,15 +1,13 @@
 #ifndef TELEGRAMVOICE_H
 #define TELEGRAMVOICE_H
 
-#include <QJsonObject>
+#include "telegramphotosize.h"
+#include "telegrambasetypes.h"
 
-class TelegramPhotoSize;
-
-class TelegramVoice
+class TelegramVoice : public TelegramBaseTypes
 {
 public:
 	TelegramVoice(const QJsonObject &json);
-	~TelegramVoice();
 
 	/// Necessarily
 	QString fileId() const;

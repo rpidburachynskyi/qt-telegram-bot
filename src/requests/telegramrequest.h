@@ -34,6 +34,9 @@ public:
 	inline const TelegramFile* file() {
 		return takeInRubbish(new TelegramFile(result()));
 	}
+	inline const TelegramUser user() {
+		return TelegramUser(result());
+	}
 
 signals:
 	void finished(const bool &ok);

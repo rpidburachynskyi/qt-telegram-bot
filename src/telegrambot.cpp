@@ -47,9 +47,9 @@ void TelegramBot::stopPolling()
 }
 
 TelegramRequest *TelegramBot::setWebhook(QTcpServer *server,
-							 const QString &url,
-							 const int &maxConnection,
-							 const QStringList &allowedUpdates)
+										 const QString &url,
+										 const int &maxConnection,
+										 const QStringList &allowedUpdates)
 {
 	m_listenServer = server;
 
@@ -104,8 +104,8 @@ TelegramRequest *TelegramBot::getWebhookInfo()
 }
 
 TelegramRequest *TelegramBot::sendMessage(const QString &id,
-							  const QString &text,
-							  const iTelegramMessageKeyboard *replyMarkup)
+										  const QString &text,
+										  const iTelegramMessageKeyboard *replyMarkup)
 {
 	QJsonObject json;
 	json["chat_id"] = id;
@@ -117,12 +117,12 @@ TelegramRequest *TelegramBot::sendMessage(const QString &id,
 }
 
 TelegramRequest *TelegramBot::sendMessage(const QString &id,
-							  const QString &text,
-							  const QString &m_parseMode,
-							  const bool &disableWebPagePreview,
-							  const bool &disableNofitication,
-							  const int &replyToMessageId,
-							  const TelegramReplyKeyboardMarkup *replyMarkup)
+										  const QString &text,
+										  const QString &m_parseMode,
+										  const bool &disableWebPagePreview,
+										  const bool &disableNofitication,
+										  const int &replyToMessageId,
+										  const TelegramReplyKeyboardMarkup *replyMarkup)
 {
 	QJsonObject json;
 	json["chat_id"] = id;
@@ -149,12 +149,12 @@ TelegramRequest *TelegramBot::forwardMessage(const QString &chatId, const int &f
 }
 
 TelegramRequest *TelegramBot::sendPhoto(const QString &chatId,
-							const TelegramInputFile &inputFile,
-							const QString &caption,
-							const QString &parseMode,
-							const bool &disableNotification,
-							const QString &replyToMessageId,
-							const iTelegramMessageKeyboard *replyMarkup)
+										const TelegramInputFile &inputFile,
+										const QString &caption,
+										const QString &parseMode,
+										const bool &disableNotification,
+										const QString &replyToMessageId,
+										const iTelegramMessageKeyboard *replyMarkup)
 {
 	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
 
@@ -174,17 +174,17 @@ TelegramRequest *TelegramBot::sendPhoto(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendVideo(const QString &chatId,
-							const TelegramInputFile &inputFile,
-							const int &duration,
-							const int &width,
-							const int &height,
-							const QString &thumb,
-							const QString &caption,
-							const QString &parseMode,
-							const bool &supportsStreaming,
-							const bool &disableNotification,
-							const QString &replyToMessageId,
-							const iTelegramMessageKeyboard *replyMarkup)
+										const TelegramInputFile &inputFile,
+										const int &duration,
+										const int &width,
+										const int &height,
+										const QString &thumb,
+										const QString &caption,
+										const QString &parseMode,
+										const bool &supportsStreaming,
+										const bool &disableNotification,
+										const QString &replyToMessageId,
+										const iTelegramMessageKeyboard *replyMarkup)
 {
 	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
 
@@ -209,16 +209,16 @@ TelegramRequest *TelegramBot::sendVideo(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendAudio(const QString &chatId,
-							const TelegramInputFile &inputFile,
-							const QString &caption,
-							const QString &parseMode,
-							const int duration,
-							const QString &performer,
-							const QString &title,
-							const QString &thumb,
-							const bool &disableNotification,
-							const QString replyToMessageId,
-							const iTelegramMessageKeyboard *replyMarkup)
+										const TelegramInputFile &inputFile,
+										const QString &caption,
+										const QString &parseMode,
+										const int duration,
+										const QString &performer,
+										const QString &title,
+										const QString &thumb,
+										const bool &disableNotification,
+										const QString replyToMessageId,
+										const iTelegramMessageKeyboard *replyMarkup)
 {
 
 	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
@@ -243,13 +243,13 @@ TelegramRequest *TelegramBot::sendAudio(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendVideoNote(const QString &chatId,
-								const TelegramInputFile &inputFile,
-								const int &duration,
-								const int &length,
-								const QString &thumb,
-								const bool &disableNotification,
-								const QString &replyToMessageId,
-								const iTelegramMessageKeyboard *replyMarkup)
+											const TelegramInputFile &inputFile,
+											const int &duration,
+											const int &length,
+											const QString &thumb,
+											const bool &disableNotification,
+											const QString &replyToMessageId,
+											const iTelegramMessageKeyboard *replyMarkup)
 {
 
 	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
@@ -270,9 +270,9 @@ TelegramRequest *TelegramBot::sendVideoNote(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendMediaGroup(const QString &chatId,
-								 const QStringList &urlFilesOrFileIds,
-								 const bool &disableNotification,
-								 const QString &replyToMessageId)
+											 const QStringList &urlFilesOrFileIds,
+											 const bool &disableNotification,
+											 const QString &replyToMessageId)
 {
 	QJsonArray media;
 	for(QString urlFile : urlFilesOrFileIds)
@@ -285,7 +285,7 @@ TelegramRequest *TelegramBot::sendMediaGroup(const QString &chatId,
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
-		json["media"] = media;
+	json["media"] = media;
 	json["disable_notification"] = disableNotification;
 	if(!replyToMessageId.isEmpty()) json["reply_to_message_id"] = replyToMessageId;
 
@@ -293,13 +293,13 @@ TelegramRequest *TelegramBot::sendMediaGroup(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendDocument(const QString &chatId,
-							   const TelegramInputFile &inputFile,
-							   const QString &thumb,
-							   const QString &caption,
-							   const QString &parseMode,
-							   const bool &disableNotification,
-							   const QString &replyToMessageId,
-							   const iTelegramMessageKeyboard *replyMarkup)
+										   const TelegramInputFile &inputFile,
+										   const QString &thumb,
+										   const QString &caption,
+										   const QString &parseMode,
+										   const bool &disableNotification,
+										   const QString &replyToMessageId,
+										   const iTelegramMessageKeyboard *replyMarkup)
 {
 
 	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
@@ -322,13 +322,13 @@ TelegramRequest *TelegramBot::sendDocument(const QString &chatId,
 }
 
 TelegramRequest* TelegramBot::sendAnimation(const QString &chatId,
-								const TelegramInputFile &inputFile,
-								const QString &thumb,
-								const QString &caption,
-								const QString &parseMode,
-								const bool &disableNotification,
-								const QString &replyToMessageId,
-								const iTelegramMessageKeyboard *replyMarkup)
+											const TelegramInputFile &inputFile,
+											const QString &thumb,
+											const QString &caption,
+											const QString &parseMode,
+											const bool &disableNotification,
+											const QString &replyToMessageId,
+											const iTelegramMessageKeyboard *replyMarkup)
 {
 
 	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
@@ -350,13 +350,13 @@ TelegramRequest* TelegramBot::sendAnimation(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendVoice(const QString &chatId,
-							const TelegramInputFile &inputFile,
-							const QString &caption,
-							const QString &parseMode,
-							const int &duration,
-							const bool &disableNotification,
-							const QString &replyToMessageId,
-							const iTelegramMessageKeyboard *replyMarkup)
+										const TelegramInputFile &inputFile,
+										const QString &caption,
+										const QString &parseMode,
+										const int &duration,
+										const bool &disableNotification,
+										const QString &replyToMessageId,
+										const iTelegramMessageKeyboard *replyMarkup)
 {
 
 	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
@@ -399,7 +399,7 @@ TelegramRequest *TelegramBot::sendChatAction(const QString &chatId, const QStrin
 }
 
 TelegramRequest *TelegramBot::sendChatAction(const QString &chatId,
-								 const TelegramBot::ChatAction &chatAction)
+											 const TelegramBot::ChatAction &chatAction)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -421,12 +421,12 @@ TelegramRequest *TelegramBot::sendChatAction(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendLocation(const QString &chatId,
-							   const double &latitude,
-							   const double &longitude,
-							   const int &livePeriod,
-							   const bool &disableNotification,
-							   const QString &replyToMessageId,
-							   const iTelegramMessageKeyboard *replyMarkup)
+										   const double &latitude,
+										   const double &longitude,
+										   const int &livePeriod,
+										   const bool &disableNotification,
+										   const QString &replyToMessageId,
+										   const iTelegramMessageKeyboard *replyMarkup)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -442,13 +442,13 @@ TelegramRequest *TelegramBot::sendLocation(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendVenue(const QString &chatId,
-							const double &latitude,
-							const double &longitude,
-							const QString &title,
-							const QString &address,
-							const bool &disableNotification,
-							const QString &replyToMessageId,
-							const iTelegramMessageKeyboard *replyMarkup)
+										const double &latitude,
+										const double &longitude,
+										const QString &title,
+										const QString &address,
+										const bool &disableNotification,
+										const QString &replyToMessageId,
+										const iTelegramMessageKeyboard *replyMarkup)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -465,13 +465,13 @@ TelegramRequest *TelegramBot::sendVenue(const QString &chatId,
 }
 
 TelegramRequest* TelegramBot::sendContact(const QString &chatId,
-							  const QString &phoneNumber,
-							  const QString &firstName,
-							  const QString &lastName,
-							  const QString &about,
-							  const bool disableNotification,
-							  const QString &replyToMessageId,
-							  const iTelegramMessageKeyboard *replyMarkup)
+										  const QString &phoneNumber,
+										  const QString &firstName,
+										  const QString &lastName,
+										  const QString &about,
+										  const bool disableNotification,
+										  const QString &replyToMessageId,
+										  const iTelegramMessageKeyboard *replyMarkup)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -490,11 +490,11 @@ TelegramRequest* TelegramBot::sendContact(const QString &chatId,
 }
 
 TelegramRequest* TelegramBot::sendPoll(const QString &chatId,
-						   const QString &question,
-						   const QStringList &optionsList,
-						   const bool disableNotification,
-						   const QString &replyToMessageId,
-						   const iTelegramMessageKeyboard *replyMarkup)
+									   const QString &question,
+									   const QStringList &optionsList,
+									   const bool disableNotification,
+									   const QString &replyToMessageId,
+									   const iTelegramMessageKeyboard *replyMarkup)
 {
 	QJsonArray options = QJsonArray::fromStringList(optionsList);
 
@@ -511,10 +511,10 @@ TelegramRequest* TelegramBot::sendPoll(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::sendSticker(const QString &chatId,
-							  const QString &url,
-							  const bool &disableNotification,
-							  const QString &replyToMessageId,
-							  const iTelegramMessageKeyboard *replyMarkup)
+										  const QString &url,
+										  const bool &disableNotification,
+										  const QString &replyToMessageId,
+										  const iTelegramMessageKeyboard *replyMarkup)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -550,8 +550,8 @@ TelegramRequest *TelegramBot::getMe()
 }
 
 TelegramRequest *TelegramBot::kickChatMember(const QString &chatId,
-								 const QString &userId,
-								 const int &untilDate)
+											 const QString &userId,
+											 const int &untilDate)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -571,9 +571,9 @@ TelegramRequest *TelegramBot::unbanChatMember(const QString &chatId, const int &
 }
 
 TelegramRequest *TelegramBot::restrictChatMember(const QString &chatId,
-									 const int &userId,
-									 const TelegramChatPermissions *permissions,
-									 const int &untilDate)
+												 const int &userId,
+												 const TelegramChatPermissions *permissions,
+												 const int &untilDate)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -585,15 +585,15 @@ TelegramRequest *TelegramBot::restrictChatMember(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::promoteChatMember(const QString &chatId,
-									const int &userId,
-									const bool &canChangeInfo,
-									const bool &canPostMessage,
-									const bool &canEditMessage,
-									const bool &canDeleteMessage,
-									const bool &canInviteUsers,
-									const bool &canRestrictMembers,
-									const bool &canPinMessages,
-									const bool &canPromoteMembers)
+												const int &userId,
+												const bool &canChangeInfo,
+												const bool &canPostMessage,
+												const bool &canEditMessage,
+												const bool &canDeleteMessage,
+												const bool &canInviteUsers,
+												const bool &canRestrictMembers,
+												const bool &canPinMessages,
+												const bool &canPromoteMembers)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -611,7 +611,7 @@ TelegramRequest *TelegramBot::promoteChatMember(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::setChatPermissions(const QString &chatId,
-									 const TelegramChatPermissions &permissions)
+												 const TelegramChatPermissions &permissions)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -637,7 +637,7 @@ TelegramRequest *TelegramBot::deleteChatPhoto(const QString &chatId)
 }
 
 TelegramRequest* TelegramBot::setChatTitle(const QString &chatId,
-							   const QString &title)
+										   const QString &title)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -647,7 +647,7 @@ TelegramRequest* TelegramBot::setChatTitle(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::setChatDescription(const QString &chatId,
-									 const QString &description)
+												 const QString &description)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -657,8 +657,8 @@ TelegramRequest *TelegramBot::setChatDescription(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::pinChatMessage(const QString &chatId,
-								 const QString &messageId,
-								 const bool &disableNotification)
+											 const QString &messageId,
+											 const bool &disableNotification)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -751,10 +751,10 @@ TelegramRequest *TelegramBot::answerCallbackQuery(const QString &callbackQueryId
 }
 
 TelegramRequest *TelegramBot::editMessageText(const QString &chatId,
-								  const int &messageId,
-								  const QString &newText,
-								  const QString &parseMode,
-								  const bool &disableWebPagePreview)
+											  const int &messageId,
+											  const QString &newText,
+											  const QString &parseMode,
+											  const bool &disableWebPagePreview)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -768,10 +768,10 @@ TelegramRequest *TelegramBot::editMessageText(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::editMessageCaption(const QString &chatId,
-									 const int &messageId,
-									 const QString &newCaption,
-									 const QString &parseMode,
-									 const bool &disableWebPagePreview)
+												 const int &messageId,
+												 const QString &newCaption,
+												 const QString &parseMode,
+												 const bool &disableWebPagePreview)
 {
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -785,8 +785,8 @@ TelegramRequest *TelegramBot::editMessageCaption(const QString &chatId,
 }
 
 TelegramRequest *TelegramBot::editMessageMedia(const QString &chatId,
-								   const QString &messageId,
-								   const TelegramInputMedia &inputMedia)
+											   const QString &messageId,
+											   const TelegramInputMedia &inputMedia)
 {
 	QJsonObject json;
 
@@ -935,54 +935,55 @@ void TelegramBot::onGetUpdatesFinished(const bool &ok)
 		for(QJsonObject result : request->results())
 			onGetUpdates(result);
 	}
-	qDebug() << "SIG2";
 
 	if(m_isPolled)
 		getUpdates();
 }
 void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 {
-	qDebug() << resultObject;
-	TelegramResult *result = TelegramResults::resultFromJSOM(resultObject);
-	TelegramUpdate *update = static_cast<TelegramUpdate *>(result);
-	if(update)
+	if(TelegramUpdate::isUpdate(resultObject))
 	{
-		if(update->message())
+		TelegramUpdate update(resultObject);
+		qDebug() << update.isNotNull();
+		if(update.isNotNull())
 		{
-			emit messaged(update->message());
-			m_updateOffset = update->updateId() + 1;
-		}else if(update->inlineQuery().isNotNull())
-		{
-			emit inlineQueried(update->inlineQuery());
-		}else if(update->chosenInlineResult().isNotNull())
-		{
-			emit chosenInlineResulted(update->chosenInlineResult());
-		}else if(update->preCheckoutQuery().isNotNull())
-		{
-			emit preCheckoutQueried(update->preCheckoutQuery());
+			if(update.message().isNotNull())
+			{
+				emit messaged(update.message());
+				m_updateOffset = update.updateId() + 1;
+			}else if(update.inlineQuery().isNotNull())
+			{
+				emit inlineQueried(update.inlineQuery());
+			}else if(update.chosenInlineResult().isNotNull())
+			{
+				emit chosenInlineResulted(update.chosenInlineResult());
+			}else if(update.preCheckoutQuery().isNotNull())
+			{
+				emit preCheckoutQueried(update.preCheckoutQuery());
+			}
 		}
+	}else
+	{
+		qDebug() << resultObject;
 	}
-
-	delete result;
 }
 
 void TelegramBot::getUpdates()
 {
 	QJsonObject root;
 	//root["offset"] = m_updateOffset;
-	qDebug() << "SEND" << m_updateOffset;
 
 	TelegramRequest *request = jsonSend("getUpdates?offset=" + QString::number(m_updateOffset), root);
 	connect(request, &TelegramRequest::finished, this, &TelegramBot::onGetUpdatesFinished);
 }
 
 TelegramRequest* TelegramBot::jsonSend(const QString &title,
-						   const QJsonObject &json)
+									   const QJsonObject &json)
 {
 	QUrl url("https://api.telegram.org/bot" + m_token + "/" + title);
 	QNetworkRequest request(url);
 	request.setHeader(QNetworkRequest::ContentTypeHeader,
-		"application/json");
+					  "application/json");
 	QJsonDocument doc (json);
 	QNetworkReply *reply = m_manager->post(request, doc.toJson());
 
@@ -992,8 +993,8 @@ TelegramRequest* TelegramBot::jsonSend(const QString &title,
 }
 
 TelegramRequest *TelegramBot::multipartSend(const QString &title,
-								const QJsonObject &json,
-								const QHttpPart &part)
+											const QJsonObject &json,
+											const QHttpPart &part)
 {
 	QUrlQuery query;
 	QUrl url("https://api.telegram.org/bot" + m_token + "/" + title);

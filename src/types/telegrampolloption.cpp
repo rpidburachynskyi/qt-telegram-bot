@@ -1,6 +1,7 @@
 #include "telegrampolloption.h"
 
 TelegramPollOption::TelegramPollOption(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	m_text = json["text"].toString();
 	m_voterCount = json["voter_count"].toInt();

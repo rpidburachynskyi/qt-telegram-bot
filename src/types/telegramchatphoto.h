@@ -1,9 +1,9 @@
 #ifndef TELEGRAMCHATPHOTO_H
 #define TELEGRAMCHATPHOTO_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
 
-class TelegramChatPhoto
+class TelegramChatPhoto : public TelegramBaseTypes
 {
 public:
 	TelegramChatPhoto(const QJsonObject &json);

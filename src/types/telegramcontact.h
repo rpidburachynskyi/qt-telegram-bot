@@ -1,9 +1,9 @@
 #ifndef TELEGRAMCONTACT_H
 #define TELEGRAMCONTACT_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
 
-class TelegramContact
+class TelegramContact : public TelegramBaseTypes
 {
 public:
 	TelegramContact(const QJsonObject &json);

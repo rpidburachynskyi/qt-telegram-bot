@@ -1,16 +1,16 @@
 #include "telegramchatpermissions.h"
 
 TelegramChatPermissions::TelegramChatPermissions(const QJsonObject &json)
-{
-	m_canSendMessages = json["can_send_messages"].toBool();
-	m_canSendMediaMessages = json["can_send_media_messages"].toBool();
-	m_canSendPolls = json["can_send_polls"].toBool();
-	m_canSendOtherMessages = json["can_send_other_messages"].toBool();
-	m_canAddWebPagePreviews = json["can_add_web_page_previews"].toBool();
-	m_canChangeInfo = json["can_change_info"].toBool();
-	m_canInviteUsers = json["can_invite_users"].toBool();
-	m_canPinMessages = json["can_pin_messages"].toBool();
-}
+	: TelegramBaseTypes(json),
+	  m_canSendMessages(json["can_send_messages"].toBool()),
+	  m_canSendMediaMessages(json["can_send_media_messages"].toBool()),
+	  m_canSendPolls(json["can_send_polls"].toBool()),
+	  m_canSendOtherMessages(json["can_send_other_messages"].toBool()),
+	  m_canAddWebPagePreviews(json["can_add_web_page_previews"].toBool()),
+	  m_canChangeInfo(json["can_change_info"].toBool()),
+	  m_canInviteUsers(json["can_invite_users"].toBool()),
+	  m_canPinMessages(json["can_pin_messages"].toBool())
+{ }
 
 TelegramChatPermissions::TelegramChatPermissions(const bool &canSendMessages,
 												 const bool &canSendMediaMessages,
@@ -20,16 +20,16 @@ TelegramChatPermissions::TelegramChatPermissions(const bool &canSendMessages,
 												 const bool &canChangeInfo,
 												 const bool &canInviteUsers,
 												 const bool &canPinMessages)
-{
-	m_canSendMessages = canSendMessages;
-	m_canSendMediaMessages = canSendMediaMessages;
-	m_canSendPolls = canSendPolls;
-	m_canSendOtherMessages = canSendOtherMessages;
-	m_canAddWebPagePreviews = canAddWebPagePreviews;
-	m_canChangeInfo = canChangeInfo;
-	m_canInviteUsers = canInviteUsers;
-	m_canPinMessages = canPinMessages;
-}
+	: TelegramBaseTypes(false),
+	  m_canSendMessages(canSendMessages),
+	  m_canSendMediaMessages(canSendMediaMessages),
+	  m_canSendPolls(canSendPolls),
+	  m_canSendOtherMessages(canSendOtherMessages),
+	  m_canAddWebPagePreviews(canAddWebPagePreviews),
+	  m_canChangeInfo(canChangeInfo),
+	  m_canInviteUsers(canInviteUsers),
+	  m_canPinMessages(canPinMessages)
+{ }
 
 bool TelegramChatPermissions::canSendMessages() const
 {

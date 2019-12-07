@@ -1,6 +1,7 @@
 #include "telegramloginurl.h"
 
 TelegramLoginUrl::TelegramLoginUrl(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	m_url = json["url"].toString();
 	m_forwardText = json["forward_text"].toString();

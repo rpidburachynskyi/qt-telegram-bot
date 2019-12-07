@@ -1,7 +1,7 @@
 #include "telegramanimation.h"
-#include "telegramphotosize.h"
 
 TelegramAnimation::TelegramAnimation(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	m_width = json["width"].toInt();
 	m_height = json["height"].toInt();
@@ -15,6 +15,7 @@ TelegramAnimation::TelegramAnimation(const QJsonObject &json)
 }
 
 TelegramAnimation::TelegramAnimation(const TelegramAnimation &animation)
+	: TelegramBaseTypes(false)
 {
 	m_width = animation.m_width;
 	m_height = animation.m_height;

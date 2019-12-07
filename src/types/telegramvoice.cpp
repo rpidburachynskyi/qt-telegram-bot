@@ -2,6 +2,7 @@
 #include "telegramphotosize.h"
 
 TelegramVoice::TelegramVoice(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	m_duration = json["duration"].toInt();
 	if(json.contains("mime_type")) m_mimeType = json["mime_type"].toString();

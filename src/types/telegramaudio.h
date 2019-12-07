@@ -1,16 +1,12 @@
 #ifndef TELEGRAMAUDIO_H
 #define TELEGRAMAUDIO_H
 
-#include <QJsonObject>
+#include "telegramphotosize.h"
 
-class TelegramPhotoSize;
-
-class TelegramAudio
+class TelegramAudio : public TelegramBaseTypes
 {
 public:
 	TelegramAudio(const QJsonObject &json);
-	TelegramAudio(const TelegramAudio &audio);
-	~TelegramAudio();
 
 	/// Necessarily
 	QString fileId() const;
@@ -25,16 +21,14 @@ public:
 	/// Optional
 	int fileSize() const;
 	/// Optional
-	TelegramPhotoSize *thumb() const;
-
-	TelegramAudio& operator=(const TelegramAudio &audio);
+	TelegramPhotoSize thumb() const;
 
 private:
 	QString m_fileId;
 	int m_duration;
 	QString m_performer;
 	QString m_title;
-	TelegramPhotoSize *m_thumb;
+	TelegramPhotoSize m_thumb;
 	QString m_mimeType;
 	int m_fileSize;
 };

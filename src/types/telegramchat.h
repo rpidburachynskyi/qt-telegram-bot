@@ -1,18 +1,16 @@
 #ifndef TELEGRAMCHAT_H
 #define TELEGRAMCHAT_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
+#include "telegramchatphoto.h"
+#include "telegramchatpermissions.h"
 
-class TelegramChatPhoto;
 class TelegramMessage;
-class TelegramChatPermissions;
 
-class TelegramChat
+class TelegramChat : public TelegramBaseTypes
 {
 public:
 	TelegramChat (const QJsonObject &json);
-	TelegramChat (const TelegramChat &chat);
-	~TelegramChat();
 
 	/// Necessarily
 	QString id() const;
@@ -27,21 +25,19 @@ public:
 	/// Optinal
 	QString lastName() const;
 	/// Optinal
-	TelegramChatPhoto *photo() const;
+	TelegramChatPhoto photo() const;
 	/// Optinal
 	QString description() const;
 	/// Optinal
 	QString inviteLink() const;
 	/// Optinal
-	TelegramMessage *message() const;
+	TelegramMessage message() const;
 	/// Optinal
-	TelegramChatPermissions *chatPermissions() const;
+	TelegramChatPermissions chatPermissions() const;
 	/// Optinal
 	QString stickerSetName() const;
 	/// Optinal
 	bool canStickerSet() const;
-
-	TelegramChat& operator =(const TelegramChat &chat) = delete;
 
 private:
 	QString m_id;
@@ -50,11 +46,11 @@ private:
 	QString m_username;
 	QString m_firstName;
 	QString m_lastName;
-	TelegramChatPhoto *m_photo;
+	TelegramChatPhoto m_photo;
 	QString m_description;
 	QString m_inviteLink;
 	TelegramMessage *m_message;
-	TelegramChatPermissions *m_chatPermissions;
+	TelegramChatPermissions m_chatPermissions;
 	QString m_stickerSetName;
 	bool m_canStickerSet;
 };

@@ -1,9 +1,9 @@
 #ifndef TELEGRAMRESULT_H
 #define TELEGRAMRESULT_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
 
-class TelegramResult
+class TelegramResult  : public TelegramBaseTypes
 {
 public:
 	TelegramResult(const QJsonObject &json);

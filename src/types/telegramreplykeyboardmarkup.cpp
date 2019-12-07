@@ -4,6 +4,7 @@
 #include "telegramkeyboardbutton.h"
 
 TelegramReplyKeyboardMarkup::TelegramReplyKeyboardMarkup(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	QJsonArray keyboard = json["keyboard"].toArray();
 	for(auto key : keyboard)
@@ -21,6 +22,7 @@ TelegramReplyKeyboardMarkup::TelegramReplyKeyboardMarkup(const QList<TelegramKey
 														 const bool &resizeKeyboard,
 														 const bool &oneTimeKeyboard,
 														 const bool &selective)
+	: TelegramBaseTypes(false)
 {
 	m_keyboard = keyboard;
 	m_resizeKeyboard = resizeKeyboard;

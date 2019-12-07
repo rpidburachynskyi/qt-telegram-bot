@@ -4,6 +4,7 @@
 #include <QJsonArray>
 
 TelegramPoll::TelegramPoll(const QJsonObject &json)
+	: TelegramBaseTypes(json)
 {
 	m_id = json["id"].toString();
 	m_question = json["question"].toString();
@@ -14,30 +15,8 @@ TelegramPoll::TelegramPoll(const QJsonObject &json)
 
 	for(auto opt : options)
 	{
-		TelegramPollOption *option = new TelegramPollOption(opt.toObject());
+		TelegramPollOption option(opt.toObject());
 		m_options.append(option);
-	}
-
-}
-
-TelegramPoll::TelegramPoll(const TelegramPoll &poll)
-{
-	for(TelegramPollOption *option : poll.m_options)
-		m_options.append(new TelegramPollOption(*option));
-
-	m_id = poll.m_id;
-	m_question = poll.m_question;
-	m_isClosed = poll.m_isClosed;
-}
-
-TelegramPoll::~TelegramPoll()
-{
-	if(!m_options.isEmpty())
-	{
-		for(auto option : m_options)
-		{
-			delete option;
-		}
 	}
 }
 
@@ -51,7 +30,7 @@ QString TelegramPoll::question() const
 	return m_question;
 }
 
-QList<TelegramPollOption *> TelegramPoll::options() const
+QList<TelegramPollOption> TelegramPoll::options() const
 {
 	return m_options;
 }

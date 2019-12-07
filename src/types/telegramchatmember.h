@@ -3,9 +3,7 @@
 
 #include "telegramuser.h"
 
-#include <QJsonObject>
-
-class TelegramChatMember
+class TelegramChatMember : public TelegramBaseTypes
 {
 public:
 	TelegramChatMember(const QJsonObject &json);

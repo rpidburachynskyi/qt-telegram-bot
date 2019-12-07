@@ -1,9 +1,9 @@
 #ifndef TELEGRAMCHATPERMISSIONS_H
 #define TELEGRAMCHATPERMISSIONS_H
 
-#include <QJsonObject>
+#include "telegrambasetypes.h"
 
-class TelegramChatPermissions
+class TelegramChatPermissions : public TelegramBaseTypes
 {
 public:
 	TelegramChatPermissions(const QJsonObject &json);

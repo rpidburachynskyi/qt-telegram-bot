@@ -1,21 +1,17 @@
 #ifndef TELEGRAMDOCUMENT_H
 #define TELEGRAMDOCUMENT_H
 
-#include <QJsonObject>
+#include "telegramphotosize.h"
 
-class TelegramPhotoSize;
-
-class TelegramDocument
+class TelegramDocument : public TelegramBaseTypes
 {
 public:
 	TelegramDocument(const QJsonObject &json);
-	TelegramDocument(const TelegramDocument &document);
-	~TelegramDocument();
 
 	/// Necessarily
 	QString fileId() const;
 	/// Optional
-	TelegramPhotoSize *thumb() const;
+	TelegramPhotoSize thumb() const;
 	/// Optional
 	QString fileName() const;
 	/// Optional
@@ -27,7 +23,7 @@ public:
 
 private:
 	QString m_fileId;
-	TelegramPhotoSize *m_thumb;
+	TelegramPhotoSize m_thumb;
 	QString m_fileName;
 	QString m_mimeType;
 	int m_fileSize;

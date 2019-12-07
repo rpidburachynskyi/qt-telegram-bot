@@ -1,36 +1,29 @@
 #ifndef TELEGRAMMESSAGEENTITY_H
 #define TELEGRAMMESSAGEENTITY_H
 
-#include <QJsonObject>
+#include "telegramuser.h"
 
-class TelegramUser;
-
-class TelegramMessageEntity
+class TelegramMessageEntity  : public TelegramBaseTypes
 {
 public:
 	TelegramMessageEntity(const QJsonObject &json);
-	TelegramMessageEntity(const TelegramMessageEntity &messageEntity);
-	~TelegramMessageEntity();
-
 	/// Necessarily
-	QString type() const;
+	inline const QString &type() const { return m_type; }
 	/// Necessarily
-	int offset() const;
+	inline const int &offset() const { return m_offset; }
 	/// Necessarily
-	int length() const;
+	inline const int &length() const { return m_length; }
 	/// Optional
-	QString url() const;
+	inline const QString &url() const { return m_url; }
 	/// Optional
-	TelegramUser *user() const;
-
-	TelegramMessageEntity& operator=(const TelegramMessageEntity &messageEntity) = delete;
+	inline const TelegramUser &user() const { return m_user; }
 
 private:
 	QString m_type;
 	int m_offset;
 	int m_length;
 	QString m_url;
-	TelegramUser *m_user;
+	TelegramUser m_user;
 };
 
 #endif // TELEGRAMMESSAGEENTITY_H

@@ -1,15 +1,13 @@
 #ifndef TELEGRAMANIMATION_H
 #define TELEGRAMANIMATION_H
 
-#include <QJsonObject>
+#include "telegramphotosize.h"
 
-class TelegramPhotoSize;
-
-class TelegramAnimation
+class TelegramAnimation : public TelegramBaseTypes
 {
 public:
 	explicit TelegramAnimation(const QJsonObject &json);
-	explicit TelegramAnimation(const TelegramAnimation &animation);
+	TelegramAnimation(const TelegramAnimation &animation);
 	~TelegramAnimation();
 
 	/// Optional

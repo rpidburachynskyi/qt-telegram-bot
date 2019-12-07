@@ -1,13 +1,12 @@
 #ifndef TELEGRAMPHOTOSIZE_H
 #define TELEGRAMPHOTOSIZE_H
 
-#include "scripts/telegrambase.h"
+#include "telegrambasetypes.h"
 
-class TelegramPhotoSize
+class TelegramPhotoSize : public TelegramBaseTypes
 {
 public:
 	TelegramPhotoSize(const QJsonObject &json);
-	~TelegramPhotoSize();
 
 	/// Necessarily
 	QString fileId() const;

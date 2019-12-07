@@ -199,7 +199,6 @@ public:
 
 	TelegramRequest* getFile(const QString &fileId);
 	TelegramRequest* getStickerSet(const QString &name);
-
 	TelegramRequest* getMe();
 
 	TelegramRequest* kickChatMember(const QString &chatId,
@@ -319,7 +318,7 @@ public:
 	void deleteListenServer();
 signals:
 	void errored(const QString &error);
-	void messaged(const TelegramMessage *message);
+	void messaged(const TelegramMessage &message);
 	void inlineQueried(const TelegramInlineQuery &inlineQuery);
 	void chosenInlineResulted(const TelegramChosenInlineResult &chosenInlineResult);
 	void preCheckoutQueried(const TelegramPreCheckoutQuery &preCheckoutQuery);

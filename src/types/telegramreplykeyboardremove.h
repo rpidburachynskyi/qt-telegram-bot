@@ -2,10 +2,9 @@
 #define TELEGRAMREPLYKEYBOARDREMOVE_H
 
 #include "itelegrammessagekeyboard.h"
+#include "telegrambasetypes.h"
 
-#include <QJsonObject>
-
-class TelegramReplyKeyboardRemove : public iTelegramMessageKeyboard
+class TelegramReplyKeyboardRemove : public TelegramBaseTypes, public iTelegramMessageKeyboard
 {
 public:
 	TelegramReplyKeyboardRemove(const bool &selective = false);
