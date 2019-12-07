@@ -3,6 +3,7 @@
 #include <QJsonArray>
 
 TelegramShipingOption::TelegramShipingOption(const QJsonObject &json)
+	: TelegramBasePayments(json)
 {
 	m_id = json["id"].toString();
 	m_title = json["title"].toString();

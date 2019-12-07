@@ -31,6 +31,9 @@
 #include "stickers/telegramstickerset.h"
 #include "inline/telegraminlinequery.h"
 #include "inline/telegraminlinequeryresult.h"
+#include "inline/telegramchoseninlineresult.h"
+#include "payments/telegramlabeledprice.h"
+#include "payments/telegramprecheckoutquery.h"
 
 class TelegramReplyKeyboardMarkup;
 class TelegramInlineKeyboardMarkup;
@@ -280,12 +283,46 @@ public:
 
 	// INLINE MODE - END
 
+	// PAYMENTS - START
+
+	TelegramRequest* sendInvoice(const QString &chatId,
+								 const QString &title,
+								 const QString &description,
+								 const QString &payload,
+								 const QString &providerToken,
+								 const QString &startParameter,
+								 const QString &currency,
+								 const QList<TelegramLabeledPrice> prices,
+								 const QString &providerData = "",
+								 const QString photoUrl = "",
+								 const int &photoSize = -1,
+								 const int &photoWidth = -1,
+								 const int &photoHeight = -1,
+								 const bool &needName = false,
+								 const bool &needPhoneNumber = false,
+								 const bool &needEmail = false,
+								 const bool &needShippingAddress = false,
+								 const bool &sendPhoneNumberToProvider = false,
+								 const bool &sendEmailToProvider = false,
+								 const bool &isFlexible = false,
+								 const bool &disableNotification = false,
+								 const QString &replyToMessageId = "",
+								 const iTelegramMessageKeyboard *replyMarkup = nullptr);
+
+	TelegramRequest* answerPreCheckoutQuery(const QString &preCheckoutQueryId,
+											const bool &ok,
+											const QString &errorMessage = "");
+
+	// PAYMENTS - END
+
 	static QTcpServer *createListenServer(const quint16 port);
 	void deleteListenServer();
 signals:
 	void errored(const QString &error);
 	void messaged(const TelegramMessage *message);
 	void inlineQueried(const TelegramInlineQuery &inlineQuery);
+	void chosenInlineResulted(const TelegramChosenInlineResult &chosenInlineResult);
+	void preCheckoutQueried(const TelegramPreCheckoutQuery &preCheckoutQuery);
 
 private slots:
 	void onGetUpdatesFinished(const bool &ok);

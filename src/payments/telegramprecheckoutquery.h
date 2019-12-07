@@ -1,11 +1,11 @@
 #ifndef TELEGRAMPRECHECKOUTQUERY_H
 #define TELEGRAMPRECHECKOUTQUERY_H
 
+#include "telegrambasepayments.h"
 #include "telegramorderinfo.h"
 #include "types/telegramuser.h"
-#include <QJsonObject>
 
-class TelegramPreCheckoutQuery
+class TelegramPreCheckoutQuery : public TelegramBasePayments
 {
 public:
 	TelegramPreCheckoutQuery(const QJsonObject &json);

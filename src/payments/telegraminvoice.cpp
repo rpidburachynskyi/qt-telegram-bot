@@ -1,6 +1,7 @@
 #include "telegraminvoice.h"
 
 TelegramInvoice::TelegramInvoice(const QJsonObject &json)
+	: TelegramBasePayments(json)
 {
 	m_title = json["title"].toString();
 	m_description = json["description"].toString();

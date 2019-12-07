@@ -1,7 +1,8 @@
 #include "telegramshippingquery.h"
 
 TelegramShippingQuery::TelegramShippingQuery(const QJsonObject &json)
-	: m_user(TelegramUser(json["user"].toObject())),
+	: TelegramBasePayments(json),
+	  m_user(TelegramUser(json["user"].toObject())),
 	  m_shippingAddress(TelegramShippingAddress(json["shipping_address"].toObject()))
 {
 	m_id = json["id"].toString();

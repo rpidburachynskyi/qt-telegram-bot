@@ -1,6 +1,7 @@
 #include "telegramanswerprecheckoutquery.h"
 
 TelegramAnswerPreCheckoutQuery::TelegramAnswerPreCheckoutQuery(const QJsonObject &json)
+	: TelegramBasePayments(json)
 {
 	m_preCheckoutQueryId = json["pre_checkout_query_id"].toString();
 	m_ok = json["ok"].toBool();

@@ -1,9 +1,9 @@
 #ifndef TELEGRAMSHIPPINGADDRESS_H
 #define TELEGRAMSHIPPINGADDRESS_H
 
-#include <QJsonObject>
+#include "telegrambasepayments.h"
 
-class TelegramShippingAddress
+class TelegramShippingAddress : public TelegramBasePayments
 {
 public:
 	TelegramShippingAddress(const QJsonObject &json);

@@ -4,9 +4,7 @@
 #include "types/telegramuser.h"
 #include "telegramshippingaddress.h"
 
-#include <QJsonObject>
-
-class TelegramShippingQuery
+class TelegramShippingQuery : public TelegramBasePayments
 {
 public:
 	TelegramShippingQuery(const QJsonObject &json);

@@ -3,7 +3,7 @@
 #include <QDebug>
 
 TelegramUser::TelegramUser(const QJsonObject &json)
-	: TelegramBase(json)
+	: TelegramBaseTypes(json)
 {
 	m_id = json["id"].toVariant().toString();
 	m_isBot = json["is_bot"].toBool();

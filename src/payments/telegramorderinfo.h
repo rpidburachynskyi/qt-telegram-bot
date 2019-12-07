@@ -1,15 +1,12 @@
 #ifndef TELEGRAMORDERINFO_H
 #define TELEGRAMORDERINFO_H
 
-#include <QJsonObject>
+#include "telegramshippingaddress.h"
 
-class TelegramShippingAddress;
-
-class TelegramOrderInfo
+class TelegramOrderInfo : public TelegramBasePayments
 {
 public:
 	TelegramOrderInfo(const QJsonObject &json);
-	~TelegramOrderInfo();
 
 	/// Optional
 	QString name() const;
@@ -18,13 +15,13 @@ public:
 	/// Optional
 	QString email() const;
 	/// Optional
-	TelegramShippingAddress *shippingAddress() const;
+	TelegramShippingAddress shippingAddress() const;
 
 private:
 	QString m_name;
 	QString m_phoneNumber;
 	QString m_email;
-	TelegramShippingAddress *m_shippingAddress;
+	TelegramShippingAddress m_shippingAddress;
 };
 
 #endif // TELEGRAMORDERINFO_H

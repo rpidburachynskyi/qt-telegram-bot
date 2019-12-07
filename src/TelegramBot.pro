@@ -15,6 +15,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    inline/telegramchoseninlineresult.cpp \
+    inline/telegraminlinebase.cpp \
     inline/telegraminlinequery.cpp \
     inline/telegraminlinequeryresult.cpp \
     inline/telegraminlinequeryresultarticle.cpp \
@@ -38,6 +40,7 @@ SOURCES += \
     passport/telegrampassportfile.cpp \
     payments/telegramanswerprecheckoutquery.cpp \
     payments/telegramanswershippingquery.cpp \
+    payments/telegrambasepayments.cpp \
     payments/telegraminvoice.cpp \
     payments/telegramlabeledprice.cpp \
     payments/telegramorderinfo.cpp \
@@ -102,6 +105,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    inline/TelegramInlineIncludes.h \
+    inline/telegramchoseninlineresult.h \
+    inline/telegraminlinebase.h \
     inline/telegraminlinequery.h \
     inline/telegraminlinequeryresult.h \
     inline/telegraminlinequeryresultarticle.h \
@@ -124,6 +130,7 @@ HEADERS += \
     passport/telegrampassportfile.h \
     payments/telegramanswerprecheckoutquery.h \
     payments/telegramanswershippingquery.h \
+    payments/telegrambasepayments.h \
     payments/telegraminvoice.h \
     payments/telegramlabeledprice.h \
     payments/telegramorderinfo.h \

@@ -1,9 +1,9 @@
 #ifndef TELEGRAMINVOICE_H
 #define TELEGRAMINVOICE_H
 
-#include <QJsonObject>
+#include "telegrambasepayments.h"
 
-class TelegramInvoice
+class TelegramInvoice : public TelegramBasePayments
 {
 public:
 	TelegramInvoice(const QJsonObject &json);

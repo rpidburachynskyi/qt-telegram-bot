@@ -4,6 +4,7 @@
 #include "types/telegraminlinekeyboardmarkup.h"
 #include "types/telegraminputmedia.h"
 
+#include <QJsonArray>
 #include <QJsonObject>
 #include <QtNetwork>
 #include <QJsonDocument>
@@ -832,6 +833,81 @@ TelegramRequest *TelegramBot::answerInlineQuery(const QString &inlineQueryId,
 	return jsonSend("answerInlineQuery", json);
 }
 
+TelegramRequest *TelegramBot::sendInvoice(const QString &chatId,
+										  const QString &title,
+										  const QString &description,
+										  const QString &payload,
+										  const QString &providerToken,
+										  const QString &startParameter,
+										  const QString &currency,
+										  const QList<TelegramLabeledPrice> prices,
+										  const QString &providerData,
+										  const QString photoUrl,
+										  const int &photoSize,
+										  const int &photoWidth,
+										  const int &photoHeight,
+										  const bool &needName,
+										  const bool &needPhoneNumber,
+										  const bool &needEmail,
+										  const bool &needShippingAddress,
+										  const bool &sendPhoneNumberToProvider,
+										  const bool &sendEmailToProvider,
+										  const bool &isFlexible,
+										  const bool &disableNotification,
+										  const QString &replyToMessageId,
+										  const iTelegramMessageKeyboard *replyMarkup)
+{
+	QJsonObject json;
+
+	json["chat_id"] = chatId;
+	json["title"] = title;
+	json["description"] = description;
+	json["payload"] = payload;
+	json["provider_token"] = providerToken;
+	json["start_parameter"] = startParameter;
+	json["currency"] = currency;
+
+	if(!providerData.isEmpty()) json["provider_data"] = providerData;
+	if(!photoUrl.isEmpty()) json["photo_url"] = photoUrl;
+	if(photoSize > -1) json["photo_size"] = photoSize;
+	if(photoWidth > -1) json["photo_width"] = photoWidth;
+	if(photoHeight > -1) json["photo_height"] = photoHeight;
+	qDebug() << json;
+
+	json["need_name"] = needName;
+	json["need_phone_number"] = needPhoneNumber;
+	json["need_email"] = needEmail;
+	json["need_shipping_address"] = needShippingAddress;
+	json["send_phone_number_to_provider"] = sendPhoneNumberToProvider;
+	json["send_email_to_provider"] = sendEmailToProvider;
+	json["is_flexible"] = isFlexible;
+	json["disable_notification"] = disableNotification;
+
+	if(!replyToMessageId.isEmpty()) json["replyToMessageId"] = replyToMessageId;
+	if(replyMarkup) json["reply_markup"] = replyMarkup->toJson();
+
+	QJsonArray pricesArray;
+	for(TelegramLabeledPrice price : prices)
+		pricesArray.append(price.toJson());
+
+	json["prices"] = pricesArray;
+
+	return jsonSend("sendInvoice", json);
+}
+
+TelegramRequest *TelegramBot::answerPreCheckoutQuery(const QString &preCheckoutQueryId,
+													 const bool &ok,
+													 const QString &errorMessage)
+{
+	QJsonObject json;
+
+	json["pre_checkout_query_id"] = preCheckoutQueryId;
+	json["ok"] = ok;
+	if(!errorMessage.isEmpty()) json["error_message"] = errorMessage;
+
+	return jsonSend("answerPreCheckoutQuery", json);
+}
+
 QTcpServer* TelegramBot::createListenServer(const quint16 port)
 {
 	QTcpServer *server = new QTcpServer;
@@ -866,6 +942,7 @@ void TelegramBot::onGetUpdatesFinished(const bool &ok)
 }
 void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 {
+	qDebug() << resultObject;
 	TelegramResult *result = TelegramResults::resultFromJSOM(resultObject);
 	TelegramUpdate *update = static_cast<TelegramUpdate *>(result);
 	if(update)
@@ -877,6 +954,12 @@ void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 		}else if(update->inlineQuery().isNotNull())
 		{
 			emit inlineQueried(update->inlineQuery());
+		}else if(update->chosenInlineResult().isNotNull())
+		{
+			emit chosenInlineResulted(update->chosenInlineResult());
+		}else if(update->preCheckoutQuery().isNotNull())
+		{
+			emit preCheckoutQueried(update->preCheckoutQuery());
 		}
 	}
 

@@ -1,9 +1,9 @@
 #ifndef TELEGRAMANSWERPRECHECKOUTQUERY_H
 #define TELEGRAMANSWERPRECHECKOUTQUERY_H
 
-#include <QJsonObject>
+#include "telegrambasepayments.h"
 
-class TelegramAnswerPreCheckoutQuery
+class TelegramAnswerPreCheckoutQuery : public TelegramBasePayments
 {
 public:
 	TelegramAnswerPreCheckoutQuery(const QJsonObject &json);

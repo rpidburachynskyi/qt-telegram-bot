@@ -1,15 +1,12 @@
 #ifndef TELEGRAMSUCCESSFULPAYMENT_H
 #define TELEGRAMSUCCESSFULPAYMENT_H
 
-#include <QJsonObject>
+#include "telegramorderinfo.h"
 
-class TelegramOrderInfo;
-
-class TelegramSuccessfulPayment
+class TelegramSuccessfulPayment : public TelegramBasePayments
 {
 public:
 	TelegramSuccessfulPayment(const QJsonObject &json);
-	~TelegramSuccessfulPayment();
 
 	/// Necessarily
 	QString currency() const;
@@ -20,7 +17,7 @@ public:
 	/// Optional
 	QString shippingOptionId() const;
 	/// Optional
-	TelegramOrderInfo *orderInfo() const;
+	TelegramOrderInfo orderInfo() const;
 	/// Necessarily
 	QString telegramPaymentChargeId() const;
 	/// Necessarily
@@ -31,7 +28,7 @@ private:
 	int m_totalAmount;
 	QString m_invoicePayload;
 	QString m_shippingOptionId;
-	TelegramOrderInfo *m_orderInfo;
+	TelegramOrderInfo m_orderInfo;
 	QString m_telegramPaymentChargeId;
 	QString m_providerPaymentChargeId;
 };

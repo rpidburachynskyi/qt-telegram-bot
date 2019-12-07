@@ -3,10 +3,7 @@
 
 #include "telegramlabeledprice.h"
 
-#include <QJsonObject>
-#include <QList>
-
-class TelegramShipingOption
+class TelegramShipingOption : public TelegramBasePayments
 {
 public:
 	TelegramShipingOption(const QJsonObject &json);

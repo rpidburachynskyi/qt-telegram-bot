@@ -2,10 +2,9 @@
 #define TELEGRAMANSWERSHIPPINGQUERY_H
 
 #include "telegramshipingoption.h"
-#include <QJsonObject>
-#include <QList>
+#include "telegrambasepayments.h"
 
-class TelegramAnswerShippingQuery
+class TelegramAnswerShippingQuery : public TelegramBasePayments
 {
 public:
 	TelegramAnswerShippingQuery(const QJsonObject &json);

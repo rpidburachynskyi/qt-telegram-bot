@@ -1,7 +1,7 @@
 #ifndef TELEGRAMMESSAGE_H
 #define TELEGRAMMESSAGE_H
 
-#include <QJsonObject>
+#include "payments/telegramsuccessfulpayment.h"
 #include <QList>
 
 class TelegramUser;

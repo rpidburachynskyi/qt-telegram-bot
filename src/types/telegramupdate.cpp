@@ -5,7 +5,9 @@
 
 TelegramUpdate::TelegramUpdate(const QJsonObject &json)
 	: TelegramResult(json),
-	  m_inlineQuery(json["inline_query"].toObject())
+	  m_inlineQuery(json["inline_query"].toObject()),
+	  m_chosenInlineResult(json["chosen_inline_result"].toObject()),
+	  m_preCheckoutQuery(json["pre_checkout_query"].toObject())
 {
 	m_updateId = json["update_id"].toVariant().toLongLong( );
 	m_message = (json.contains("message")) ? new TelegramMessage(json["message"].toObject()) : nullptr;

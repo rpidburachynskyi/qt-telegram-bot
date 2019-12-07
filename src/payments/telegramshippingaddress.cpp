@@ -1,6 +1,7 @@
 #include "telegramshippingaddress.h"
 
 TelegramShippingAddress::TelegramShippingAddress(const QJsonObject &json)
+	: TelegramBasePayments(json)
 {
 	m_countryCode = json["country_code"].toString();
 	m_state = json["state"].toString();
