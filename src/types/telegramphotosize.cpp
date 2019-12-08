@@ -1,5 +1,4 @@
 #include "telegramphotosize.h"
-#include <QDebug>
 
 TelegramPhotoSize::TelegramPhotoSize(const QJsonObject &json)
 	: TelegramBaseTypes(json)

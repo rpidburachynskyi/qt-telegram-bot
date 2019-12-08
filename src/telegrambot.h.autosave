@@ -41,11 +41,6 @@
 #include "payments/telegramlabeledprice.h"
 #include "payments/telegramprecheckoutquery.h"
 
-class TelegramReplyKeyboardMarkup;
-class TelegramInlineKeyboardMarkup;
-class TelegramChatPermissions;
-class TelegramInputMedia;
-
 class TelegramBot : public QObject
 {
 	Q_OBJECT

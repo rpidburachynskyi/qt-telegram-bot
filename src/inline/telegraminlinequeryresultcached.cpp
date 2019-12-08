@@ -47,21 +47,37 @@ QJsonObject TelegramInlineQueryResultCached::toJson() const
 {
 	QJsonObject json;
 
+	QString c = cachedFileTypeString();
+
 	json["id"] = m_id;
-	switch (m_cachedFileType)
+	json["type"] = c;
+	json[c + "_file_id"] = m_fileId;
+
+	if(m_cachedFileType != Sticker)
 	{
-		case Photo:
-		{
-			json["type"] = "photo";
-			json["photo_file_id"] = m_fileId;
-		}
+		if(!m_title.isEmpty()) json["title"] = m_title;
+		if(!m_description.isEmpty()) json["description"] = m_description;
+		if(!m_caption.isEmpty()) json["caption"] = m_caption;
+		if(!m_parseMode.isEmpty()) json["parse_mode"] = m_parseMode;
 	}
-	if(!m_title.isEmpty()) json["title"] = m_title;
-	if(!m_description.isEmpty()) json["description"] = m_description;
-	if(!m_caption.isEmpty()) json["caption"] = m_caption;
-	if(!m_parseMode.isEmpty()) json["parse_mode"] = m_parseMode;
+
 	if(m_replyMarkup.isNotNull()) json["reply_markup"] = m_replyMarkup.toJson();
 	if(m_inputMessageContent) json["input_message_content"] = m_inputMessageContent->toJson();
 
 	return json;
+}
+
+QString TelegramInlineQueryResultCached::cachedFileTypeString() const
+{
+	switch (m_cachedFileType)
+	{
+		case Gif: return "gif";
+		case Audio: return "audio";
+		case Photo: return "photo";
+		case Video: return "video";
+		case Voice: return "voice";
+		case Sticker: return "sticker";
+		case Document: return "document";
+		case Mpeg4Gif: return "mpeg4_gif";
+	}
 }

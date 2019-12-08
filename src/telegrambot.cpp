@@ -156,7 +156,8 @@ TelegramRequest *TelegramBot::sendPhoto(const QString &chatId,
 										const QString &replyToMessageId,
 										const iTelegramMessageKeyboard *replyMarkup)
 {
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
+			inputFile.value() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -186,7 +187,8 @@ TelegramRequest *TelegramBot::sendVideo(const QString &chatId,
 										const QString &replyToMessageId,
 										const iTelegramMessageKeyboard *replyMarkup)
 {
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
+			inputFile.value() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -252,7 +254,8 @@ TelegramRequest *TelegramBot::sendVideoNote(const QString &chatId,
 											const iTelegramMessageKeyboard *replyMarkup)
 {
 
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
+			inputFile.value() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -331,7 +334,8 @@ TelegramRequest* TelegramBot::sendAnimation(const QString &chatId,
 											const iTelegramMessageKeyboard *replyMarkup)
 {
 
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
+			inputFile.value() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -359,7 +363,8 @@ TelegramRequest *TelegramBot::sendVoice(const QString &chatId,
 										const iTelegramMessageKeyboard *replyMarkup)
 {
 
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id || inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
+			inputFile.value() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -822,8 +827,8 @@ TelegramRequest *TelegramBot::answerInlineQuery(const QString &inlineQueryId,
 												const QList<TelegramInlineQueryResult *> results)
 {
 	QJsonArray resultsArray;
-	for(int i = 0; i < results.size(); i++)
-		resultsArray.append(results[i]->toJson());
+	for(TelegramInlineQueryResult *result : results)
+		resultsArray.append(result->toJson());
 
 	QJsonObject json;
 
@@ -872,7 +877,6 @@ TelegramRequest *TelegramBot::sendInvoice(const QString &chatId,
 	if(photoSize > -1) json["photo_size"] = photoSize;
 	if(photoWidth > -1) json["photo_width"] = photoWidth;
 	if(photoHeight > -1) json["photo_height"] = photoHeight;
-	qDebug() << json;
 
 	json["need_name"] = needName;
 	json["need_phone_number"] = needPhoneNumber;
@@ -944,7 +948,6 @@ void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 	if(TelegramUpdate::isUpdate(resultObject))
 	{
 		TelegramUpdate update(resultObject);
-		qDebug() << update.isNotNull();
 		if(update.isNotNull())
 		{
 			if(update.message().isNotNull())
@@ -964,6 +967,7 @@ void TelegramBot::onGetUpdates(const QJsonObject &resultObject)
 		}
 	}else
 	{
+		qDebug() << "NO HAS WRAPPER";
 		qDebug() << resultObject;
 	}
 }

@@ -1,7 +1,5 @@
 #include "telegramuser.h"
 
-#include <QDebug>
-
 TelegramUser::TelegramUser(const QJsonObject &json)
 	: TelegramBaseTypes(json)
 {

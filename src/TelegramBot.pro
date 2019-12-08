@@ -39,9 +39,11 @@ SOURCES += \
     inline/telegraminlinequeryresultvenue.cpp \
     inline/telegraminlinequeryresultvideo.cpp \
     inline/telegraminlinequeryresultvoice.cpp \
+    inline/telegraminputcontactmessagecontent.cpp \
     inline/telegraminputlocationmessagecontent.cpp \
     inline/telegraminputmessagecontent.cpp \
     inline/telegraminputtextmessagecontent.cpp \
+    inline/telegraminputvenuemessagecontent.cpp \
         main.cpp \
     passport/telegramencryptedcredentials.cpp \
     passport/telegramencryptedpassportelement.cpp \
@@ -139,9 +141,11 @@ HEADERS += \
     inline/telegraminlinequeryresultvenue.h \
     inline/telegraminlinequeryresultvideo.h \
     inline/telegraminlinequeryresultvoice.h \
+    inline/telegraminputcontactmessagecontent.h \
     inline/telegraminputlocationmessagecontent.h \
     inline/telegraminputmessagecontent.h \
     inline/telegraminputtextmessagecontent.h \
+    inline/telegraminputvenuemessagecontent.h \
     passport/telegramencryptedcredentials.h \
     passport/telegramencryptedpassportelement.h \
     passport/telegrampassportdata.h \
