@@ -21,6 +21,15 @@ SOURCES += \
     inline/telegraminlinequeryresult.cpp \
     inline/telegraminlinequeryresultarticle.cpp \
     inline/telegraminlinequeryresultaudio.cpp \
+    inline/telegraminlinequeryresultcached.cpp \
+    inline/telegraminlinequeryresultcachedaudio.cpp \
+    inline/telegraminlinequeryresultcacheddocument.cpp \
+    inline/telegraminlinequeryresultcachedgif.cpp \
+    inline/telegraminlinequeryresultcachedmpeg4gif.cpp \
+    inline/telegraminlinequeryresultcachedphoto.cpp \
+    inline/telegraminlinequeryresultcachedsticker.cpp \
+    inline/telegraminlinequeryresultcachedvideo.cpp \
+    inline/telegraminlinequeryresultcachedvoice.cpp \
     inline/telegraminlinequeryresultcontact.cpp \
     inline/telegraminlinequeryresultdocument.cpp \
     inline/telegraminlinequeryresultgif.cpp \
@@ -112,6 +121,15 @@ HEADERS += \
     inline/telegraminlinequeryresult.h \
     inline/telegraminlinequeryresultarticle.h \
     inline/telegraminlinequeryresultaudio.h \
+    inline/telegraminlinequeryresultcached.h \
+    inline/telegraminlinequeryresultcachedaudio.h \
+    inline/telegraminlinequeryresultcacheddocument.h \
+    inline/telegraminlinequeryresultcachedgif.h \
+    inline/telegraminlinequeryresultcachedmpeg4gif.h \
+    inline/telegraminlinequeryresultcachedphoto.h \
+    inline/telegraminlinequeryresultcachedsticker.h \
+    inline/telegraminlinequeryresultcachedvideo.h \
+    inline/telegraminlinequeryresultcachedvoice.h \
     inline/telegraminlinequeryresultcontact.h \
     inline/telegraminlinequeryresultdocument.h \
     inline/telegraminlinequeryresultgif.h \

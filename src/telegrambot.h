@@ -32,6 +32,7 @@
 #include "inline/telegraminlinequery.h"
 #include "inline/telegraminlinequeryresult.h"
 #include "inline/telegramchoseninlineresult.h"
+#include "inline/telegraminlinequeryresultcachedphoto.h"
 #include "payments/telegramlabeledprice.h"
 #include "payments/telegramprecheckoutquery.h"
 

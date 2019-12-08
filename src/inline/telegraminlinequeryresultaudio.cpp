@@ -52,7 +52,7 @@ QJsonObject TelegramInlineQueryResultAudio::toJson() const
 	if(!m_caption.isEmpty()) json["caption"] = m_caption;
 	if(!m_parseMode.isEmpty()) json["parse_mode"] = m_parseMode;
 	if(m_duration > -1) json["audio_duration"] = m_duration;
-	if(!m_performer.isEmpty()) json["description"] = m_performer;
+	if(!m_performer.isEmpty()) json["performer"] = m_performer;
 	if(m_replyMarkup.isNotNull()) json["reply_markup"] = m_replyMarkup.toJson();
 	if(m_inputMessageContent) json["input_message_content"] = m_inputMessageContent->toJson();
 
