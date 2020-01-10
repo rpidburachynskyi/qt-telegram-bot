@@ -1,8 +1,8 @@
 #ifndef TELEGRAMINLINEQUERYRESULTAUDIO_H
 #define TELEGRAMINLINEQUERYRESULTAUDIO_H
 
-#include "telegraminlinequeryresult.h"
-#include "telegraminputmessagecontent.h"
+#include "./telegraminlinequeryresult.h"
+#include "./telegraminputmessagecontent.h"
 
 class TelegramInlineQueryResultAudio : public TelegramInlineQueryResult
 {

@@ -1,7 +1,7 @@
 #ifndef TELEGRAMSHIPPINGQUERY_H
 #define TELEGRAMSHIPPINGQUERY_H
 
-#include "types/telegramuser.h"
+#include "../types/telegramuser.h"
 #include "telegramshippingaddress.h"
 
 class TelegramShippingQuery : public TelegramBasePayments

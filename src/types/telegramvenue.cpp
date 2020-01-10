@@ -2,7 +2,8 @@
 #include "telegramlocation.h"
 
 TelegramVenue::TelegramVenue(const QJsonObject &json)
-	: m_location(TelegramLocation(json["location"].toObject()))
+	: TelegramBaseTypes(json),
+	  m_location(TelegramLocation(json["location"].toObject()))
 {
 	m_title = json["title"].toString();
 	m_address = json["title"].toString();

@@ -1,8 +1,8 @@
 #ifndef TELEGRAMINLINEQUERYRESULTCACHED_H
 #define TELEGRAMINLINEQUERYRESULTCACHED_H
 
-#include "telegraminlinequeryresult.h"
-#include "telegraminputmessagecontent.h"
+#include "./telegraminlinequeryresult.h"
+#include "./telegraminputmessagecontent.h"
 
 class TelegramInlineQueryResultCached : public TelegramInlineQueryResult
 {

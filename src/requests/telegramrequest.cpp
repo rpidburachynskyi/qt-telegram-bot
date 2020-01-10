@@ -1,4 +1,4 @@
-#include "telegrambot.h"
+#include "../telegrambot.h"
 
 TelegramRequest::TelegramRequest(QNetworkReply *reply)
 	: m_reply(reply)

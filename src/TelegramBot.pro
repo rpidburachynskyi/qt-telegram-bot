@@ -64,6 +64,7 @@ SOURCES += \
     requests/telegramrequestdownload.cpp \
     requests/telegramrequesterror.cpp \
     scripts/telegrambase.cpp \
+    stickers/telegrambasesticker.cpp \
     stickers/telegrammaskposition.cpp \
     stickers/telegramsticker.cpp \
     stickers/telegramstickerset.cpp \
@@ -165,6 +166,7 @@ HEADERS += \
     requests/telegramrequestdownload.h \
     requests/telegramrequesterror.h \
     scripts/telegrambase.h \
+    stickers/telegrambasesticker.h \
     stickers/telegrammaskposition.h \
     stickers/telegramsticker.h \
     stickers/telegramstickerset.h \

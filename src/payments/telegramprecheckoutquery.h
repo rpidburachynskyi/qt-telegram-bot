@@ -3,7 +3,7 @@
 
 #include "telegrambasepayments.h"
 #include "telegramorderinfo.h"
-#include "types/telegramuser.h"
+#include "../types/telegramuser.h"
 
 class TelegramPreCheckoutQuery : public TelegramBasePayments
 {

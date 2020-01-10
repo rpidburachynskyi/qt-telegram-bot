@@ -156,8 +156,8 @@ TelegramRequest *TelegramBot::sendPhoto(const QString &chatId,
 										const QString &replyToMessageId,
 										const iTelegramMessageKeyboard *replyMarkup)
 {
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
-			inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.inputType() == TelegramInputFile::Id ||
+			inputFile.inputType() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -187,8 +187,8 @@ TelegramRequest *TelegramBot::sendVideo(const QString &chatId,
 										const QString &replyToMessageId,
 										const iTelegramMessageKeyboard *replyMarkup)
 {
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
-			inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.inputType() == TelegramInputFile::Id ||
+			inputFile.inputType() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -223,8 +223,8 @@ TelegramRequest *TelegramBot::sendAudio(const QString &chatId,
 										const iTelegramMessageKeyboard *replyMarkup)
 {
 
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
-			inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.inputType() == TelegramInputFile::Id ||
+			inputFile.inputType() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -254,8 +254,8 @@ TelegramRequest *TelegramBot::sendVideoNote(const QString &chatId,
 											const iTelegramMessageKeyboard *replyMarkup)
 {
 
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
-			inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.inputType() == TelegramInputFile::Id ||
+			inputFile.inputType() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -305,8 +305,8 @@ TelegramRequest *TelegramBot::sendDocument(const QString &chatId,
 										   const iTelegramMessageKeyboard *replyMarkup)
 {
 
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
-			inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.inputType() == TelegramInputFile::Id ||
+			inputFile.inputType() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -334,8 +334,8 @@ TelegramRequest* TelegramBot::sendAnimation(const QString &chatId,
 											const iTelegramMessageKeyboard *replyMarkup)
 {
 
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
-			inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.inputType() == TelegramInputFile::Id ||
+			inputFile.inputType() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -363,8 +363,8 @@ TelegramRequest *TelegramBot::sendVoice(const QString &chatId,
 										const iTelegramMessageKeyboard *replyMarkup)
 {
 
-	bool urlOrId = inputFile.value() == TelegramInputFile::Id ||
-			inputFile.value() == TelegramInputFile::Url;
+	bool urlOrId = inputFile.inputType() == TelegramInputFile::Id ||
+			inputFile.inputType() == TelegramInputFile::Url;
 
 	QJsonObject json;
 	json["chat_id"] = chatId;
@@ -933,7 +933,7 @@ void TelegramBot::onGetUpdatesFinished(const bool &ok)
 {
 	TelegramRequest *request = static_cast<TelegramRequest *>(sender());
 	if(!ok)
-		qDebug() << "ERROR UPDATES: " <<request->error().description();
+		errored(request->error());
 	else
 	{
 		for(QJsonObject result : request->results())

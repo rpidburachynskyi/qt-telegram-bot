@@ -1,9 +1,9 @@
 #ifndef TELEGRAMCHOSENINLINERESULT_H
 #define TELEGRAMCHOSENINLINERESULT_H
 
-#include "telegraminlinebase.h"
-#include "types/telegramuser.h"
-#include "types/telegramlocation.h"
+#include "./telegraminlinebase.h"
+#include "../types/telegramuser.h"
+#include "../types/telegramlocation.h"
 
 class TelegramChosenInlineResult : public TelegramInlineBase
 {

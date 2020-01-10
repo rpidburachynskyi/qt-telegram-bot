@@ -1,9 +1,9 @@
 #ifndef TELEGRAMMASKPOSITION_H
 #define TELEGRAMMASKPOSITION_H
 
-#include <QJsonObject>
+#include "telegrambasesticker.h"
 
-class TelegramMaskPosition
+class TelegramMaskPosition : public TelegramBaseSticker
 {
 public:
 	TelegramMaskPosition(const QJsonObject &json);

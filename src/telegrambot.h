@@ -32,6 +32,7 @@
 #include "inline/telegraminlinequery.h"
 #include "inline/telegraminlinequeryresult.h"
 #include "inline/telegramchoseninlineresult.h"
+#include "inline/telegraminlinequeryresultvoice.h"
 #include "inline/telegraminlinequeryresultcachedphoto.h"
 #include "inline/telegraminputcontactmessagecontent.h"
 #include "inline/telegraminputlocationmessagecontent.h"
@@ -40,11 +41,6 @@
 #include "inline/telegraminputvenuemessagecontent.h"
 #include "payments/telegramlabeledprice.h"
 #include "payments/telegramprecheckoutquery.h"
-
-class TelegramReplyKeyboardMarkup;
-class TelegramInlineKeyboardMarkup;
-class TelegramChatPermissions;
-class TelegramInputMedia;
 
 class TelegramBot : public QObject
 {
@@ -323,7 +319,7 @@ public:
 	static QTcpServer *createListenServer(const quint16 port);
 	void deleteListenServer();
 signals:
-	void errored(const QString &error);
+	void errored(const TelegramRequestError &error);
 	void messaged(const TelegramMessage &message);
 	void inlineQueried(const TelegramInlineQuery &inlineQuery);
 	void chosenInlineResulted(const TelegramChosenInlineResult &chosenInlineResult);

@@ -2,9 +2,8 @@
 #define TELEGRAMVENUE_H
 
 #include "telegramlocation.h"
-#include <QJsonObject>
 
-class TelegramVenue
+class TelegramVenue : public TelegramBaseTypes
 {
 public:
 	TelegramVenue(const QJsonObject &json);

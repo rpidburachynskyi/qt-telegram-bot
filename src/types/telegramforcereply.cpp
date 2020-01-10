@@ -1,5 +1,5 @@
 #include "telegramforcereply.h"
-#include "types/telegraminlinekeyboardmarkup.h"
+#include "../types/telegraminlinekeyboardmarkup.h"
 
 #include <QJsonArray>
 

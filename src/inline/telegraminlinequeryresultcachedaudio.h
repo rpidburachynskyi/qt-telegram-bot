@@ -1,7 +1,7 @@
 #ifndef TELEGRAMINLINEQUERYRESULTCACHEDAUDIO_H
 #define TELEGRAMINLINEQUERYRESULTCACHEDAUDIO_H
 
-#include "telegraminlinequeryresultcached.h"
+#include "./telegraminlinequeryresultcached.h"
 
 class TelegramInlineQueryResultCachedAudio : public TelegramInlineQueryResultCached
 {

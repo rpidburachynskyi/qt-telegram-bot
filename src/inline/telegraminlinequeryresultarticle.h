@@ -1,8 +1,8 @@
 #ifndef TELEGRAMINLINEQUERYRESULTARTICLE_H
 #define TELEGRAMINLINEQUERYRESULTARTICLE_H
 
-#include "telegraminlinequeryresult.h"
-#include "telegraminputmessagecontent.h"
+#include "./telegraminlinequeryresult.h"
+#include "./telegraminputmessagecontent.h"
 
 class TelegramInlineQueryResultArticle : public TelegramInlineQueryResult
 {

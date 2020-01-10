@@ -19,8 +19,6 @@ public:
 	QString value() const;
 	InputType inputType() const;
 
-	QJsonObject toJson() const;
-
 	inline static TelegramInputFile fromFilePath(const QString &filePath) {
 		return TelegramInputFile(filePath, FilePath);
 	}

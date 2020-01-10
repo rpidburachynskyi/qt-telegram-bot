@@ -1,6 +1,7 @@
 #include "telegrammaskposition.h"
 
 TelegramMaskPosition::TelegramMaskPosition(const QJsonObject &json)
+	: TelegramBaseSticker(json)
 {
 	m_point = json["point"].toString();
 	m_xShift = json["x_shift"].toDouble();

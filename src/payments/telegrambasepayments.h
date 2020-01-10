@@ -1,7 +1,7 @@
 #ifndef TELEGRAMBASEPAYMENTS_H
 #define TELEGRAMBASEPAYMENTS_H
 
-#include "scripts/telegrambase.h"
+#include "../scripts/telegrambase.h"
 #include <QList>
 
 class TelegramBasePayments : public TelegramBase

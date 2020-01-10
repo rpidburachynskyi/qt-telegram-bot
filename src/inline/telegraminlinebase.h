@@ -1,7 +1,7 @@
 #ifndef TELEGRAMINLINEBASE_H
 #define TELEGRAMINLINEBASE_H
 
-#include "scripts/telegrambase.h"
+#include "../scripts/telegrambase.h"
 
 class TelegramInlineBase : public TelegramBase
 {

@@ -2,7 +2,7 @@
 #define TELEGRAMMESSAGE_H
 
 #include "telegrambasetypes.h"
-#include "payments/telegramsuccessfulpayment.h"
+#include "../payments/telegramsuccessfulpayment.h"
 #include "telegramchat.h"
 #include "telegramuser.h"
 #include "telegramaudio.h"
@@ -18,10 +18,10 @@
 #include "telegramvenue.h"
 #include "telegrampoll.h"
 #include "telegraminlinekeyboardmarkup.h"
-#include "stickers/telegramsticker.h"
-#include "payments/telegraminvoice.h"
-#include "payments/telegramsuccessfulpayment.h"
-#include "passport/telegrampassportdata.h"
+#include "../stickers/telegramsticker.h"
+#include "../payments/telegraminvoice.h"
+#include "../payments/telegramsuccessfulpayment.h"
+#include "../passport/telegrampassportdata.h"
 
 class TelegramGame;
 

@@ -2,8 +2,8 @@
 #define TELEGRAMREQUEST_H
 
 #include "telegramrequesterror.h"
-#include "types/telegrammessage.h"
-#include "types/telegramfile.h"
+#include "../types/telegrammessage.h"
+#include "../types/telegramfile.h"
 #include <QtNetwork>
 
 class TelegramBot;

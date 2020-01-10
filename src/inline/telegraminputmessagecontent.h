@@ -1,7 +1,7 @@
 #ifndef TELEGRAMINPUTMESSAGECONTENT_H
 #define TELEGRAMINPUTMESSAGECONTENT_H
 
-#include "scripts/telegrambase.h"
+#include "../scripts/telegrambase.h"
 
 class TelegramInputMessageContent
 {

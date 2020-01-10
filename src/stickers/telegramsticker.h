@@ -1,17 +1,14 @@
 #ifndef TELEGRAMSTICKER_H
 #define TELEGRAMSTICKER_H
 
-#include <QJsonObject>
+#include "telegrammaskposition.h"
+#include "../types/telegramphotosize.h"
+#include "telegrambasesticker.h"
 
-class TelegramPhotoSize;
-class TelegramMaskPosition;
-
-class TelegramSticker
+class TelegramSticker : public TelegramBaseSticker
 {
 public:
 	TelegramSticker(const QJsonObject &json);
-	TelegramSticker(const TelegramSticker &sticker);
-	~TelegramSticker();
 
 	/// Necessarily
 	QString fileId() const;
@@ -22,27 +19,25 @@ public:
 	/// Necessarily
 	bool isAnimated() const;
 	/// Optional
-	TelegramPhotoSize *thumb() const;
+	TelegramPhotoSize thumb() const;
 	/// Optional
 	QString emoji() const;
 	/// Optional
 	QString setName() const;
 	/// Optional
-	TelegramMaskPosition *maskPosition() const;
+	TelegramMaskPosition maskPosition() const;
 	/// Optional
 	int fileSize() const;
-
-	TelegramSticker &operator=(const TelegramSticker &sticker);
 
 private:
 	QString m_fileId;
 	int m_width;
 	int m_height;
 	bool m_isAnimated;
-	TelegramPhotoSize *m_thumb;
+	TelegramPhotoSize m_thumb;
 	QString m_emoji;
 	QString m_setName;
-	TelegramMaskPosition *m_maskPosition;
+	TelegramMaskPosition m_maskPosition;
 	int m_fileSize;
 };
 

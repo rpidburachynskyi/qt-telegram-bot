@@ -1,8 +1,8 @@
 #ifndef TELEGRAMINLINEQUERY_H
 #define TELEGRAMINLINEQUERY_H
 
-#include "types/telegramuser.h"
-#include "types/telegramlocation.h"
+#include "../types/telegramuser.h"
+#include "../types/telegramlocation.h"
 
 class TelegramInlineQuery : public TelegramBaseTypes
 {

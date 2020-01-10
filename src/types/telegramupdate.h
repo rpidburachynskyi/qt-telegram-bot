@@ -3,9 +3,9 @@
 
 #include "telegramresult.h"
 #include "telegrammessage.h"
-#include "inline/telegraminlinequery.h"
-#include "inline/telegramchoseninlineresult.h"
-#include "payments/telegramprecheckoutquery.h"
+#include "../inline/telegraminlinequery.h"
+#include "../inline/telegramchoseninlineresult.h"
+#include "../payments/telegramprecheckoutquery.h"
 
 class TelegramUpdate : public TelegramResult
 {

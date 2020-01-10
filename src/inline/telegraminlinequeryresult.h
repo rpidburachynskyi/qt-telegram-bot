@@ -1,8 +1,8 @@
 #ifndef TELEGRAMINLINEQUERYRESULT_H
 #define TELEGRAMINLINEQUERYRESULT_H
 
-#include "scripts/telegrambase.h"
-#include "types/telegraminlinekeyboardmarkup.h"
+#include "../scripts/telegrambase.h"
+#include "../types/telegraminlinekeyboardmarkup.h"
 
 class TelegramInlineQueryResult
 {
